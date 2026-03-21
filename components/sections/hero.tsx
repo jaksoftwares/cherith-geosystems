@@ -24,7 +24,7 @@ export function Hero() {
       {/* Content */}
       <div className="container mx-auto px-4 md:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="flex flex-col gap-6 max-w-3xl">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -32,7 +32,7 @@ export function Hero() {
           >
             <Globe className="w-4 h-4 text-brand-red" />
             <span className="text-sm font-semibold tracking-wide uppercase">Strategic Geospatial Intelligence Partners</span>
-          </motion.div>
+          </motion.div> */}
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}

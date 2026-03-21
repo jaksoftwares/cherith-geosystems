@@ -12,7 +12,7 @@ export function Footer() {
           
           {/* Brand & Bio */}
           <div className="flex flex-col gap-6">
-            <Link href="/" className="inline-block relative w-48 h-12">
+            <Link href="/" className="inline-block relative w-72 h-20 md:w-[420px] md:h-32">
               <Image 
                 src="/cherith-logo/4_cherith_monochrome_white.svg" 
                 alt="Cherith GeoSystems Master Logo" 
