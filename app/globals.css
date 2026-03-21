@@ -3,24 +3,41 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Cherith Core Brand Colors */
+  --cherith-navy: #263678;
+  --cherith-red: #E31B23;
+  --cherith-grey: #D3D3D3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  
+  /* Custom Theme Extensions */
+  --color-brand-blue: var(--cherith-navy);
+  --color-brand-red: var(--cherith-red);
+  --color-brand-grey: var(--cherith-grey);
+
+  /* Fonts via Montserrat Google imports */
+  --font-sans: var(--font-montserrat), "Century Gothic", Arial, sans-serif;
   --font-mono: var(--font-geist-mono);
+  --font-cherith: var(--font-montserrat);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    
+    /* Digital Contrast Enhanced for dark mode */
+    --cherith-navy: #4E6EEF; 
+    --cherith-red: #F01A24;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }

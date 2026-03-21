@@ -3,21 +3,93 @@
 -- =============================
 create extension if not exists "uuid-ossp";
 
+
+
+
 -- =============================
--- SERVICES TABLE
+-- PROFILES TABLE
 -- =============================
-create table services (
+create table profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  full_name text,
+  email text,
+  role text default 'admin', -- admin, editor
+  avatar_url text,
+  created_at timestamp default now()
+);
+
+
+2. AUTO CREATE PROFILE ON SIGNUP (VERY IMPORTANT)
+create or replace function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.profiles (id, email)
+  values (new.id, new.email);
+  return new;
+end;
+$$ language plpgsql security definer;
+
+create trigger on_auth_user_created
+after insert on auth.users
+for each row execute procedure public.handle_new_user();
+🔹 3. ENABLE RLS
+alter table profiles enable row level security;
+🔹 4. PROFILE POLICIES
+User can read own profile
+create policy "Users can view own profile"
+on profiles for select
+using (auth.uid() = id);
+User can update own profile
+create policy "Users can update own profile"
+on profiles for update
+using (auth.uid() = id);
+Admin can read all profiles
+create policy "Admin read all profiles"
+on profiles for select
+using (
+  exists (
+    select 1 from profiles
+    where id = auth.uid() and role = 'admin'
+  )
+);
+
+
+
+
+
+-- =============================
+-- SERVICE CATEGORIES
+-- =============================
+create table service_categories (
   id uuid primary key default uuid_generate_v4(),
-  title text not null,
+  name text not null,
   slug text unique not null,
   description text,
-  content text,
-  icon text,
+  image_url text,
+  icon_url text,
+  position int default 0,
   created_at timestamp default now()
 );
 
 -- =============================
--- PROJECTS TABLE
+-- SERVICES (CHILD OF CATEGORY)
+-- =============================
+create table services (
+  id uuid primary key default uuid_generate_v4(),
+  category_id uuid references service_categories(id) on delete cascade,
+  title text not null,
+  slug text unique not null,
+  short_description text,
+  content text,
+  image_url text,
+  icon_url text,
+  featured boolean default false,
+  position int default 0,
+  created_at timestamp default now()
+);
+
+-- =============================
+-- PROJECTS
 -- =============================
 create table projects (
   id uuid primary key default uuid_generate_v4(),
@@ -28,12 +100,18 @@ create table projects (
   location text,
   client text,
   completion_date date,
-  image_url text,
+
+  -- Cloudinary images
+  cover_image_url text,
+  cover_image_public_id text,
+  gallery jsonb,
+
+  featured boolean default false,
   created_at timestamp default now()
 );
 
 -- =============================
--- BLOG / INSIGHTS
+-- BLOG (INSIGHTS)
 -- =============================
 create table blog_posts (
   id uuid primary key default uuid_generate_v4(),
@@ -41,7 +119,12 @@ create table blog_posts (
   slug text unique not null,
   excerpt text,
   content text,
-  cover_image text,
+
+  -- Images
+  cover_image_url text,
+  cover_image_public_id text,
+  gallery jsonb,
+
   author text,
   published boolean default false,
   published_at timestamp,
@@ -49,7 +132,7 @@ create table blog_posts (
 );
 
 -- =============================
--- CONTACT MESSAGES
+-- CONTACT FORM
 -- =============================
 create table contacts (
   id uuid primary key default uuid_generate_v4(),
@@ -61,7 +144,7 @@ create table contacts (
 );
 
 -- =============================
--- REQUEST A SURVEY
+-- SURVEY REQUESTS
 -- =============================
 create table survey_requests (
   id uuid primary key default uuid_generate_v4(),
@@ -75,7 +158,7 @@ create table survey_requests (
 );
 
 -- =============================
--- REQUEST A QUOTE
+-- QUOTE REQUESTS
 -- =============================
 create table quote_requests (
   id uuid primary key default uuid_generate_v4(),
@@ -89,7 +172,7 @@ create table quote_requests (
 );
 
 -- =============================
--- CONSULTATION REQUESTS (TALK TO AN EXPERT)
+-- CONSULTATIONS (TALK TO EXPERT)
 -- =============================
 create table consultations (
   id uuid primary key default uuid_generate_v4(),
@@ -102,30 +185,27 @@ create table consultations (
 );
 
 -- =============================
--- MEDIA TABLE (CLOUDINARY LINKS)
+-- ADMIN PROFILE (OPTIONAL BUT IMPORTANT)
 -- =============================
-create table media (
-  id uuid primary key default uuid_generate_v4(),
-  url text not null,
-  public_id text,
-  type text, -- image / video
-  related_type text, -- project / blog / service
-  related_id uuid,
+create table profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  role text default 'admin',
   created_at timestamp default now()
 );
 
 -- =============================
 -- INDEXES (PERFORMANCE)
 -- =============================
+create index idx_service_categories_slug on service_categories(slug);
 create index idx_services_slug on services(slug);
+create index idx_services_category on services(category_id);
 create index idx_projects_slug on projects(slug);
 create index idx_blog_slug on blog_posts(slug);
 
 -- =============================
--- ROW LEVEL SECURITY (RLS)
+-- ENABLE RLS
 -- =============================
-
--- Enable RLS
+alter table service_categories enable row level security;
 alter table services enable row level security;
 alter table projects enable row level security;
 alter table blog_posts enable row level security;
@@ -133,10 +213,16 @@ alter table contacts enable row level security;
 alter table survey_requests enable row level security;
 alter table quote_requests enable row level security;
 alter table consultations enable row level security;
+alter table profiles enable row level security;
 
 -- =============================
--- PUBLIC READ (WEBSITE DATA)
+-- PUBLIC READ ACCESS
 -- =============================
+
+create policy "Public read categories"
+on service_categories for select
+using (true);
+
 create policy "Public read services"
 on services for select
 using (true);
@@ -150,39 +236,50 @@ on blog_posts for select
 using (published = true);
 
 -- =============================
--- INSERT (FOR FORMS)
+-- FORM SUBMISSIONS (PUBLIC INSERT)
 -- =============================
-create policy "Anyone can insert contacts"
+
+create policy "Insert contacts"
 on contacts for insert
 with check (true);
 
-create policy "Anyone can insert survey requests"
+create policy "Insert survey requests"
 on survey_requests for insert
 with check (true);
 
-create policy "Anyone can insert quotes"
+create policy "Insert quote requests"
 on quote_requests for insert
 with check (true);
 
-create policy "Anyone can insert consultations"
+create policy "Insert consultations"
 on consultations for insert
 with check (true);
 
 -- =============================
--- ADMIN FULL ACCESS (AUTH USERS)
+-- ADMIN ACCESS (AUTH USERS)
 -- =============================
-create policy "Admin full access services"
+
+-- SERVICES
+create policy "Admin full services"
 on services for all
 using (auth.role() = 'authenticated');
 
-create policy "Admin full access projects"
+-- CATEGORIES
+create policy "Admin full categories"
+on service_categories for all
+using (auth.role() = 'authenticated');
+
+-- PROJECTS
+create policy "Admin full projects"
 on projects for all
 using (auth.role() = 'authenticated');
 
-create policy "Admin full access blog"
+-- BLOG
+create policy "Admin full blog"
 on blog_posts for all
 using (auth.role() = 'authenticated');
 
+-- LEADS (READ ONLY FOR ADMIN)
 create policy "Admin read contacts"
 on contacts for select
 using (auth.role() = 'authenticated');
@@ -198,3 +295,12 @@ using (auth.role() = 'authenticated');
 create policy "Admin read consultations"
 on consultations for select
 using (auth.role() = 'authenticated');
+
+-- PROFILES
+create policy "Users can view own profile"
+on profiles for select
+using (auth.uid() = id);
+
+create policy "Users can update own profile"
+on profiles for update
+using (auth.uid() = id);
