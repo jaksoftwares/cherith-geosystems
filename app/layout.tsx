@@ -15,8 +15,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cherithgeosystems.com"),
   title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
   description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
+  openGraph: {
+    title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
+    description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
+    url: "https://cherithgeosystems.com",
+    siteName: "Cherith GeoSystems",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Cherith GeoSystems Logo",
+      },
+    ],
+    locale: "en_KE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
+    description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
