@@ -1,11 +1,4 @@
-import { 
-  MapPin, 
-  Map as MapIcon, 
-  Globe2, 
-  Mountain, 
-  Wifi, 
-  Laptop 
-} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -14,38 +7,32 @@ export function Services() {
     {
       title: "Land & Cadastral Surveys",
       description: "Accurate boundary identification, subdivision, and land verification services you can trust.",
-      icon: MapPin,
-      color: "text-brand-red"
+      image: "/images/land-surveyors-demarcating.jpg"
     },
     {
       title: "Engineering & Topo Surveys",
       description: "Precise mapping and site data for construction and infrastructure development.",
-      icon: Mountain,
-      color: "text-brand-blue"
+      image: "/images/roadconstructionsurveys.jpg"
     },
     {
       title: "GIS & Spatial Analysis",
       description: "Transforming geospatial data into powerful decision-support tools for strategic planning.",
-      icon: Globe2,
-      color: "text-emerald-500"
+      image: "/images/gis-data analysis.jpg"
     },
     {
       title: "Remote Sensing & Env. Monitoring",
       description: "Advanced satellite and drone-based environmental insights for large-scale management.",
-      icon: Wifi,
-      color: "text-amber-500"
+      image: "/images/enviromentalmonitoring.png"
     },
     {
       title: "Underground Utility Mapping",
       description: "Locate hidden infrastructure safely and accurately using Ground Penetrating Radar (GPR).",
-      icon: MapIcon,
-      color: "text-purple-500"
+      image: "/images/ground-penetrating-radar.png"
     },
     {
       title: "Geoportal & Web GIS Dev",
       description: "Custom digital mapping platforms for real-time geospatial access and visualization.",
-      icon: Laptop,
-      color: "text-blue-500"
+      image: "/images/gis-web-portal.jpg"
     }
   ];
 
@@ -73,16 +60,20 @@ export function Services() {
           {services.map((service, idx) => (
             <div 
               key={idx}
-              className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl hover:shadow-brand-blue/5 border border-gray-100 transition-all duration-300 relative overflow-hidden"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-blue/5 border border-gray-100 transition-all duration-300 relative"
             >
-              {/* Subtle hover background sweep */}
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              {/* Image Container */}
+              <div className="relative h-48 w-full overflow-hidden">
+                <Image 
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-brand-blue/20 group-hover:bg-transparent transition-colors duration-500"></div>
+              </div>
               
-              <div className="relative z-10">
-                <div className={`w-14 h-14 rounded-xl bg-gray-50 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-white transition-all duration-300 shadow-sm ${service.color}`}>
-                  <service.icon className="w-7 h-7" />
-                </div>
-                
+              <div className="p-8 relative z-10">
                 <h3 className="text-xl font-bold font-cherith text-brand-blue mb-4 group-hover:text-brand-red transition-colors">
                   {service.title}
                 </h3>

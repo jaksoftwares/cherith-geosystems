@@ -99,7 +99,7 @@ export function Footer() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-white">Email</h4>
-                  <p className="text-gray-300 text-sm mt-1 break-all">amoshibutse@gmail.com<br/>gokusimba@gmail.com</p>
+                  <p className="text-gray-300 text-sm mt-1 break-all">info@cherith.co.ke<br/>gokusimba@gmail.com</p>
                 </div>
               </li>
             </ul>

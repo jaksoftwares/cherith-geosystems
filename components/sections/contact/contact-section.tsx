@@ -18,20 +18,20 @@ export function ContactSection() {
     {
       icon: Building2,
       label: "Headquarters",
-      value: "Cherith GeoSystems Limited",
-      desc: "Nairobi Commercial Hub, Kenya",
+      value: "Olympic House, 1st Floor, Room 104",
+      desc: "P.O. Box 1968-00200, Nairobi, Kenya",
     },
     {
       icon: Phone,
       label: "Direct Line",
-      value: "+254 (0) 700 000 000",
+      value: "0722 300 565 / 0721 448 913",
       desc: "Mon-Sat from 8am to 5pm EAT",
     },
     {
       icon: Mail,
       label: "Email Support",
       value: "info@cherith.co.ke",
-      desc: "Online support & RFP submissions",
+      desc: "Backup: gokusimba@gmail.com",
     },
     {
       icon: Clock,
