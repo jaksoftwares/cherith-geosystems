@@ -10,7 +10,7 @@ export function ProjectsFeatured() {
       id: "jkia",
       title: "JKIA Airport Topographical Survey",
       description: "Extensive and highly detailed mapping executing precision leveling and contouring to robustly support major air-side infrastructure planning and rapid terminal development at Kenya's primary international aviation hub.",
-      image: "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&q=80",
+      image: "/images/infrastructureproject.png",
       tag: "Topographical Survey",
       location: "Nairobi, Kenya"
     },
@@ -18,7 +18,7 @@ export function ProjectsFeatured() {
       id: "unhcr",
       title: "UNHCR GIS Regional Support Operations",
       description: "Advanced Geographic Information Systems (GIS) deployed to optimize regional humanitarian operations. Provided meticulous data layering across East and Central Africa to support mass displaced population planning.",
-      image: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80",
+      image: "/images/GIS-data-presentation.png",
       tag: "GIS Integration",
       location: "East & Central Africa"
     },
@@ -26,7 +26,7 @@ export function ProjectsFeatured() {
       id: "mara",
       title: "800-Acre Drone Mapping",
       description: "Large-scale remote sensing leveraging RTK-enabled drone technology. Captured high-resolution true orthomosaics and digital elevation maps enabling strict land-use planning and ecological conservation mapping.",
-      image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80",
+      image: "/images/drone-mapping2.jpg",
       tag: "Remote Sensing",
       location: "Maasai Mara"
     },
@@ -34,7 +34,7 @@ export function ProjectsFeatured() {
       id: "gigiri",
       title: "UN Gigiri Infrastructure Project",
       description: "High-stakes cadastral setting-out works and precise infrastructure leveling at the vast United Nations complex, ensuring structural alignment and strict compliance within an environmentally sensitive perimeter.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80",
+      image: "/images/Highrisebuildingcheck.png",
       tag: "Engineering Survey",
       location: "Nairobi, Kenya"
     }

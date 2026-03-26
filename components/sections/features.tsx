@@ -26,7 +26,7 @@ export function Features() {
 
   return (
     <section className="py-24 bg-brand-blue text-white relative">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+      <div className="absolute inset-0 bg-[url('/images/satellitegis-visual%20concept.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
       
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">

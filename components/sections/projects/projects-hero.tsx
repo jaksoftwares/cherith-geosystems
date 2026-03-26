@@ -8,7 +8,7 @@ export function ProjectsHero() {
     <section className="relative min-h-[50vh] flex items-center justify-center pt-20 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1541888126131-ab7bb7fb54ac?auto=format&fit=crop&q=80"
+          src="/images/panoramic-landmapping.png"
           alt="Surveying team on massive project site"
           fill
           priority

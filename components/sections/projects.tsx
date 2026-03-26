@@ -7,25 +7,25 @@ export function Projects() {
     {
       title: "Topographical Survey",
       location: "JKIA Airport, Nairobi",
-      image: "https://images.unsplash.com/photo-1578339735165-4f7f5024b423?auto=format&fit=crop&q=80",
+      image: "/images/roadconstructionsurveys.jpg",
       category: "Infrastructure"
     },
     {
       title: "GIS Support Operations",
       location: "UNHCR Regional Hub",
-      image: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80",
+      image: "/images/GIS-data-presentation.png",
       category: "GIS Data Integration"
     },
     {
       title: "800-Acre Drone Mapping",
       location: "Maasai Mara",
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&q=80",
+      image: "/images/drone-mapping.jpg",
       category: "Remote Sensing"
     },
     {
       title: "Infrastructure Survey",
       location: "UN Gigiri Complex",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80",
+      image: "/images/infrastructureproject.png",
       category: "Engineering Survey"
     }
   ];

@@ -24,7 +24,7 @@ export function AboutOverview() {
           className="relative h-[600px] w-full rounded-2xl overflow-hidden shadow-2xl group"
         >
           <Image
-            src="https://images.unsplash.com/photo-1503708928676-1cb796a0891e?auto=format&fit=crop&q=80"
+            src="/images/corporate-office and consultation.jpg"
             alt="Surveying equipment on site"
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700"

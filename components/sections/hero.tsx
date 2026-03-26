@@ -11,7 +11,7 @@ export function Hero() {
       {/* Background Image / Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1541888081622-c9ea15024446?auto=format&fit=crop&q=80"
+          src="/images/panoramic-landmapping.png"
           alt="Aerial view mapping"
           fill
           priority

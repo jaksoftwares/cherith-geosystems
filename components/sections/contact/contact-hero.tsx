@@ -9,7 +9,7 @@ export function ContactHero() {
       <div className="absolute inset-0 z-0">
         {/* A beautiful abstract map or satellite imagery style background */}
         <Image
-          src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80"
+          src="/images/satellitegis-visual concept.jpg"
           alt="Satellite Mapping Contact Background"
           fill
           priority

@@ -11,7 +11,7 @@ export function ServicesList() {
       id: "land-cadastral-surveys",
       title: "Land (Cadastral) Surveys",
       desc: "Accurate and legally compliant land surveys ensuring definitive boundary resolutions and proper land administration.",
-      image: "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&q=80",
+      image: "/images/land-surveyors-demarcating.jpg",
       subServices: [
         "Subdivision and amalgamation",
         "Boundary verification and re-establishment",
@@ -24,7 +24,7 @@ export function ServicesList() {
       id: "engineering-topographical-surveys",
       title: "Engineering & Topographical Surveys",
       desc: "Supporting complex infrastructure and construction projects through precise terrain mapping and dimensional alignments.",
-      image: "https://images.unsplash.com/photo-1541888081622-c9ea15024446?auto=format&fit=crop&q=80",
+      image: "/images/roadconstructionsurveys.jpg",
       subServices: [
         "Topographical mapping",
         "Setting-out services",
@@ -37,7 +37,7 @@ export function ServicesList() {
       id: "gis-data-integration",
       title: "GIS Data Integration & Spatial Analysis",
       desc: "Transforming raw geospatial data into powerful, interactive insights designed to fuel confident regional planning.",
-      image: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80",
+      image: "/images/gis-data analysis.jpg",
       subServices: [
         "GIS database development",
         "Spatial modeling and analysis",
@@ -49,7 +49,7 @@ export function ServicesList() {
       id: "remote-sensing",
       title: "Remote Sensing & Environmental Monitoring",
       desc: "Advanced satellite and drone analytics enabling vast-scale environmental surveillance and conservation efforts.",
-      image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80",
+      image: "/images/enviromentalmonitoring.png",
       subServices: [
         "Monitor environmental changes",
         "Support planning and conservation",
@@ -61,7 +61,7 @@ export function ServicesList() {
       id: "underground-utility-mapping",
       title: "Underground Utility Mapping (GPR)",
       desc: "Detect, map, and secure critical hidden infrastructures using high-tech Ground Penetrating Radar (GPR) technology.",
-      image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80",
+      image: "/images/ground-penetrating-radar.png",
       subServices: [
         "Pipelines mapping",
         "Underground cables",
@@ -73,7 +73,7 @@ export function ServicesList() {
       id: "geoportal-development",
       title: "Geoportal Development & Web GIS",
       desc: "Designing and deploying enterprise-level, interactive digital mapping platforms for real-time spatial data access.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+      image: "/images/gis-web-portal.jpg",
       subServices: [
         "Interactive mapping platforms",
         "GIS servers and dashboards",
@@ -85,7 +85,7 @@ export function ServicesList() {
       id: "project-planning",
       title: "Project Planning & Technical Reporting",
       desc: "End-to-end survey data structuring alongside highly detailed engineering reporting tailored for corporate stakeholders.",
-      image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80",
+      image: "/images/corporate-office and consultation.jpg",
       subServices: [
         "Survey planning and execution",
         "Rigorous data processing",

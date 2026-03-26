@@ -9,7 +9,7 @@ export function ServicesHero() {
       {/* Background Image & Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1574689049852-300c14db48f0?auto=format&fit=crop&q=80"
+          src="/images/large-scale landmapping.jpg"
           alt="Surveying site landscape"
           fill
           priority

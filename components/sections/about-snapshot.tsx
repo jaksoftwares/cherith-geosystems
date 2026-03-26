@@ -12,7 +12,7 @@ export function AboutSnapshot() {
           <div className="relative group">
             <div className="relative w-full aspect-square md:aspect-video lg:aspect-square rounded-2xl overflow-hidden shadow-2xl z-10">
               <Image 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80"
+                src="/images/Experts-working.jpeg"
                 alt="Surveyors in action"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"

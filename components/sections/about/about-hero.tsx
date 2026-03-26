@@ -9,7 +9,7 @@ export function AboutHero() {
       {/* Background Image / Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80"
+          src="/images/experts-working2.jpeg"
           alt="Surveying equipment outdoors"
           fill
           priority

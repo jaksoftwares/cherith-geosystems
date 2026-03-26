@@ -8,7 +8,7 @@ export function BlogsHero() {
     <section className="relative min-h-[50vh] flex items-center justify-center pt-20 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80"
+          src="/images/gis-web-portal.jpg"
           alt="Abstract global networking and spatial mapping"
           fill
           priority
