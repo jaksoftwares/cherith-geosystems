@@ -14,21 +14,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://cherithgeosystems.com");
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cherithgeosystems.com"),
+  metadataBase: new URL(baseUrl),
   title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
   description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
   openGraph: {
     title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
     description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
-    url: "https://cherithgeosystems.com",
+    url: baseUrl,
     siteName: "Cherith GeoSystems",
     images: [
       {
-        url: "/og-image.png",
+        url: `${baseUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Cherith GeoSystems Logo",
+        alt: "Cherith GeoSystems | Strategic Geospatial Intelligence",
+        type: "image/png",
       },
     ],
     locale: "en_KE",
@@ -38,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
     description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
-    images: ["/og-image.png"],
+    images: [`${baseUrl}/og-image.png`],
   },
   icons: {
     icon: "/favicon.ico",
