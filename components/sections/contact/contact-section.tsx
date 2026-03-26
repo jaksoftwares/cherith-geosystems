@@ -186,9 +186,10 @@ export function ContactSection() {
                   <label htmlFor="service" className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Service</label>
                   <select 
                     id="service" 
+                    defaultValue=""
                     className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all text-gray-700 cursor-pointer appearance-none"
                   >
-                    <option value="" disabled selected>Select a Service...</option>
+                    <option value="" disabled>Select a Service...</option>
                     <option value="cadastral">Cadastral / Boundary Survey</option>
                     <option value="topographical">Topographical Mapping</option>
                     <option value="gis">GIS Database Integration</option>
