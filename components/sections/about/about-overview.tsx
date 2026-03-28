@@ -13,15 +13,15 @@ export function AboutOverview() {
   ];
 
   return (
-    <section className="py-20 md:py-32 bg-white relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section className="py-16 md:py-32 bg-white relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
         {/* Left: Image Grid/Collage */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative h-[600px] w-full rounded-2xl overflow-hidden shadow-2xl group"
+          className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-3xl overflow-hidden shadow-2xl group border border-gray-100"
         >
           <Image
             src="/images/corporate-office and consultation.jpg"
@@ -31,12 +31,12 @@ export function AboutOverview() {
           />
           <div className="absolute inset-0 bg-brand-blue/20 group-hover:bg-transparent transition-colors duration-500"></div>
           
-          {/* Floating stat card */}
-          <div className="absolute bottom-6 left-6 right-6 md:left-auto md:right-auto md:-bottom-10 md:-left-10 bg-brand-blue text-white p-8 rounded-xl shadow-xl flex items-center gap-6 z-20 md:w-[320px]">
-            <div className="text-brand-red text-6xl font-extrabold font-cherith">19+</div>
+          {/* Floating stat card - Adjusted for mobile */}
+          <div className="absolute bottom-4 left-4 right-4 md:left-auto md:right-auto md:-bottom-10 md:-left-10 bg-brand-blue text-white p-6 md:p-8 rounded-2xl shadow-2xl flex items-center gap-5 md:gap-6 z-20 md:w-[320px] border-b-4 border-brand-red">
+            <div className="text-brand-red text-5xl md:text-6xl font-extrabold font-cherith leading-none">19+</div>
             <div>
-              <p className="text-xl font-bold font-cherith leading-tight mb-1">Years of</p>
-              <p className="text-gray-300">Industry Excellence</p>
+              <p className="text-lg md:text-xl font-bold font-cherith leading-tight mb-1">Years of</p>
+              <p className="text-xs md:text-sm text-gray-300 uppercase tracking-widest font-semibold">Industry Excellence</p>
             </div>
           </div>
         </motion.div>

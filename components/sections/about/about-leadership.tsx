@@ -58,7 +58,7 @@ export function AboutLeadership() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 lg:gap-20 max-w-5xl mx-auto">
           {leaders.map((leader, idx) => (
             <motion.div
               key={leader.name}
@@ -68,7 +68,7 @@ export function AboutLeadership() {
               transition={{ duration: 0.6, delay: idx * 0.3 }}
               className="flex flex-col items-center group text-center"
             >
-              <div className="relative w-64 h-64 md:w-72 md:h-72 mb-8 rounded-full overflow-hidden shadow-2xl ring-4 ring-offset-4 ring-brand-blue/10 group-hover:ring-brand-red/30 transition-all duration-500">
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 mb-8 rounded-full overflow-hidden shadow-2xl ring-4 ring-offset-4 ring-brand-blue/10 group-hover:ring-brand-red/30 transition-all duration-500">
                 <Image
                   src={leader.image}
                   alt={leader.name}
@@ -78,10 +78,10 @@ export function AboutLeadership() {
                 <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/10 transition-colors duration-500"></div>
               </div>
               
-              <h3 className="text-3xl font-bold font-cherith text-brand-blue mb-2">
+              <h3 className="text-2xl md:text-3xl font-bold font-cherith text-brand-blue mb-2">
                 {leader.name}
               </h3>
-              <p className="text-brand-red font-semibold uppercase tracking-wider text-sm mb-4">
+              <p className="text-brand-red font-bold uppercase tracking-widest text-xs md:text-sm mb-4">
                 {leader.role}
               </p>
               
@@ -89,14 +89,14 @@ export function AboutLeadership() {
                 {leader.qualifications.map((qual, qIdx) => (
                   <span
                     key={qIdx}
-                    className="bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full border border-gray-200"
+                    className="bg-gray-50 text-gray-700 text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-full border border-gray-100 shadow-sm"
                   >
                     {qual}
                   </span>
                 ))}
               </div>
               
-              <p className="text-gray-500 font-medium italic">
+              <p className="text-gray-500 font-medium italic text-xs md:text-sm">
                 {leader.memberships}
               </p>
             </motion.div>

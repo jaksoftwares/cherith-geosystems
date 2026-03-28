@@ -25,14 +25,14 @@ export function Features() {
   ];
 
   return (
-    <section className="py-24 bg-brand-blue text-white relative">
+    <section className="py-16 md:py-24 bg-brand-blue text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/satellitegis-visual%20concept.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
       
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12">
           {features.map((feature, idx) => (
-            <div key={idx} className="flex flex-col gap-4 text-center items-center justify-center p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
-              <div className="w-16 h-16 rounded-full bg-brand-red flex items-center justify-center mb-2 shadow-lg shadow-brand-red/30">
+            <div key={idx} className="flex flex-col gap-4 text-center items-center justify-center p-8 border border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:-translate-y-2 group">
+              <div className="w-16 h-16 rounded-2xl bg-brand-red flex items-center justify-center mb-2 shadow-xl shadow-brand-red/30 -rotate-3 group-hover:rotate-0 transition-transform">
                 <feature.icon className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold font-cherith">{feature.title}</h3>

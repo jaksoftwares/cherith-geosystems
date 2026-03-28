@@ -35,18 +35,18 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md border-gray-200 py-3"
-          : "bg-transparent py-5"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
+        isScrolled || isMobileMenuOpen
+          ? "bg-white/95 backdrop-blur-md shadow-md border-gray-200 py-2 md:py-3"
+          : "bg-transparent border-transparent py-4 md:py-5"
       }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 z-50 relative group">
-           <div className="relative w-56 h-14 md:w-80 md:h-20 lg:w-[360px] lg:h-24 transition-transform duration-300 group-hover:scale-105">
+           <div className="relative w-40 h-10 sm:w-48 sm:h-12 md:w-72 md:h-18 lg:w-80 lg:h-20 transition-transform duration-300 group-hover:scale-105 active:scale-95">
              <Image 
-               src={isScrolled ? "/cherith-logo/1_cherith_master.svg" : "/cherith-logo/4_cherith_monochrome_white.svg"} 
+               src={isScrolled || isMobileMenuOpen ? "/cherith-logo/1_cherith_master.svg" : "/cherith-logo/4_cherith_monochrome_white.svg"} 
                alt="Cherith GeoSystems Master Logo" 
                fill
                className="object-contain object-left"
@@ -64,8 +64,8 @@ export function Navbar() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className={`text-sm font-semibold transition-colors relative group ${
-                      isScrolled ? "text-gray-700 hover:text-brand-red" : "text-white/90 hover:text-white"
+                    className={`text-sm font-bold transition-all relative group py-2 ${
+                      isScrolled ? "text-brand-blue hover:text-brand-red" : "text-white/90 hover:text-white"
                     }`}
                   >
                     {link.name}
@@ -82,10 +82,10 @@ export function Navbar() {
           
           <Link
             href="/contact"
-            className={`px-6 py-2.5 rounded hover:opacity-90 font-semibold transition-all shadow-lg active:scale-95 ${
+            className={`px-6 py-2.5 rounded-lg hover:opacity-90 font-bold transition-all shadow-lg active:scale-95 text-sm ${
               isScrolled 
-                ? "bg-brand-red text-white hover:shadow-brand-red/20" 
-                : "bg-white text-brand-blue hover:shadow-white/20"
+                ? "bg-brand-red text-white hover:shadow-brand-red/20 outline outline-transparent" 
+                : "bg-white text-brand-blue hover:shadow-white/20 outline outline-white/10"
             }`}
           >
             Request a Survey
@@ -94,60 +94,88 @@ export function Navbar() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden z-50 relative p-2"
+          className="md:hidden z-[60] relative p-3 -mr-2 bg-transparent hover:bg-gray-100/10 rounded-full transition-colors active:scale-95 overflow-hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle mobile menu"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
-          {isMobileMenuOpen ? (
-            <X className="w-6 h-6 text-brand-blue" />
-          ) : (
-            <Menu className={`w-6 h-6 ${isScrolled ? "text-brand-blue" : "text-white"}`} />
-          )}
+          <div className="relative w-6 h-6">
+             <motion.div
+               animate={isMobileMenuOpen ? { opacity: 0, rotate: 90 } : { opacity: 1, rotate: 0 }}
+               className="absolute inset-0 flex items-center justify-center font-bold"
+             >
+               <Menu className={`w-6 h-6 ${isScrolled || isMobileMenuOpen ? "text-brand-blue" : "text-white"}`} />
+             </motion.div>
+             <motion.div
+               initial={{ opacity: 0, rotate: -90 }}
+               animate={isMobileMenuOpen ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: -90 }}
+               className="absolute inset-0 flex items-center justify-center"
+             >
+               <X className={`w-6 h-6 ${isScrolled || isMobileMenuOpen ? "text-brand-blue" : "text-brand-red"}`} />
+             </motion.div>
+          </div>
         </button>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden absolute top-0 left-0 right-0 bg-white shadow-xl border-b border-gray-100 pt-20 px-4 pb-6 h-screen flex flex-col"
-          >
-            <ul className="flex flex-col gap-2 mt-4 flex-1">
-              {navLinks.map((link) => (
-                <motion.li 
-                  key={link.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
+          <>
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            
+            <motion.nav
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="md:hidden fixed top-0 right-0 w-[80%] sm:w-[350px] bg-white shadow-2xl z-50 h-[100dvh] flex flex-col pointer-events-auto"
+            >
+              <div className="p-6 pt-24 space-y-2 overflow-y-auto flex-1">
+                {navLinks.map((link, idx) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <motion.div 
+                      key={link.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + (idx * 0.05) }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`block py-4 px-5 rounded-2xl text-xl font-bold transition-all ${
+                          isActive 
+                            ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/20" 
+                            : "text-gray-900 bg-gray-50 active:bg-gray-100"
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+              
+              <div className="p-6 border-t border-gray-100 bg-gray-50/50">
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full text-center py-5 rounded-2xl bg-brand-red text-white font-bold hover:shadow-xl hover:shadow-brand-red/20 transition-all active:scale-95 text-lg shadow-lg"
                 >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block py-3 px-4 rounded-lg text-lg font-semibold transition-colors ${
-                      pathname === link.href 
-                        ? "bg-brand-blue/5 text-brand-blue" 
-                        : "text-gray-600 hover:bg-gray-50"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-            <div className="mt-8 pb-8">
-              <Link
-                href="/contact"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full text-center py-4 rounded bg-brand-red text-white font-semibold hover:opacity-90 transition-opacity shadow-lg"
-              >
-                Request a Survey
-              </Link>
-            </div>
-          </motion.nav>
+                  Request a Survey
+                </Link>
+                <p className="text-center text-[10px] text-gray-400 mt-6 uppercase tracking-[0.2em] font-bold">
+                  Strategic Geospatial Intelligence
+                </p>
+              </div>
+            </motion.nav>
+          </>
         )}
       </AnimatePresence>
     </header>

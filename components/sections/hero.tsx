@@ -1,115 +1,195 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, ChevronRight, Globe, Map } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, ChevronRight, ChevronLeft } from "lucide-react";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+
+const heroImages = [
+  {
+    src: "/images/panoramic-landmapping.png",
+    alt: "Aerial view mapping",
+  },
+  {
+    src: "/images/drone-mapping.jpg",
+    alt: "Advanced drone surveys",
+  },
+  {
+    src: "/images/infrastructureproject.png",
+    alt: "Infrastructure development",
+  },
+  {
+    src: "/images/urban-engineering-survey.jpg",
+    alt: "Urban engineering precision",
+  },
+  {
+    src: "/images/roadconstructionsurveys.jpg",
+    alt: "Road construction surveying",
+  }
+];
 
 export function Hero() {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextImage = () => setCurrentImage((prev) => (prev + 1) % heroImages.length);
+  const prevImage = () => setCurrentImage((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
-      {/* Background Image / Overlay */}
+    <section className="relative min-h-screen flex items-center justify-center pt-24 md:pt-32 pb-20 overflow-hidden bg-black">
+      {/* Background Carousel */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/panoramic-landmapping.png"
-          alt="Aerial view mapping"
-          fill
-          priority
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/95 via-brand-blue/80 to-transparent"></div>
-        <div className="absolute inset-0 bg-black/30"></div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentImage}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={heroImages[currentImage].src}
+              alt={heroImages[currentImage].alt}
+              fill
+              priority
+              className="object-cover object-center"
+            />
+          </motion.div>
+        </AnimatePresence>
+        
+        {/* Layered Overlays for better readability with reduced blue */}
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/80 via-brand-blue/30 to-transparent z-[1]"></div>
+        <div className="absolute inset-0 bg-black/50 z-[1]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/60 via-transparent to-transparent z-[1]"></div>
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 md:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="flex flex-col gap-6 max-w-3xl">
-          {/* <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white w-max backdrop-blur-md"
+      <div className="container mx-auto px-4 md:px-8 relative z-20">
+        <div className="flex flex-col gap-6 md:gap-8 max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex items-center gap-3"
           >
-            <Globe className="w-4 h-4 text-brand-red" />
-            <span className="text-sm font-semibold tracking-wide uppercase">Strategic Geospatial Intelligence Partners</span>
-          </motion.div> */}
+            <div className="w-8 md:w-12 h-[2px] bg-brand-red"></div>
+            <span className="text-white font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase text-xs md:text-sm">
+              Strategic Geospatial Intelligence
+            </span>
+          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold font-cherith text-white leading-tight"
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-cherith text-white leading-[1.15] md:leading-[1.1]"
           >
             Mapping <span className="text-brand-red">Possibilities.</span><br />
-            Defining <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Precision.</span>
+            Defining <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">Precision.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-200 leading-relaxed"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-lg md:text-2xl text-gray-100 leading-relaxed max-w-2xl drop-shadow-md"
           >
-            At Cherith GeoSystems, we transform land and spatial data into accurate, actionable insights that power smarter decisions across Kenya and beyond.
+            Transforming complex spatial data into accurate, actionable insights that power critical decisions across the region.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 mt-4"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4 md:gap-6 mt-4 md:mt-6"
           >
             <Link
               href="/contact"
-              className="bg-brand-red text-white px-8 py-4 rounded-lg font-bold hover:bg-red-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-red/30 group text-lg"
+              className="bg-brand-red text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold hover:bg-red-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-brand-red/40 group text-lg md:text-xl"
             >
               Request a Survey
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/about"
-              className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-brand-blue transition-all flex items-center justify-center gap-2 text-lg group"
+              className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold hover:bg-white hover:text-brand-blue transition-all flex items-center justify-center gap-3 text-lg md:text-xl group"
             >
               Talk to an Expert
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex items-center gap-8 mt-6 pt-6 border-t border-white/20"
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="grid grid-cols-3 gap-4 md:gap-12 mt-10 md:mt-12 pt-8 md:pt-10 border-t border-white/10"
           >
-            <div>
-              <p className="text-3xl font-bold text-white font-cherith">19+</p>
-              <p className="text-sm text-gray-300">Years Experience</p>
+            <div className="group cursor-default">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">19+</p>
+              <p className="text-[10px] sm:text-xs md:text-sm text-gray-400 font-medium uppercase tracking-wider mt-1">Experience</p>
             </div>
-            <div>
-              <p className="text-3xl font-bold text-white font-cherith">47</p>
-              <p className="text-sm text-gray-300">Counties Covered</p>
+            <div className="group cursor-default">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">47</p>
+              <p className="text-[10px] sm:text-xs md:text-sm text-gray-400 font-medium uppercase tracking-wider mt-1">Counties</p>
             </div>
-            <div>
-              <p className="text-3xl font-bold text-white font-cherith">400+</p>
-              <p className="text-sm text-gray-300">Projects Delivered</p>
+            <div className="group cursor-default">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">400+</p>
+              <p className="text-[10px] sm:text-xs md:text-sm text-gray-400 font-medium uppercase tracking-wider mt-1">Projects</p>
             </div>
-          </motion.div>
-        </div>
-
-        {/* Right side floating elements - optional visual flair */}
-        <div className="hidden lg:block">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="relative w-full h-[600px]"
-          >
-            {/* abstract mapping graphic could go here, or just leaving it empty relies on the background image */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 border-[40px] border-white/5 rounded-full blur-xl"></div>
-            <div className="absolute right-20 top-1/4 w-64 h-64 border-[2px] border-brand-red/30 rounded-full animate-pulse"></div>
           </motion.div>
         </div>
       </div>
+
+      {/* Carousel Controls - Updated for better mobile visibility */}
+      <div className="absolute bottom-10 right-4 md:right-12 z-30 flex items-center gap-4">
+        <div className="hidden lg:flex gap-2 mr-8">
+          {heroImages.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentImage(idx)}
+              className={`h-1.5 transition-all duration-500 rounded-full ${
+                currentImage === idx ? "w-12 bg-brand-red" : "w-6 bg-white/30 hover:bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
+        <div className="flex gap-2">
+          <button 
+            onClick={prevImage}
+            className="p-3 md:p-4 rounded-full bg-white/5 hover:bg-brand-red text-white border border-white/10 transition-all backdrop-blur-md"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
+          <button 
+            onClick={nextImage}
+            className="p-3 md:p-4 rounded-full bg-white/5 hover:bg-brand-red text-white border border-white/10 transition-all backdrop-blur-md"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
+        </div>
+      </div>
+
+      {/* Dynamic Scroll Indicator */}
+      <motion.div 
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 pointer-events-none"
+      >
+        <div className="w-5 h-8 rounded-full border-2 border-white/20 flex justify-center p-1">
+          <div className="w-1 h-1.5 bg-brand-red rounded-full" />
+        </div>
+      </motion.div>
     </section>
   );
 }

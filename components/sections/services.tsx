@@ -37,33 +37,33 @@ export function Services() {
   ];
 
   return (
-    <section className="py-24 bg-gray-50 relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-gray-50 relative overflow-hidden">
       {/* Decorative hex pattern background overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'103.923\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cpath stroke=\\'%23000\\' stroke-width=\\'1\\' fill=\\'none\\' d=\\'M30 103.923L0 86.603V51.962L30 34.641l30 17.32v34.641L30 103.923zM0 17.32L30 0l30 17.32v34.64L30 69.282 0 51.96V17.32z\\'%3E%3C/path%3E%3C/svg%3E')", backgroundSize: "40px 69px" }}></div>
       
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <div className="inline-flex items-center justify-center gap-2 text-brand-red font-semibold tracking-wider uppercase text-sm mb-4">
             <span className="w-8 h-[2px] bg-brand-red block"></span>
             Our Core Services
             <span className="w-8 h-[2px] bg-brand-red block"></span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-cherith text-brand-blue">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-cherith text-brand-blue leading-[1.2]">
             Comprehensive Mapping Solutions
           </h2>
-          <p className="mt-6 text-gray-600 text-lg">
+          <p className="mt-6 text-gray-600 text-base md:text-lg lg:px-12">
             We offer a full suite of professional surveying and geospatial services designed to mitigate risks and support intelligent property planning.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, idx) => (
             <div 
               key={idx}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-blue/5 border border-gray-100 transition-all duration-300 relative"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-blue/5 border border-gray-100 transition-all duration-300 relative flex flex-col"
             >
               {/* Image Container */}
-              <div className="relative h-48 w-full overflow-hidden">
+              <div className="relative h-48 sm:h-56 md:h-48 w-full overflow-hidden">
                 <Image 
                   src={service.image}
                   alt={service.title}
@@ -73,22 +73,24 @@ export function Services() {
                 <div className="absolute inset-0 bg-brand-blue/20 group-hover:bg-transparent transition-colors duration-500"></div>
               </div>
               
-              <div className="p-8 relative z-10">
-                <h3 className="text-xl font-bold font-cherith text-brand-blue mb-4 group-hover:text-brand-red transition-colors">
+              <div className="p-6 md:p-8 relative z-10 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold font-cherith text-brand-blue mb-4 group-hover:text-brand-red transition-colors min-h-[56px] flex items-center">
                   {service.title}
                 </h3>
                 
-                <p className="text-gray-600 leading-relaxed mb-6 h-20">
+                <p className="text-gray-600 leading-relaxed mb-6 text-sm md:text-base">
                   {service.description}
                 </p>
                 
-                <Link 
-                  href="/services" 
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue group-hover:text-brand-red transition-colors"
-                >
-                  Learn More 
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                <div className="mt-auto pt-4">
+                  <Link 
+                    href="/services" 
+                    className="inline-flex items-center gap-2 text-sm font-bold text-brand-blue group-hover:text-brand-red transition-all"
+                  >
+                    Learn More 
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
