@@ -55,16 +55,16 @@ export function Footer() {
             <h3 className="text-xl font-bold font-cherith">Our Services</h3>
             <ul className="flex flex-col gap-3">
               {[
-                'Land & Cadastral Surveys', 
-                'Engineering & Topographical', 
-                'GIS & Spatial Analysis', 
-                'Remote Sensing & Drones', 
-                'Underground Utility (GPR)',
-                'Web GIS Development'
+                { name: 'Land & Cadastral Surveys', slug: 'land-cadastral-surveys' }, 
+                { name: 'Engineering & Topographical', slug: 'engineering-topographical-surveys' }, 
+                { name: 'GIS & Spatial Analysis', slug: 'gis-data-integration' }, 
+                { name: 'Remote Sensing & Drones', slug: 'remote-sensing' }, 
+                { name: 'Underground Utility (GPR)', slug: 'underground-utility-mapping' },
+                { name: 'Web GIS Development', slug: 'geoportal-development' }
               ].map((service) => (
-                <li key={service}>
-                  <Link href="/services" className="text-gray-300 hover:text-brand-red transition-colors">
-                    {service}
+                <li key={service.slug}>
+                  <Link href={`/services/${service.slug}`} className="text-gray-300 hover:text-brand-red transition-colors">
+                    {service.name}
                   </Link>
                 </li>
               ))}
