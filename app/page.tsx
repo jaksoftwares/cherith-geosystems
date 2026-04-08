@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { Partners } from "@/components/sections/partners";
 import { AboutSnapshot } from "@/components/sections/about-snapshot";
 import { Services } from "@/components/sections/services";
 import { Features } from "@/components/sections/features";
@@ -17,6 +18,7 @@ export default function Home() {
       <Projects />
       <Testimonials />
       <LatestUpdates />
+      <Partners />
       <CTA />
     </div>
   );

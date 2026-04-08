@@ -1,34 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
+import { blogsData } from "@/lib/data/blogs";
 
 export function LatestUpdates() {
-  const updates = [
-    {
-      title: "GPR Precision Survey in Nairobi",
-      description: "Our team recently completed a high-precision Ground Penetrating Radar survey for a major urban utility project, ensuring zero damage to existing infrastructure.",
-      date: "March 20, 2026",
-      image: "/images/ground-penetrating-radar.png",
-      category: "Field Operations",
-      slug: "gpr-precision-survey"
-    },
-    {
-      title: "National Surveyor's Conference 2026",
-      description: "Cherith GeoSystems led the discussion on drone mapping ethics and standards during the annual national surveyors' gathering in Kisumu.",
-      date: "March 15, 2026",
-      image: "/images/corporate-office%20and%20consultation.jpg",
-      category: "Industry Events",
-      slug: "national-surveyors-conference"
-    },
-    {
-      title: "GIS Web Portal Masterclass",
-      description: "Training our partners on the new features of the Cherith GIS Web Portal, enabling real-time spatial data analysis for infrastructure planning.",
-      date: "March 10, 2026",
-      image: "/images/large-team%20field%20coordination.png",
-      category: "Workshops",
-      slug: "gis-web-portal-masterclass"
-    }
-  ];
+  // Get the latest 3 activities/updates/blogs to show on home page
+  const updates = blogsData
+    .filter(post => ["Field Activity", "Industry Event", "Workshops"].includes(post.category))
+    .slice(0, 3);
 
   return (
     <section className="py-16 md:py-24 bg-zinc-50 relative overflow-hidden">
@@ -92,7 +71,7 @@ export function LatestUpdates() {
                     {update.title}
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 mb-6">
-                    {update.description}
+                    {update.excerpt}
                   </p>
                 </div>
                 

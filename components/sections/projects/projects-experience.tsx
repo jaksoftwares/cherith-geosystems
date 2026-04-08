@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Factory, Globe2, MapPin } from "lucide-react";
+import { CheckCircle2, Factory, Globe2, MapPin, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export function ProjectsExperience() {
   const miles = [
@@ -12,9 +13,9 @@ export function ProjectsExperience() {
       icon: MapPin,
     },
     {
-      value: "4+",
+      value: "8+",
       label: "Countries Reached",
-      desc: "GIS deployments spanning Kenya, Tanzania, Ethiopia, and Rwanda.",
+      desc: "GIS deployments spanning Kenya, Rwanda, Uganda, Eritrea, Ethiopia, and beyond.",
       icon: Globe2,
     },
     {
@@ -26,9 +27,8 @@ export function ProjectsExperience() {
   ];
 
   return (
-    <section className="py-24 bg-brand-blue relative">
+    <section className="py-24 bg-brand-blue relative overflow-hidden">
       <div className="absolute inset-0 z-0 opacity-10">
-        {/* Subtle dot pattern */}
         <svg
           className="absolute h-full w-full stroke-white/20 [mask-image:linear-gradient(to_bottom,white,transparent)]"
           aria-hidden="true"
@@ -65,10 +65,21 @@ export function ProjectsExperience() {
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
              transition={{ duration: 0.6 }}
-             className="text-4xl lg:text-5xl font-extrabold font-cherith text-white leading-tight mb-4"
+             className="text-4xl lg:text-5xl font-extrabold font-cherith text-white leading-tight mb-6"
            >
               Experience Beyond <br className="hidden md:block" /> the Horizon
            </motion.h2>
+           <p className="text-gray-300 text-lg mb-10 max-w-xl">
+            Our geospatial reach extends across the African continent, delivering precision engineering and GIS solutions to diverse nations and industries.
+           </p>
+           
+           <Link 
+             href="/experience"
+             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-brand-red text-white hover:bg-brand-red/90 rounded-2xl font-bold shadow-2xl shadow-brand-red/20 transition-all active:scale-95 group"
+           >
+             Explore Global Reach
+             <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+           </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
