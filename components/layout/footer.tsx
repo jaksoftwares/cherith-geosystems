@@ -11,13 +11,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           
           {/* Brand & Bio */}
-          <div className="flex flex-col gap-6">
-            <Link href="/" className="inline-block relative w-56 h-16 sm:w-64 sm:h-20 md:w-[420px] md:h-32">
-              <Image 
-                src="/cherith-logo/4_cherith_monochrome_white.svg" 
-                alt="Cherith GeoSystems Master Logo" 
+          <div className="flex flex-col gap-6  ">
+                      <Link
+              href="/"
+              className="inline-block relative w-56 h-16 sm:w-64 sm:h-20 md:w-[350px] md:h-32 rounded-2xl overflow-hidden"
+            >
+              <Image
+                src="/logos/cherith_bg_white.jpeg"
+                alt="Cherith GeoSystems Master Logo"
                 fill
-                className="object-contain object-left"
+                className="object-cover object-left"
               />
             </Link>
             <p className="text-gray-300 leading-relaxed max-w-sm">

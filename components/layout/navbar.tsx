@@ -44,9 +44,9 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 z-50 relative group">
-           <div className="relative w-40 h-10 sm:w-48 sm:h-12 md:w-72 md:h-18 lg:w-80 lg:h-20 transition-transform duration-300 group-hover:scale-105 active:scale-95">
+           <div className="relative w-50 h-20 sm:w-58 sm:h-22 md:w-72 md:h-28 lg:w-90 lg:h-30 transition-transform duration-300 group-hover:scale-105 active:scale-95">
              <Image 
-               src={isScrolled || isMobileMenuOpen ? "/logos/cherith1.png" : "/cherith-logo/4_cherith_monochrome_white.svg"} 
+               src={isScrolled || isMobileMenuOpen ? "/logos/cherith1.png" : "/logos/white monochrome.png"} 
                alt="Cherith GeoSystems Master Logo" 
                fill
                className="object-contain object-left"
