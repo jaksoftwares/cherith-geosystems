@@ -42,9 +42,18 @@ export function Footer() {
           <div className="flex flex-col gap-6 lg:pl-8">
             <h3 className="text-xl font-bold font-cherith">Quick Links</h3>
             <ul className="flex flex-col gap-3">
-              {['Home', 'About Us', 'Services', 'Projects', 'Insights', 'Contact'].map((link) => (
+              {['Home', 'About Us', 'Services', 'Projects', 'Experience Beyond the Horizon', 'Insights', 'Contact'].map((link) => (
                 <li key={link}>
-                  <Link href={`/${link === 'Home' ? '' : link.toLowerCase().replace(' ', '-')}`} className="text-gray-300 hover:text-brand-red transition-colors flex items-center gap-2 group">
+                  <Link 
+                    href={
+                      link === 'Home' ? '/' : 
+                      link === 'About Us' ? '/about' :
+                      link === 'Experience Beyond the Horizon' ? '/experience' : 
+                      link === 'Insights' ? '/blogs' :
+                      `/${link.toLowerCase().replace(' ', '-')}`
+                    } 
+                    className="text-gray-300 hover:text-brand-red transition-colors flex items-center gap-2 group"
+                  >
                     <ArrowRight className="w-4 h-4 text-brand-red opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                     {link}
                   </Link>
