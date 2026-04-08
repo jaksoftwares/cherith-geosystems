@@ -12,16 +12,10 @@ export function Footer() {
           
           {/* Brand & Bio */}
           <div className="flex flex-col gap-6  ">
-                      <Link
-              href="/"
-              className="inline-block relative w-56 h-16 sm:w-64 sm:h-20 md:w-[350px] md:h-32 rounded-2xl overflow-hidden"
-            >
-              <Image
-                src="/logos/cherith_bg_white.jpeg"
-                alt="Cherith GeoSystems Master Logo"
-                fill
-                className="object-cover object-left"
-              />
+            <Link href="/" className="inline-block relative w-56 h-16 sm:w-64 sm:h-20 md:w-[420px] md:h-32 ">
+            
+            <Image src="/logos/4_cherith_monochrome_white.svg" alt="Cherith GeoSystems Master Logo" fill className="object-contain object-left rounded-xl" /> 
+            
             </Link>
             <p className="text-gray-300 leading-relaxed max-w-sm">
               Transforming land and spatial data into accurate, actionable insights that power smarter decisions across Kenya and beyond.
