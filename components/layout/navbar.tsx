@@ -170,9 +170,7 @@ export function Navbar() {
                 >
                   Request a Survey
                 </Link>
-                <p className="text-center text-[10px] text-gray-400 mt-6 uppercase tracking-[0.2em] font-bold">
-                  Strategic Geospatial Intelligence
-                </p>
+                
               </div>
             </motion.nav>
           </>
