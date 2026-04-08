@@ -32,7 +32,6 @@ export function Navbar() {
 
   // Use the master logo when not dark, monochrome white when dark background is needed.
   // For now, depending on the scroll, we might toggle between logo variations if desired.
-  const logoSrc = isScrolled ? "/cherith-logo/1_cherith_master.svg" : "/cherith-logo/4_cherith_monochrome_white.svg";
 
   return (
     <header
@@ -47,7 +46,7 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-2 z-50 relative group">
            <div className="relative w-40 h-10 sm:w-48 sm:h-12 md:w-72 md:h-18 lg:w-80 lg:h-20 transition-transform duration-300 group-hover:scale-105 active:scale-95">
              <Image 
-               src={isScrolled || isMobileMenuOpen ? "/cherith-logo/1_cherith_master.svg" : "/cherith-logo/4_cherith_monochrome_white.svg"} 
+               src={isScrolled || isMobileMenuOpen ? "/logos/cherith1.png" : "/cherith-logo/4_cherith_monochrome_white.svg"} 
                alt="Cherith GeoSystems Master Logo" 
                fill
                className="object-contain object-left"
