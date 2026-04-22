@@ -7,21 +7,18 @@ export function AboutMissionVision() {
   const cards = [
     {
       title: "Our Mission",
-      icon: Target,
       content:
         "To provide accurate, reliable, and innovative geospatial solutions that empower informed decision-making.",
       color: "blue",
     },
     {
       title: "Our Vision",
-      icon: Lightbulb,
       content:
         "To be a leading geospatial solutions provider shaping sustainable development across Africa.",
       color: "red",
     },
     {
       title: "Our Approach",
-      icon: Compass,
       content:
         "Utilizing advanced technology such as RTK GPS, Total Stations, and robust GIS platforms to deliver unmatched precision.",
       color: "gray",
@@ -81,7 +78,6 @@ export function AboutMissionVision() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {cards.map((card, idx) => {
-            const Icon = card.icon;
             return (
               <motion.div
                 key={card.title}
@@ -91,28 +87,8 @@ export function AboutMissionVision() {
                 transition={{ duration: 0.6, delay: idx * 0.2 }}
                 className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow border border-gray-100 relative overflow-hidden group"
               >
-                {/* Accent border top */}
-                <div
-                  className={`absolute top-0 left-0 w-full h-1 ${
-                    card.color === "blue"
-                      ? "bg-brand-blue"
-                      : card.color === "red"
-                      ? "bg-brand-red"
-                      : "bg-gray-400"
-                  }`}
-                />
                 
-                <div
-                  className={`w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${
-                    card.color === "blue"
-                      ? "bg-brand-blue/10 text-brand-blue"
-                      : card.color === "red"
-                      ? "bg-brand-red/10 text-brand-red"
-                      : "bg-gray-200 text-gray-700"
-                  }`}
-                >
-                  <Icon className="w-8 h-8" />
-                </div>
+               
                 
                 <h3 className="text-2xl font-bold font-cherith text-brand-blue mb-4">
                   {card.title}
