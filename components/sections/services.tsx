@@ -7,17 +7,17 @@ export function Services() {
     {
       title: "Land & Cadastral Surveys",
       description: "Accurate boundary identification, subdivision, and land verification services you can trust.",
-      image: "/images/land-surveyors-demarcating.jpg"
+      image: "/images/services/land-cadastral/boundary-verification.png"
     },
     {
       title: "Engineering & Topo Surveys",
       description: "Precise mapping and site data for construction and infrastructure development.",
-      image: "/images/roadconstructionsurveys.jpg"
+      image: "/images/services/engineering%26topographical/engineering%26topographicalsurvey.png"
     },
     {
       title: "GIS & Spatial Analysis",
       description: "Transforming geospatial data into powerful decision-support tools for strategic planning.",
-      image: "/images/gis-data analysis.jpg"
+      image: "/images/services/gis%26spatial-analysis/interactive-gis-dashboard.png"
     },
     {
       title: "Remote Sensing & Env. Monitoring",
@@ -27,7 +27,7 @@ export function Services() {
     {
       title: "Underground Utility Mapping",
       description: "Locate hidden infrastructure safely and accurately using Ground Penetrating Radar (GPR).",
-      image: "/images/ground-penetrating-radar.png"
+      image: "/images/services/underground-utility-gpr/undeground-detection-hero.png"
     },
     {
       title: "Geoportal & Web GIS Dev",
@@ -49,7 +49,7 @@ export function Services() {
             <span className="w-8 h-[2px] bg-brand-red block"></span>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-cherith text-brand-blue leading-[1.2]">
-            Comprehensive Mapping Solutions
+            Our Mapping Solutions
           </h2>
           <p className="mt-6 text-gray-600 text-base md:text-lg lg:px-12">
             We offer a full suite of professional surveying and geospatial services designed to mitigate risks and support intelligent property planning.

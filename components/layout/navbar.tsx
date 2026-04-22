@@ -37,14 +37,14 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         isScrolled || isMobileMenuOpen
-          ? "bg-white/95 backdrop-blur-md shadow-md border-gray-200 py-2 md:py-3"
-          : "bg-transparent border-transparent py-4 md:py-5"
+          ? "bg-white/95 backdrop-blur-md shadow-md border-gray-200 py-1.5 md:py-2"
+          : "bg-transparent border-transparent py-3 md:py-4"
       }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 z-50 relative group">
-           <div className="relative w-50 h-20 sm:w-58 sm:h-22 md:w-72 md:h-28 lg:w-90 lg:h-30 transition-transform duration-300 group-hover:scale-105 active:scale-95">
+           <div className="relative w-38 h-15 sm:w-44 sm:h-16 md:w-54 md:h-20 lg:w-68 lg:h-22 transition-transform duration-300 group-hover:scale-105 active:scale-95">
              <Image 
                src={isScrolled || isMobileMenuOpen ? "/logos/cherith1.png" : "/logos/white monochrome.png"} 
                alt="Cherith GeoSystems Master Logo" 
@@ -64,7 +64,7 @@ export function Navbar() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className={`text-sm font-bold transition-all relative group py-2 ${
+                    className={`text-sm font-bold transition-all relative group py-1.5 ${
                       isScrolled ? "text-brand-blue hover:text-brand-red" : "text-white/90 hover:text-white"
                     }`}
                   >
@@ -82,7 +82,7 @@ export function Navbar() {
           
           <Link
             href="/contact"
-            className={`px-6 py-2.5 rounded-lg hover:opacity-90 font-bold transition-all shadow-lg active:scale-95 text-sm ${
+            className={`px-6 py-2 rounded-lg hover:opacity-90 font-bold transition-all shadow-lg active:scale-95 text-sm ${
               isScrolled 
                 ? "bg-brand-red text-white hover:shadow-brand-red/20 outline outline-transparent" 
                 : "bg-white text-brand-blue hover:shadow-white/20 outline outline-white/10"

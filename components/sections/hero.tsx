@@ -43,7 +43,7 @@ export function Hero() {
   const prevImage = () => setCurrentImage((prev) => (prev - 1 + heroImages.length) % heroImages.length);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 md:pt-32 pb-20 overflow-hidden bg-black">
+    <section className="relative h-[75vh] min-h-[650px] flex items-center justify-center pt-20 md:pt-24 overflow-hidden bg-black">
       {/* Background Carousel */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
@@ -73,15 +73,15 @@ export function Hero() {
 
       {/* Content */}
       <div className="container mx-auto px-4 md:px-8 relative z-20">
-        <div className="flex flex-col gap-6 md:gap-8 max-w-5xl">
+        <div className="flex flex-col gap-5 md:gap-6 max-w-4xl">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="flex items-center gap-3"
           >
-            <div className="w-8 md:w-12 h-[2px] bg-brand-red"></div>
-            <span className="text-white font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase text-xs md:text-sm">
+            <div className="w-6 md:w-10 h-[2px] bg-brand-red"></div>
+            <span className="text-white font-bold tracking-[0.1em] md:tracking-[0.15em] uppercase text-[10px] md:text-xs">
               Strategic Geospatial Intelligence
             </span>
           </motion.div>
@@ -90,7 +90,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-cherith text-white leading-[1.15] md:leading-[1.1]"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-cherith text-white leading-[1.2] md:leading-[1.15]"
           >
             Mapping <span className="text-brand-red">Possibilities.</span><br />
             Defining <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">Precision.</span>
@@ -100,7 +100,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg md:text-2xl text-gray-100 leading-relaxed max-w-2xl drop-shadow-md"
+            className="text-base md:text-lg text-gray-200 leading-relaxed max-w-xl drop-shadow-md"
           >
             Transforming complex spatial data into accurate, actionable insights that power critical decisions across the region.
           </motion.p>
@@ -109,21 +109,21 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 md:gap-6 mt-4 md:mt-6"
+            className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-2 md:mt-4"
           >
             <Link
               href="/contact"
-              className="bg-brand-red text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold hover:bg-red-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-brand-red/40 group text-lg md:text-xl"
+              className="bg-brand-red text-white px-6 md:px-8 py-3.5 md:py-4 rounded-xl font-bold hover:bg-red-700 transition-all flex items-center justify-center gap-2.5 shadow-2xl shadow-brand-red/40 group text-base md:text-lg"
             >
               Request a Survey
-              <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/about"
-              className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold hover:bg-white hover:text-brand-blue transition-all flex items-center justify-center gap-3 text-lg md:text-xl group"
+              className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 md:px-8 py-3.5 md:py-4 rounded-xl font-bold hover:bg-white hover:text-brand-blue transition-all flex items-center justify-center gap-2.5 text-base md:text-lg group"
             >
               Talk to an Expert
-              <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
+              <ChevronRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
           
@@ -131,19 +131,19 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="grid grid-cols-3 gap-4 md:gap-12 mt-10 md:mt-12 pt-8 md:pt-10 border-t border-white/10"
+            className="grid grid-cols-3 gap-4 md:gap-10 mt-8 md:mt-10 pt-6 md:pt-8 border-t border-white/10 max-w-2xl"
           >
             <div className="group cursor-default">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">19+</p>
-              <p className="text-[10px] sm:text-xs md:text-sm text-gray-400 font-medium uppercase tracking-wider mt-1">Experience</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">19+</p>
+              <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-400 font-medium uppercase tracking-wider mt-1">Experience</p>
             </div>
             <div className="group cursor-default">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">47</p>
-              <p className="text-[10px] sm:text-xs md:text-sm text-gray-400 font-medium uppercase tracking-wider mt-1">Counties</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">47</p>
+              <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-400 font-medium uppercase tracking-wider mt-1">Counties</p>
             </div>
             <div className="group cursor-default">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">400+</p>
-              <p className="text-[10px] sm:text-xs md:text-sm text-gray-400 font-medium uppercase tracking-wider mt-1">Projects</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white font-cherith group-hover:text-brand-red transition-colors">400+</p>
+              <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-400 font-medium uppercase tracking-wider mt-1">Projects</p>
             </div>
           </motion.div>
         </div>
