@@ -125,7 +125,7 @@ export default async function ServiceDetailsPage({ params }: Props) {
   return (
     <main className="flex flex-col min-h-screen">
       {/* Dynamic Hero */}
-      <section className="relative min-h-[60vh] flex items-center justify-center pt-20 overflow-hidden">
+      <section className="relative min-h-[45vh] flex items-center justify-center pt-24 pb-12 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src={service.heroImage}
@@ -138,39 +138,39 @@ export default async function ServiceDetailsPage({ params }: Props) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         </div>
         
-        <div className="container mx-auto px-4 md:px-8 relative z-10 text-center flex flex-col items-center mt-10">
+        <div className="container mx-auto px-4 md:px-8 relative z-10 text-center flex flex-col items-center mt-6">
           <Link 
             href="/services" 
-            className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-6 uppercase tracking-wider text-sm font-semibold transition-colors"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-5 uppercase tracking-wider text-xs font-semibold transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 h-3.5" />
             All Services
           </Link>
           
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold font-cherith text-white leading-tight mb-4 max-w-4xl">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-cherith text-white leading-tight mb-4 max-w-4xl">
             {service.title}
           </h1>
-          <p className="text-xl md:text-2xl text-gray-200 max-w-2xl font-light">
+          <p className="text-lg md:text-xl text-gray-200 max-w-2xl font-light">
             {service.desc}
           </p>
         </div>
       </section>
 
       {/* Media-rich Sub-services Grid Layout */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-12 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col items-center mb-16 text-center">
-            <span className="h-1 w-12 bg-brand-red inline-block mb-4"></span>
-            <h2 className="text-3xl md:text-4xl font-extrabold font-cherith text-brand-blue">
+          <div className="flex flex-col items-center mb-10 text-center">
+            <span className="h-0.5 w-10 bg-brand-red inline-block mb-3"></span>
+            <h2 className="text-2xl md:text-3xl font-extrabold font-cherith text-brand-blue">
               Functional Offerings
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
             {service.subServices.map((sub, idx) => (
               <div 
                 key={idx} 
-                className="group relative h-[400px] rounded-2xl overflow-hidden shadow-lg border border-gray-200"
+                className="group relative h-[300px] md:h-[350px] rounded-2xl overflow-hidden shadow-lg border border-gray-200"
               >
                 <div className="absolute inset-0 z-0">
                   <Image
@@ -184,8 +184,8 @@ export default async function ServiceDetailsPage({ params }: Props) {
                 </div>
 
                 {/* Minimal Text Container */}
-                <div className="absolute inset-0 z-10 p-8 flex flex-col justify-end">
-                  <h3 className="text-2xl font-bold font-cherith text-white leading-tight group-hover:text-brand-red transition-colors duration-300">
+                <div className="absolute inset-0 z-10 p-6 md:p-8 flex flex-col justify-end">
+                  <h3 className="text-xl font-bold font-cherith text-white leading-tight group-hover:text-brand-red transition-colors duration-300">
                     {sub.name}
                   </h3>
                 </div>

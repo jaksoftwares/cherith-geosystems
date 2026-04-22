@@ -4,13 +4,13 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 
 export function AboutSnapshot() {
   return (
-    <section className="py-16 md:py-24 bg-white overflow-hidden">
+    <section className="py-12 md:py-16 bg-white overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           
           {/* Images / Visuals */}
           <div className="relative group px-4 sm:px-0">
-            <div className="relative w-full aspect-square md:aspect-video lg:aspect-square rounded-2xl overflow-hidden shadow-2xl z-10 border border-gray-100">
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl z-10 border border-gray-100">
               <Image 
                 src="/images/Experts-working.jpeg"
                 alt="Surveyors in action"
@@ -19,27 +19,27 @@ export function AboutSnapshot() {
               />
             </div>
             {/* Experience Badge - Simplified for mobile */}
-            <div className="absolute -bottom-4 -right-2 sm:-bottom-6 sm:-right-6 md:-bottom-8 md:-right-8 bg-brand-blue text-white p-4 sm:p-6 md:p-8 rounded-xl shadow-2xl z-20 border-b-4 border-brand-red">
-              <span className="block text-3xl sm:text-4xl md:text-5xl font-bold font-cherith mb-1 text-brand-red">19+</span>
-              <span className="block text-[10px] sm:text-sm md:text-base font-semibold uppercase tracking-wider leading-tight">Years Of<br/>Expertise</span>
+            <div className="absolute -bottom-3 -right-1 sm:-bottom-4 sm:-right-4 md:-bottom-6 md:-right-6 bg-brand-blue text-white p-3 sm:p-5 md:p-6 rounded-xl shadow-2xl z-20 border-b-4 border-brand-red">
+              <span className="block text-2xl sm:text-3xl md:text-4xl font-bold font-cherith mb-0.5 text-brand-red">19+</span>
+              <span className="block text-[8px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wider leading-tight">Years Of<br/>Expertise</span>
             </div>
             {/* Decorative background element */}
-            <div className="absolute -top-6 -left-2 sm:-left-6 w-full h-full border-2 border-brand-red/10 rounded-2xl z-0 pointer-events-none"></div>
+            <div className="absolute -top-4 -left-2 sm:-left-4 w-full h-full border-2 border-brand-red/10 rounded-2xl z-0 pointer-events-none"></div>
           </div>
 
           {/* Text Content */}
-          <div className="flex flex-col gap-6 mt-8 lg:mt-0">
-            <div className="inline-flex items-center gap-2 text-brand-red font-semibold tracking-wider uppercase text-sm">
-              <span className="w-8 h-[2px] bg-brand-red block"></span>
+          <div className="flex flex-col gap-4 mt-6 lg:mt-0">
+            <div className="inline-flex items-center gap-2 text-brand-red font-semibold tracking-wider uppercase text-xs">
+              <span className="w-6 h-[2px] bg-brand-red block"></span>
               About Cherith GeoSystems
             </div>
             
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-cherith text-brand-blue leading-tight">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-cherith text-brand-blue leading-tight">
               Transforming <span className="text-brand-red">Land Data</span> Into Powerful Insights
             </h2>
             
-            <div className="space-y-4">
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+            <div className="space-y-3">
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
                 Cherith GeoSystems is a premier geospatial and land surveying firm delivering precision-driven solutions in cadastral surveying, engineering surveys, GIS, and remote sensing.
               </p>
               

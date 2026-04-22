@@ -57,29 +57,29 @@ export function Testimonials() {
   }, [nextTestimonial, isPaused]);
 
   return (
-    <section className="py-20 md:py-32 bg-gray-50/50 relative overflow-hidden">
+    <section className="py-12 md:py-16 bg-gray-50/50 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(17,66,128,0.05),transparent_70%)]"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center justify-center gap-2 text-brand-red font-semibold tracking-wider uppercase text-sm mb-4"
+            className="inline-flex items-center justify-center gap-2 text-brand-red font-semibold tracking-wider uppercase text-xs mb-3"
           >
-            <span className="w-8 h-[2px] bg-brand-red block"></span>
+            <span className="w-6 h-[2px] bg-brand-red block"></span>
             Testimonials
-            <span className="w-8 h-[2px] bg-brand-red block"></span>
+            <span className="w-6 h-[2px] bg-brand-red block"></span>
           </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold font-cherith text-brand-blue leading-[1.2]"
+            className="text-2xl md:text-3xl lg:text-4xl font-bold font-cherith text-brand-blue leading-[1.2]"
           >
              Precision Trusted by <span className="text-brand-red">Professionals</span>
           </motion.h2>
@@ -87,7 +87,7 @@ export function Testimonials() {
 
         {/* Sliding Row Container */}
         <div 
-          className="relative max-w-6xl mx-auto overflow-hidden px-4"
+          className="relative max-w-5xl mx-auto overflow-hidden px-4"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
@@ -95,19 +95,19 @@ export function Testimonials() {
           <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-2 md:px-0 z-30 pointer-events-none">
             <button 
               onClick={prevTestimonial}
-              className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-blue hover:bg-brand-blue hover:text-white transition-all pointer-events-auto border border-gray-100"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-blue hover:bg-brand-blue hover:text-white transition-all pointer-events-auto border border-gray-100"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
             <button 
               onClick={nextTestimonial}
-              className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-blue hover:bg-brand-blue hover:text-white transition-all pointer-events-auto border border-gray-100"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-blue hover:bg-brand-blue hover:text-white transition-all pointer-events-auto border border-gray-100"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="relative overflow-hidden pt-12 pb-12">
+          <div className="relative overflow-hidden pt-8 pb-8">
             <motion.div 
               className="flex items-center"
               initial={false}
@@ -126,14 +126,14 @@ export function Testimonials() {
                   key={idx} 
                   className="min-w-full px-2"
                 >
-                  <div className="bg-white rounded-[32px] p-8 md:p-14 shadow-xl border border-gray-100 relative group">
+                  <div className="bg-white rounded-[24px] p-6 md:p-10 shadow-xl border border-gray-100 relative group">
                     {/* Industrial accents */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue opacity-[0.02] -mr-16 -mt-16 rounded-full group-hover:opacity-[0.05] transition-opacity"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-brand-blue opacity-[0.02] -mr-12 -mt-12 rounded-full group-hover:opacity-[0.05] transition-opacity"></div>
                     
-                    <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 relative z-10">
+                    <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10 relative z-10">
                       {/* Avatar with status circle */}
                       <div className="shrink-0 relative">
-                        <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden border-2 border-brand-red/20 shadow-md">
+                        <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border-2 border-brand-red/20 shadow-md">
                           <Image 
                             src={testimonial.avatar}
                             alt={testimonial.name}
@@ -141,25 +141,25 @@ export function Testimonials() {
                             className="object-cover"
                           />
                         </div>
-                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-brand-red rounded-xl flex items-center justify-center text-white shadow-lg">
-                          <Quote className="w-4 h-4 fill-white" />
+                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-brand-red rounded-lg flex items-center justify-center text-white shadow-lg">
+                          <Quote className="w-3 h-3 fill-white" />
                         </div>
                       </div>
 
                       <div className="flex-1 text-center md:text-left">
-                        <div className="flex justify-center md:justify-start gap-1 mb-4">
+                        <div className="flex justify-center md:justify-start gap-1 mb-3">
                           {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                            <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                           ))}
                         </div>
                         
-                        <p className="text-lg md:text-xl text-gray-700 font-medium leading-relaxed mb-6 italic">
+                        <p className="text-base md:text-lg text-gray-700 font-medium leading-relaxed mb-4 italic">
                           "{testimonial.content}"
                         </p>
                         
-                        <div className="pt-6 border-t border-gray-100">
-                          <h4 className="text-xl font-bold text-brand-blue">{testimonial.name}</h4>
-                          <p className="text-sm font-semibold text-brand-red uppercase tracking-widest mt-1">
+                        <div className="pt-4 border-t border-gray-100">
+                          <h4 className="text-lg font-bold text-brand-blue">{testimonial.name}</h4>
+                          <p className="text-[10px] font-semibold text-brand-red uppercase tracking-widest mt-0.5">
                             {testimonial.role}
                           </p>
                         </div>

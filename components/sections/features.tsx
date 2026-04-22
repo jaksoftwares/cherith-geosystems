@@ -25,18 +25,18 @@ export function Features() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-brand-blue text-white relative overflow-hidden">
+    <section className="py-12 md:py-16 bg-brand-blue text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/satellitegis-visual%20concept.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
       
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {features.map((feature, idx) => (
-            <div key={idx} className="flex flex-col gap-4 text-center items-center justify-center p-8 border border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:-translate-y-2 group">
-              <div className="w-16 h-16 rounded-2xl bg-brand-red flex items-center justify-center mb-2 shadow-xl shadow-brand-red/30 -rotate-3 group-hover:rotate-0 transition-transform">
-                <feature.icon className="w-8 h-8 text-white" />
+            <div key={idx} className="flex flex-col gap-3 text-center items-center justify-center p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 group">
+              <div className="w-12 h-12 rounded-xl bg-brand-red flex items-center justify-center mb-1 shadow-lg shadow-brand-red/20 -rotate-3 group-hover:rotate-0 transition-transform">
+                <feature.icon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold font-cherith">{feature.title}</h3>
-              <p className="text-gray-300 text-sm leading-relaxed">{feature.description}</p>
+              <h3 className="text-lg font-bold font-cherith">{feature.title}</h3>
+              <p className="text-gray-300 text-xs md:text-sm leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>

@@ -117,10 +117,10 @@ export function ServicesList() {
     : services.filter(s => s.category === activeCategory);
 
   return (
-    <section className="py-20 bg-zinc-50 relative overflow-hidden">
+    <section className="py-12 md:py-16 bg-zinc-50 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
         {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 lg:gap-4 mb-16">
+        <div className="flex flex-wrap justify-center gap-2 lg:gap-3 mb-8 md:mb-10">
           {categories.map((cat) => {
             const Icon = cat.icon;
             const isActive = activeCategory === cat.id;
@@ -128,13 +128,13 @@ export function ServicesList() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-bold transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all duration-300 ${
                   isActive 
-                    ? "bg-brand-blue text-white shadow-xl shadow-brand-blue/20 scale-105" 
+                    ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/20 scale-105" 
                     : "bg-white text-gray-500 hover:text-brand-blue hover:bg-gray-50 border border-gray-100"
                 }`}
               >
-                <Icon className={`w-5 h-5 ${isActive ? "text-brand-red" : "text-gray-400"}`} />
+                <Icon className={`w-4 h-4 ${isActive ? "text-brand-red" : "text-gray-400"}`} />
                 {cat.name}
               </button>
             );

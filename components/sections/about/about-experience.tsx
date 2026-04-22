@@ -28,7 +28,7 @@ export function AboutExperience() {
   ];
 
   return (
-    <section className="py-24 bg-brand-blue relative">
+    <section className="py-12 md:py-16 bg-brand-blue relative">
       <div className="absolute inset-0 z-0">
         <svg
           className="absolute h-full w-full stroke-white/5 [mask-image:linear-gradient(to_bottom,white,transparent)]"
@@ -57,13 +57,13 @@ export function AboutExperience() {
       </div>
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-extrabold font-cherith text-white mb-6"
+            className="text-2xl md:text-3xl lg:text-4xl font-extrabold font-cherith text-white mb-4"
           >
             A Legacy of <span className="text-brand-red">Excellence</span>
           </motion.h2>
@@ -72,13 +72,13 @@ export function AboutExperience() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-gray-300"
+            className="text-base text-gray-300"
           >
             Building trust through consistent, high-quality delivery across diverse sectors.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {experiences.map((item, idx) => {
             const Icon = item.icon;
             return (
@@ -88,15 +88,15 @@ export function AboutExperience() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 hover:bg-white/20 transition-all group text-center"
+                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all group text-center"
               >
-                <div className="w-16 h-16 mx-auto bg-brand-red/20 text-brand-red rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <Icon className="w-8 h-8" />
+                <div className="w-12 h-12 mx-auto bg-brand-red/20 text-brand-red rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-bold font-cherith text-white mb-3 tracking-wide">
+                <h3 className="text-xl font-bold font-cherith text-white mb-2 tracking-wide">
                   {item.title}
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-gray-300 text-xs leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
