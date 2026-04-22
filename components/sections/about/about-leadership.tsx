@@ -32,10 +32,10 @@ export function AboutLeadership() {
     <section className="py-12 md:py-16 bg-white relative">
       <div className="container mx-auto px-4 md:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
-          <div className="inline-flex items-center justify-center gap-2 mb-3">
-            <span className="h-0.5 w-8 bg-brand-red inline-block"></span>
-            <span className="text-brand-red font-semibold uppercase tracking-wider text-xs">Leadership</span>
-            <span className="h-0.5 w-8 bg-brand-red inline-block"></span>
+          <div className="inline-flex items-center justify-center gap-2 mb-2.5">
+            <span className="h-0.5 w-6 bg-brand-red inline-block"></span>
+            <span className="text-brand-red font-semibold uppercase tracking-wider text-[10px]">Leadership</span>
+            <span className="h-0.5 w-6 bg-brand-red inline-block"></span>
           </div>
 
           <motion.h2
@@ -43,7 +43,7 @@ export function AboutLeadership() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-2xl md:text-3xl lg:text-4xl font-extrabold font-cherith text-brand-blue mb-4"
+            className="text-2xl md:text-3xl font-extrabold font-cherith text-brand-blue mb-4"
           >
             Guided by <span className="text-brand-red">Experience</span>
           </motion.h2>
@@ -52,7 +52,7 @@ export function AboutLeadership() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed"
+            className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed"
           >
             Together, they bring over 38 years of combined experience in cadastral surveying, engineering surveys, and GIS analysis.
           </motion.p>
@@ -68,7 +68,7 @@ export function AboutLeadership() {
               transition={{ duration: 0.6, delay: idx * 0.3 }}
               className="flex flex-col items-center group text-center"
             >
-              <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 mb-6 rounded-full overflow-hidden shadow-xl ring-4 ring-offset-4 ring-brand-blue/10 group-hover:ring-brand-red/30 transition-all duration-500">
+              <div className="relative w-40 h-40 sm:w-44 sm:h-44 md:w-48 md:h-48 mb-5 rounded-full overflow-hidden shadow-xl ring-2 ring-offset-4 ring-brand-blue/10 group-hover:ring-brand-red/30 transition-all duration-500">
                 <Image
                   src={leader.image}
                   alt={leader.name}
@@ -78,25 +78,25 @@ export function AboutLeadership() {
                 <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/10 transition-colors duration-500"></div>
               </div>
               
-              <h3 className="text-xl md:text-2xl font-bold font-cherith text-brand-blue mb-1">
+              <h3 className="text-lg md:text-xl font-bold font-cherith text-brand-blue mb-1">
                 {leader.name}
               </h3>
-              <p className="text-brand-red font-bold uppercase tracking-widest text-[10px] md:text-xs mb-3">
+              <p className="text-brand-red font-bold uppercase tracking-widest text-[10px] md:text-xs mb-2.5">
                 {leader.role}
               </p>
               
-              <div className="flex flex-wrap justify-center gap-2 mb-3">
+              <div className="flex flex-wrap justify-center gap-1.5 mb-2.5">
                 {leader.qualifications.map((qual, qIdx) => (
                   <span
                     key={qIdx}
-                    className="bg-gray-50 text-gray-700 text-[9px] md:text-[10px] font-bold px-2.5 py-1 rounded-full border border-gray-100 shadow-sm"
+                    className="bg-gray-50 text-gray-700 text-[8px] md:text-[9px] font-bold px-2 py-0.5 rounded-full border border-gray-100 shadow-sm"
                   >
                     {qual}
                   </span>
                 ))}
               </div>
               
-              <p className="text-gray-500 font-medium italic text-[10px] md:text-xs">
+              <p className="text-gray-500 font-medium italic text-[9px] md:text-[10px]">
                 {leader.memberships}
               </p>
             </motion.div>

@@ -63,7 +63,7 @@ export function AboutExperience() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-2xl md:text-3xl lg:text-4xl font-extrabold font-cherith text-white mb-4"
+            className="text-2xl md:text-3xl font-extrabold font-cherith text-white mb-4"
           >
             A Legacy of <span className="text-brand-red">Excellence</span>
           </motion.h2>
@@ -72,7 +72,7 @@ export function AboutExperience() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base text-gray-300"
+            className="text-sm md:text-base text-gray-300"
           >
             Building trust through consistent, high-quality delivery across diverse sectors.
           </motion.p>
@@ -88,15 +88,15 @@ export function AboutExperience() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all group text-center"
+                className="bg-white/10 backdrop-blur-md rounded-2xl p-5 md:p-6 border border-white/20 hover:bg-white/20 transition-all group text-center"
               >
-                <div className="w-12 h-12 mx-auto bg-brand-red/20 text-brand-red rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Icon className="w-6 h-6" />
+                <div className="w-10 h-10 mx-auto bg-brand-red/20 text-brand-red rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-bold font-cherith text-white mb-2 tracking-wide">
+                <h3 className="text-lg md:text-xl font-bold font-cherith text-white mb-2 tracking-wide">
                   {item.title}
                 </h3>
-                <p className="text-gray-300 text-xs leading-relaxed">
+                <p className="text-gray-300 text-[11px] md:text-xs leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
