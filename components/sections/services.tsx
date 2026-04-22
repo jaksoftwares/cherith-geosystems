@@ -16,7 +16,7 @@ export function Services() {
     },
     {
       title: "GIS & Spatial Analysis",
-      description: "Transforming geospatial data into powerful decision-support tools for strategic planning.",
+      description: "Transforming geospatial data into powerful decision-support tools for  planning.",
       image: "/images/services/gis%26spatial-analysis/interactive-gis-dashboard.png"
     },
     {

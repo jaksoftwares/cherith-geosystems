@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const partners = [
-  { name: "United Nations", subtitle: "Strategic Partner" },
+  { name: "United Nations", subtitle: " Partner" },
   { name: "UNHCR", subtitle: "Regional GIS Support" },
   { name: "IGAD", subtitle: "Cross-border Surveys" },
   { name: "Kenya Airports Authority", subtitle: "Infrastructure Mapping" },
@@ -31,7 +31,7 @@ export function Partners() {
           transition={{ duration: 0.8 }}
         >
           <span className="text-brand-red font-bold tracking-widest uppercase text-[10px] md:text-xs mb-3 block">
-            Our Strategic Reach
+            Our  Reach
           </span>
           <h2 className="text-xl md:text-3xl font-bold font-cherith text-brand-blue mb-4 tracking-tight">
             Trusted by Global Leaders & Institutions

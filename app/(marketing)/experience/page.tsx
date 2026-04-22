@@ -17,7 +17,7 @@ const regionalEscperience = [
   },
   {
     country: "Rwanda",
-    projects: "Strategic GIS Support",
+    projects: "GIS Support",
     details: "Regional spatial data integration and urban planning advisory services.",
     expertise: ["GIS Data Integration", "Remote Sensing"]
   },
@@ -161,7 +161,7 @@ export default function ExperiencePage() {
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center text-white">
           <div className="max-w-3xl mx-auto flex flex-col items-center">
             <Building2 className="w-12 h-12 text-brand-red mb-6" />
-            <h2 className="text-2xl md:text-4xl font-bold font-cherith mb-6">Strategic Partnerships</h2>
+            <h2 className="text-2xl md:text-4xl font-bold font-cherith mb-6">Partnerships</h2>
             <p className="text-sm md:text-base text-gray-400 mb-10 max-w-2xl">
               Our international experience is built on deep technical competence and a commitment to delivering data that meets both local regulatory standards and international best practices.
             </p>

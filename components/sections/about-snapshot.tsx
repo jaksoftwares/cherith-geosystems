@@ -50,7 +50,7 @@ export function AboutSnapshot() {
 
             <ul className="flex flex-col gap-4 mt-2">
               {[
-                "Strategic geospatial intelligence partners",
+                " geospatial intelligence partners",
                 "Converting physical land to digital intelligence",
                 "Reducing risk in property & infrastructure projects"
               ].map((item, index) => (

@@ -19,10 +19,10 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ||
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
+  title: "Cherith GeoSystems |  Geospatial Intelligence",
   description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
   openGraph: {
-    title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
+    title: "Cherith GeoSystems |  Geospatial Intelligence",
     description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
     url: baseUrl,
     siteName: "Cherith GeoSystems",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: `${baseUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Cherith GeoSystems | Strategic Geospatial Intelligence",
+        alt: "Cherith GeoSystems |  Geospatial Intelligence",
         type: "image/png",
       },
     ],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cherith GeoSystems | Strategic Geospatial Intelligence",
+    title: "Cherith GeoSystems |  Geospatial Intelligence",
     description: "Advanced mapping, drone analytics, cadastral scanning and geographical insights based in Kenya.",
     images: [`${baseUrl}/og-image.png`],
   },

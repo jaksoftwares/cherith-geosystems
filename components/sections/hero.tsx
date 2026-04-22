@@ -82,7 +82,7 @@ export function Hero() {
           >
             <div className="w-6 md:w-10 h-[2px] bg-brand-red"></div>
             <span className="text-white font-bold tracking-[0.1em] md:tracking-[0.15em] uppercase text-[10px] md:text-xs">
-              Strategic Geospatial Intelligence
+               Geospatial Intelligence
             </span>
           </motion.div>
 
