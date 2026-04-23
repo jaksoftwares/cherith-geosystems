@@ -130,7 +130,7 @@ export default function LoginPage() {
           <div className="mt-8 text-center pt-8 border-t border-gray-50">
             <p className="text-gray-400 text-xs">
               Authorized personnel only. <br className="md:hidden" />
-              <Link href="/signup" className="text-brand-blue font-bold hover:text-brand-red ml-1">Request Access</Link>
+              Contact the system administrator for access.
             </p>
           </div>
         </div>

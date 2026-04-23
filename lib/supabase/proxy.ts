@@ -57,11 +57,17 @@ export async function updateSession(request: NextRequest) {
   // 1. Get the authenticated user
   const { data: { user } } = await supabase.auth.getUser()
 
-  const isAuthPage = request.nextUrl.pathname.startsWith('/login') || 
-                     request.nextUrl.pathname.startsWith('/signup')
+  const isSignupPage = request.nextUrl.pathname.startsWith('/signup')
+  const isAuthPage = request.nextUrl.pathname.startsWith('/login') || isSignupPage
   const isAdminPage = request.nextUrl.pathname.startsWith('/admin')
 
   // 2. Redirect logic
+  if (isSignupPage) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
+  }
+
   if (isAdminPage) {
     if (!user) {
       // Not logged in -> Go to login
