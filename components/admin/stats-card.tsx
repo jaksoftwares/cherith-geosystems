@@ -43,7 +43,7 @@ export function StatsCard({ label, value, icon: Icon, trend, color = "blue" }: S
       </div>
       
       <div>
-        <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">
+        <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">
           {label}
         </h4>
         <p className="text-3xl font-extrabold font-cherith text-brand-blue group-hover:text-brand-red transition-colors">

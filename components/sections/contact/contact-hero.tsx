@@ -43,7 +43,7 @@ export function ContactHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-base md:text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed font-light"
         >
-          Expert geospatial intelligence and rapid-response surveying across East Africa.
+          Tell us about your project and we'll help you get the survey data you need.
         </motion.p>
       </div>
     </section>

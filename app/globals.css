@@ -42,3 +42,13 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+input, select, textarea {
+  color: #171717; /* Ensure text is visible in light-background inputs */
+}
+
+@media (prefers-color-scheme: dark) {
+  input, select, textarea {
+    color: #ffffff;
+  }
+}

@@ -46,7 +46,7 @@ export function AdminTopbar() {
           <input 
             type="text" 
             placeholder="Search records..." 
-            className="pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all w-64"
+            className="pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-xs font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all w-64"
           />
         </div>
       </div>

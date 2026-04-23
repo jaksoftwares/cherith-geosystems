@@ -86,10 +86,10 @@ export function ContactSection() {
                 Connect With Us
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-cherith text-brand-blue leading-tight tracking-tight mb-6">
-                Ready to <span className="text-brand-red">Deploy</span> Worldwide.
+                Get in <span className="text-brand-red">Touch</span> with Us.
               </h2>
               <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md mx-auto lg:mx-0 font-medium">
-                Our specialized teams are segregated by expertise to ensure your inquiry reaches the right engineers instantly.
+                We are here to help. Send us a message and we'll get back to you as soon as possible.
               </p>
             </motion.div>
 
@@ -167,7 +167,7 @@ export function ContactSection() {
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold text-brand-blue font-cherith mb-3">Request Received</h3>
                   <p className="text-sm md:text-base text-gray-500 mb-8 max-w-xs mx-auto leading-relaxed">
-                    Our specialized {formType} unit has been notified. Expect a technical response within 24 hours.
+                    Thank you for reaching out. We have received your message and will get back to you shortly.
                   </p>
                   <button 
                     onClick={() => setFormStatus("idle")}
@@ -219,7 +219,7 @@ export function ContactSection() {
                   {formType === "survey" && (
                     <div className="flex flex-col gap-2">
                       <label className="text-[10px] font-bold text-brand-blue uppercase tracking-widest">Survey Type</label>
-                      <select name="survey_type" required className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium appearance-none">
+                      <select name="survey_type" required className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium text-brand-blue appearance-none">
                         <option value="cadastral">Cadastral / Boundary</option>
                         <option value="topo">Topographical Mapping</option>
                         <option value="engineering">Engineering / Construction</option>
@@ -231,7 +231,7 @@ export function ContactSection() {
                   {formType === "quote" && (
                     <div className="flex flex-col gap-2">
                       <label className="text-[10px] font-bold text-brand-blue uppercase tracking-widest">Select Service</label>
-                      <select name="service" required className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium appearance-none">
+                      <select name="service" required className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium text-brand-blue appearance-none">
                         <option value="gis">GIS Database</option>
                         <option value="remote-sensing">Remote Sensing</option>
                         <option value="drone">Drone Mapping</option>
@@ -248,7 +248,7 @@ export function ContactSection() {
                       name="message"
                       required 
                       rows={4}
-                      className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium resize-none"
+                      className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium text-brand-blue resize-none"
                       placeholder="Share high-level details with our engineers..."
                     ></textarea>
                   </div>
@@ -290,7 +290,7 @@ function FormGroup({ label, id, name, type = "text", placeholder, required = fal
         name={name}
         required={required}
         placeholder={placeholder}
-        className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium transition-all placeholder:text-gray-300"
+        className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium text-brand-blue transition-all placeholder:text-gray-300"
       />
     </div>
   );

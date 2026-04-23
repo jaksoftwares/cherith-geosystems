@@ -34,7 +34,7 @@ function AdminLayoutContent({
   }
 
   return (
-    <div className="flex min-h-screen bg-zinc-50 font-sans selection:bg-brand-red selection:text-white">
+    <div className="flex min-h-screen bg-zinc-50 font-sans text-gray-900 selection:bg-brand-red selection:text-white">
 
       {/* Sidebar - Fixed */}
       <AdminSidebar />

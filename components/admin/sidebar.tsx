@@ -79,8 +79,8 @@ export function AdminSidebar() {
               />
           </div>
           <div className="flex flex-col">
-            <span className="text-white font-bold font-cherith tracking-wider text-sm">CHERITH</span>
-            <span className="text-brand-red font-bold text-[8px] uppercase tracking-[0.3em]">Admin Panel</span>
+            <span className="text-white font-bold font-cherith tracking-wider text-base">CHERITH</span>
+            <span className="text-brand-red font-bold text-[9px] uppercase tracking-[0.3em]">Admin Panel</span>
           </div>
         </Link>
       </div>
@@ -89,7 +89,7 @@ export function AdminSidebar() {
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-8 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
         {navigation.map((group) => (
           <div key={group.title} className="space-y-2">
-            <h3 className="px-4 text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">
+            <h3 className="px-4 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">
               {group.title}
             </h3>
             <div className="space-y-1">
@@ -107,12 +107,12 @@ export function AdminSidebar() {
                   >
                     <div className="flex items-center gap-3.5">
                       <item.icon className={`w-4 h-4 ${isActive ? "text-white" : "group-hover:text-brand-red transition-colors"}`} />
-                      <span className="text-[13px] font-semibold">{item.name}</span>
+                      <span className="text-[14px] font-semibold">{item.name}</span>
                     </div>
                     {isActive && (
                       <motion.div 
                         layoutId="active-indicator"
-                        className="w-1 h-4 bg-white rounded-full"
+                        className="w-1 h-5 bg-white rounded-full"
                       />
                     )}
                   </Link>
@@ -126,9 +126,9 @@ export function AdminSidebar() {
       {/* Footer / Auth */}
       <div className="p-4 mt-auto border-t border-white/5">
         <form action={signOut}>
-          <button type="submit" className="flex items-center gap-3.5 w-full px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+          <button type="submit" className="flex items-center gap-3.5 w-full px-4 py-4 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
             <LogOut className="w-4 h-4 group-hover:text-brand-red transition-colors" />
-            <span className="text-[13px] font-semibold">Sign Out</span>
+            <span className="text-[14px] font-semibold">Sign Out</span>
           </button>
         </form>
       </div>
