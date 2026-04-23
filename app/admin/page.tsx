@@ -17,8 +17,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useAuth } from "@/components/providers/auth-provider";
 
 export default function AdminDashboard() {
+  const { profile } = useAuth();
+
   return (
     <div className="space-y-10 pb-12">
       {/* Welcome Section */}
@@ -28,7 +31,7 @@ export default function AdminDashboard() {
             Control <span className="text-brand-red">Center</span>
           </h1>
           <p className="text-gray-500 font-medium">
-            Welcome back, Administrator. Here's what's happening with Cherith today.
+            Welcome back, {profile?.full_name || "Administrator"}. Here's what's happening with Cherith today.
           </p>
         </div>
         <div className="flex items-center gap-4 bg-white p-2 rounded-2xl shadow-sm border border-gray-100">

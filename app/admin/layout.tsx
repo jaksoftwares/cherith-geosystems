@@ -4,43 +4,28 @@ import { AdminSidebar } from "@/components/admin/sidebar";
 import { AdminTopbar } from "@/components/admin/topbar";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { useEffect } from "react";
 
-export default function AdminLayout({
+import { AuthProvider, useAuth } from "@/components/providers/auth-provider";
+
+function AdminLayoutContent({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const supabase = createClient();
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const { profile, loading } = useAuth();
 
   useEffect(() => {
-    async function checkAdmin() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
+    if (!loading) {
+      if (!profile || profile.role !== 'admin') {
         router.push("/login");
-        return;
-      }
-      
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
-        
-      if (profile?.role !== 'admin') {
-        router.push("/");
-      } else {
-        setIsAdmin(true);
       }
     }
-    checkAdmin();
-  }, [router, supabase]);
+  }, [profile, loading, router]);
 
-  if (isAdmin === null) {
+  if (loading || !profile || profile.role !== 'admin') {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>
@@ -50,6 +35,7 @@ export default function AdminLayout({
 
   return (
     <div className="flex min-h-screen bg-zinc-50 font-sans selection:bg-brand-red selection:text-white">
+
       {/* Sidebar - Fixed */}
       <AdminSidebar />
 
@@ -87,3 +73,16 @@ export default function AdminLayout({
     </div>
   );
 }
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <AuthProvider>
+      <AdminLayoutContent>{children}</AdminLayoutContent>
+    </AuthProvider>
+  );
+}
+

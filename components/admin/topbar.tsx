@@ -3,8 +3,22 @@
 import { Bell, Search, User, ChevronDown, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 
+import { useAuth } from "@/components/providers/auth-provider";
+
 export function AdminTopbar() {
   const pathname = usePathname();
+  const { profile } = useAuth();
+  
+  // Get initials for avatar
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   
   // Simple breadcrumb logic
   const segments = pathname.split("/").filter(Boolean);
@@ -48,11 +62,15 @@ export function AdminTopbar() {
 
         <button className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-2xl hover:bg-gray-50 transition-all group">
           <div className="flex flex-col items-end">
-            <span className="text-xs font-bold text-brand-blue leading-tight group-hover:text-brand-red">Admin User</span>
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Administrator</span>
+            <span className="text-xs font-bold text-brand-blue leading-tight group-hover:text-brand-red">
+              {profile?.full_name || "Admin User"}
+            </span>
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+              {profile?.role || "Administrator"}
+            </span>
           </div>
           <div className="w-10 h-10 rounded-xl bg-brand-blue text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-brand-blue/20">
-            AU
+            {profile?.full_name ? getInitials(profile.full_name) : "AU"}
           </div>
           <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-brand-blue transition-colors" />
         </button>
