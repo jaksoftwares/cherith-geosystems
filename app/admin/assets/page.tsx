@@ -30,14 +30,14 @@ export default async function AssetsAdminPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50 text-[14px]">
-            {(assets || []).length === 0 ? (
+            {(!assets || assets.length === 0) ? (
               <tr>
                 <td colSpan={4} className="px-8 py-20 text-center text-gray-400 font-bold uppercase tracking-widest text-[10px]">
                   No assets currently in inventory
                 </td>
               </tr>
             ) : (
-              assets.map((asset) => (
+              assets?.map((asset) => (
                 <tr key={asset.id} className="hover:bg-gray-50/30 transition-colors">
                   <td className="px-8 py-6">
                     <div className="flex items-center gap-4">

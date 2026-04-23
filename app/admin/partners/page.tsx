@@ -42,7 +42,12 @@ export default async function PartnersAdminPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {(leadership || []).map((member) => (
+                {(!leadership || leadership.length === 0) ? (
+                   <tr>
+                     <td colSpan={2} className="px-6 py-10 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">No members found</td>
+                   </tr>
+                ) : (
+                  leadership.map((member) => (
                   <tr key={member.id} className="hover:bg-gray-50/30 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
@@ -91,7 +96,12 @@ export default async function PartnersAdminPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {(partners || []).map((partner) => (
+                {(!partners || partners.length === 0) ? (
+                   <tr>
+                     <td colSpan={2} className="px-6 py-10 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">No partners found</td>
+                   </tr>
+                ) : (
+                  partners.map((partner) => (
                   <tr key={partner.id} className="hover:bg-gray-50/30 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
