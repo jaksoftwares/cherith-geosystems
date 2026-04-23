@@ -12,6 +12,7 @@ export function BlogsHero() {
           alt="Abstract global networking and spatial mapping"
           fill
           priority
+          sizes="100vw"
           className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-brand-blue/80 mix-blend-multiply"></div>

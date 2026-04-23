@@ -42,9 +42,9 @@ const navigation = [
     title: "CRM / Leads", 
     items: [
       { name: "General Inquiries", href: "/admin/messages/contacts", icon: Mail },
-      { name: "Survey Requests", href: "/admin/messages/surveys", icon: Zap },
-      { name: "Quote Requests", href: "/admin/messages/quotes", icon: TrendingUp },
-      { name: "Consultations", href: "/admin/messages/consultations", icon: Users },
+      { name: "Survey Requests", href: "/admin/messages/contacts?type=survey", icon: Zap },
+      { name: "Quote Requests", href: "/admin/messages/contacts?type=quote", icon: TrendingUp },
+      { name: "Consultations", href: "/admin/messages/contacts?type=consultation", icon: Users },
     ] 
   },
   { 
@@ -69,18 +69,18 @@ export function AdminSidebar() {
       
       {/* Brand Section */}
       <div className="p-8 pb-10 relative z-10">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="relative w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center border border-white/10 shadow-inner">
-             <Image 
+        <Link href="/admin" className="flex items-center gap-4 group">
+          <div className="w-10 h-10 relative flex-shrink-0">
+              <Image 
                 src="/logos/4_cherith_monochrome_white.svg" 
                 alt="Cherith Logo" 
                 fill 
-                className="object-contain p-2"
+                className="object-contain"
               />
           </div>
           <div className="flex flex-col">
-            <span className="text-white font-bold font-cherith tracking-wider text-base">CHERITH</span>
-            <span className="text-brand-red font-bold text-[9px] uppercase tracking-[0.3em]">Admin Panel</span>
+            <span className="text-white font-black font-cherith tracking-[0.1em] text-lg leading-tight group-hover:text-brand-red transition-colors">CHERITH</span>
+            <span className="text-brand-red font-bold text-[10px] uppercase tracking-[0.2em] opacity-80">Management</span>
           </div>
         </Link>
       </div>

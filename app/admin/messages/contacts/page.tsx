@@ -42,10 +42,10 @@ async function getLeads() {
 export default async function LeadsPage({ 
   searchParams 
 }: { 
-  searchParams: { type?: string } 
+  searchParams: Promise<{ type?: string }> 
 }) {
+  const { type: filterType } = await searchParams;
   const allLeads = await getLeads();
-  const filterType = searchParams.type;
   
   const leads = filterType 
     ? allLeads.filter(l => l.type.toLowerCase().includes(filterType.toLowerCase())) 
