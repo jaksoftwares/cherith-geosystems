@@ -47,7 +47,7 @@ export default function SignupPage() {
           <div className="text-center mb-8">
             <Link href="/" className="inline-block relative w-48 h-12 mb-6">
               <Image 
-                src="/logos/4_cherith_monochrome_navy.svg" 
+                src="/logos/1_cherith_master.svg" 
                 alt="Cherith Logo" 
                 fill 
                 className="object-contain"
