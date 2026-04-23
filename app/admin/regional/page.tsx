@@ -30,18 +30,23 @@ export default async function RegionalAdminPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {(regions || []).map((region) => (
+            {(!regions || regions.length === 0) ? (
+               <tr>
+                 <td colSpan={4} className="px-8 py-10 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">No regional data found</td>
+               </tr>
+            ) : (
+              regions.map((region) => (
               <tr key={region.id} className="hover:bg-gray-50/30 transition-colors">
                 <td className="px-8 py-6">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-brand-blue/5 flex items-center justify-center text-brand-blue">
                       <Globe className="w-4 h-4" />
                     </div>
-                    <span className="text-[15px] font-bold text-brand-blue">{region.country}</span>
+                    <span className="text-[15px] font-bold text-brand-blue">{region.country || "Unknown Country"}</span>
                   </div>
                 </td>
                 <td className="px-8 py-6">
-                  <AdminBadge variant="gray">{region.projects_count} Projects</AdminBadge>
+                  <AdminBadge variant="gray">{(region.projects_count || 0)} Projects</AdminBadge>
                 </td>
                 <td className="px-8 py-6">
                   <div className="flex flex-wrap gap-2">
@@ -49,7 +54,7 @@ export default async function RegionalAdminPage() {
                       <span key={skill} className="px-2 py-0.5 bg-zinc-100 text-[10px] font-semibold text-gray-600 rounded-md uppercase tracking-wider">
                         {skill}
                       </span>
-                    ))}
+                    )) || <span className="text-[10px] text-gray-400 italic">No expertise listed</span>}
                   </div>
                 </td>
                 <td className="px-8 py-6 text-right">
@@ -59,7 +64,7 @@ export default async function RegionalAdminPage() {
                   </div>
                 </td>
               </tr>
-            ))}
+            )))}
           </tbody>
         </table>
       </div>

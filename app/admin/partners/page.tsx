@@ -53,14 +53,14 @@ export default async function PartnersAdminPage() {
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-gray-100 overflow-hidden relative">
                           {member.image_url ? (
-                            <Image src={member.image_url} alt={member.name} fill className="object-cover" />
+                            <Image src={member.image_url} alt={member.name || "Member"} fill className="object-cover" />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold">{member.name[0]}</div>
+                            <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold">{(member.name || "M")[0]}</div>
                           )}
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-brand-blue">{member.name}</p>
-                          <p className="text-[10px] font-semibold text-gray-400 uppercase">{member.role}</p>
+                          <p className="text-sm font-bold text-brand-blue">{member.name || "Unnamed Member"}</p>
+                          <p className="text-[10px] font-semibold text-gray-500 uppercase">{member.role || "No Role"}</p>
                         </div>
                       </div>
                     </td>
@@ -71,7 +71,7 @@ export default async function PartnersAdminPage() {
                       </div>
                     </td>
                   </tr>
-                ))}
+                )))}
               </tbody>
             </table>
           </div>
@@ -106,9 +106,9 @@ export default async function PartnersAdminPage() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
                         <div className="h-8 w-20 relative grayscale hover:grayscale-0 transition-all">
-                          {partner.logo_url && <Image src={partner.logo_url} alt={partner.name} fill className="object-contain" />}
+                          {partner.logo_url && <Image src={partner.logo_url} alt={partner.name || "Partner"} fill className="object-contain" />}
                         </div>
-                        <span className="text-sm font-bold text-brand-blue">{partner.name}</span>
+                        <span className="text-sm font-bold text-brand-blue">{partner.name || "Unnamed Partner"}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -118,7 +118,7 @@ export default async function PartnersAdminPage() {
                       </div>
                     </td>
                   </tr>
-                ))}
+                )))}
               </tbody>
             </table>
           </div>
