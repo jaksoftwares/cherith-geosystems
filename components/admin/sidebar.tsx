@@ -99,7 +99,7 @@ export function AdminSidebar({ isOpen, onClose, isMobile }: AdminSidebarProps) {
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-8 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
         {navigation.map((group) => (
           <div key={group.title} className="space-y-2">
-            <h3 className="px-4 text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] mb-4">
+            <h3 className="px-4 text-[10px] font-semibold text-white/50 uppercase tracking-[0.2em] mb-4">
               {group.title}
             </h3>
             <div className="space-y-1">
@@ -113,7 +113,7 @@ export function AdminSidebar({ isOpen, onClose, isMobile }: AdminSidebarProps) {
                     className={`flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300 group ${
                       isActive 
                         ? "bg-brand-red text-white shadow-lg shadow-brand-red/20 translate-x-1" 
-                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                        : "text-white/90 hover:text-white hover:bg-white/5"
                     }`}
                   >
                     <div className="flex items-center gap-3.5">

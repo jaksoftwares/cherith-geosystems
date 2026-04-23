@@ -80,7 +80,7 @@ export function BlogForm({ post }: { post?: any }) {
                   defaultValue={post?.title}
                   required
                   placeholder="Enter a compelling title..."
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-bold text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
+                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
                 />
               </div>
             </div>
@@ -93,7 +93,7 @@ export function BlogForm({ post }: { post?: any }) {
                   name="slug"
                   defaultValue={post?.slug}
                   placeholder="auto-generated-if-blank"
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue/10 focus:border-brand-blue transition-all"
+                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-blue/10 focus:border-brand-blue transition-all"
                 />
               </div>
             </div>
@@ -108,7 +108,7 @@ export function BlogForm({ post }: { post?: any }) {
                   required
                   rows={3}
                   placeholder="A brief summary for the blog listing page..."
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all resize-none"
+                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all resize-none"
                 />
               </div>
             </div>
@@ -121,7 +121,7 @@ export function BlogForm({ post }: { post?: any }) {
                 required
                 rows={15}
                 placeholder="Write your article content here..."
-                className="w-full px-6 py-5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all font-mono"
+                className="w-full px-6 py-5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all font-mono"
               />
             </div>
           </div>
@@ -167,7 +167,7 @@ export function BlogForm({ post }: { post?: any }) {
                 <select 
                   name="category" 
                   defaultValue={post?.category || "News"}
-                  className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-bold text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/10 appearance-none"
+                  className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-blue/10 appearance-none"
                 >
                   <option value="News">General News</option>
                   <option value="Geospatial">Geospatial Intelligence</option>
@@ -185,7 +185,7 @@ export function BlogForm({ post }: { post?: any }) {
                 <input 
                   name="author"
                   defaultValue={post?.author || "Cherith Team"}
-                  className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-bold text-brand-blue focus:outline-none"
+                  className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none"
                 />
               </div>
             </div>
@@ -214,7 +214,7 @@ export function BlogForm({ post }: { post?: any }) {
                 name="cover_image_url"
                 defaultValue={post?.cover_image_url}
                 placeholder="https://..."
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-medium text-brand-blue focus:outline-none"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-medium text-gray-900 focus:outline-none"
               />
             </div>
             

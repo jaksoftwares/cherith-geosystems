@@ -94,7 +94,7 @@ export default async function LeadsPage({
             <input 
               type="text" 
               placeholder="Filter by name or email..." 
-              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-100 rounded-2xl text-xs font-bold text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red shadow-sm transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-100 rounded-2xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red shadow-sm transition-all"
             />
           </div>
           <div className="flex items-center gap-3">

@@ -49,7 +49,7 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
       <div className="flex items-center gap-4 lg:gap-10">
         <button 
           onClick={onMenuClick}
-          className="lg:hidden p-2 text-gray-400 hover:text-brand-blue hover:bg-zinc-50 rounded-xl transition-all"
+          className="lg:hidden w-12 h-12 flex items-center justify-center bg-white border border-gray-100 text-brand-blue rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-95"
         >
           <Menu className="w-6 h-6" />
         </button>
@@ -57,7 +57,7 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
         <div className="hidden md:flex items-center gap-2 text-sm">
           {breadcrumb.map((item, idx) => (
             <div key={idx} className="flex items-center gap-2">
-              <span className={`font-semibold ${idx === breadcrumb.length - 1 ? "text-brand-blue" : "text-gray-400"}`}>
+              <span className={`font-semibold ${idx === breadcrumb.length - 1 ? "text-brand-blue" : "text-gray-500"}`}>
                 {item}
               </span>
               {idx < breadcrumb.length - 1 && (
@@ -72,7 +72,7 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
           <input 
             type="text" 
             placeholder="Search records..." 
-            className="pl-12 pr-4 py-3 bg-zinc-50 border border-gray-100 rounded-2xl text-xs font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all w-72"
+            className="pl-12 pr-4 py-3 bg-zinc-50 border border-gray-100 rounded-2xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all w-72"
           />
         </div>
       </div>
@@ -141,7 +141,7 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
               <span className="text-xs font-semibold text-brand-blue leading-tight">
                 {profile?.full_name || "Admin User"}
               </span>
-              <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
+              <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest">
                 {profile?.role || "Administrator"}
               </span>
             </div>

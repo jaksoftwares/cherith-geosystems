@@ -69,11 +69,11 @@ export function LeadsTable({ leads: initialLeads }: { leads: Lead[] }) {
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="bg-gray-50/50">
-            <th className="px-8 py-5 text-[10px] font-semibold text-gray-400 uppercase tracking-widest border-b border-gray-50">Lead Source</th>
-            <th className="px-8 py-5 text-[10px] font-semibold text-gray-400 uppercase tracking-widest border-b border-gray-50">Contact Info</th>
-            <th className="px-8 py-5 text-[10px] font-semibold text-gray-400 uppercase tracking-widest border-b border-gray-50">Type</th>
-            <th className="px-8 py-5 text-[10px] font-semibold text-gray-400 uppercase tracking-widest border-b border-gray-50">Status</th>
-            <th className="px-8 py-5 text-[10px] font-semibold text-gray-400 uppercase tracking-widest border-b border-gray-50 text-right">Actions</th>
+            <th className="px-8 py-5 text-[10px] font-semibold text-gray-500 uppercase tracking-widest border-b border-gray-50">Lead Source</th>
+            <th className="px-8 py-5 text-[10px] font-semibold text-gray-500 uppercase tracking-widest border-b border-gray-50">Contact Info</th>
+            <th className="px-8 py-5 text-[10px] font-semibold text-gray-500 uppercase tracking-widest border-b border-gray-50">Type</th>
+            <th className="px-8 py-5 text-[10px] font-semibold text-gray-500 uppercase tracking-widest border-b border-gray-50">Status</th>
+            <th className="px-8 py-5 text-[10px] font-semibold text-gray-500 uppercase tracking-widest border-b border-gray-50 text-right">Actions</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-50 text-[13px]">
@@ -82,7 +82,7 @@ export function LeadsTable({ leads: initialLeads }: { leads: Lead[] }) {
               <td className="px-8 py-6">
                 <div className="flex flex-col gap-1">
                   <span className="font-semibold text-brand-blue text-[15px]">{lead.name}</span>
-                  <span className="text-[11px] font-semibold text-gray-400 line-clamp-1 uppercase tracking-wider">{lead.subject || lead.type}</span>
+                  <span className="text-[11px] font-semibold text-gray-500 line-clamp-1 uppercase tracking-wider">{lead.subject || lead.type}</span>
                 </div>
               </td>
               <td className="px-8 py-6">
@@ -163,7 +163,7 @@ export function LeadsTable({ leads: initialLeads }: { leads: Lead[] }) {
                   </div>
                   <div>
                     <h2 className="text-xl font-bold font-cherith text-brand-blue">{selectedLead.name}</h2>
-                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em]">{selectedLead.type}</p>
+                    <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[0.2em]">{selectedLead.type}</p>
                   </div>
                 </div>
                 <button 
@@ -178,7 +178,7 @@ export function LeadsTable({ leads: initialLeads }: { leads: Lead[] }) {
               <div className="flex-1 overflow-y-auto p-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div className="space-y-8">
                   <section className="space-y-4">
-                    <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">Lead Information</h3>
+                    <h3 className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest border-b border-gray-100 pb-2">Lead Information</h3>
                     <div className="grid grid-cols-1 gap-4">
                       <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
                         <Mail className="w-4 h-4 text-brand-red" />

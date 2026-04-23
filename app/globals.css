@@ -44,11 +44,27 @@ body {
 }
 
 input, select, textarea {
-  color: #171717; /* Ensure text is visible in light-background inputs */
+  color: #1a1a1a; /* High-contrast charcoal for visibility */
+  background-color: transparent;
 }
 
+/* Ensure placeholder text is also visible but distinct */
+::placeholder {
+  color: #6b7280 !important; /* gray-500 for better visibility */
+  opacity: 1;
+}
+
+/* Specific fix for inputs with light backgrounds in dark-mode environments */
 @media (prefers-color-scheme: dark) {
-  input, select, textarea {
-    color: #ffffff;
+  input:not(.bg-gray-800):not(.bg-zinc-900), 
+  textarea:not(.bg-gray-800):not(.bg-zinc-900),
+  select:not(.bg-gray-800):not(.bg-zinc-900) {
+    color: #1a1a1a !important; /* Force dark text on light inputs even in dark mode */
+  }
+  
+  /* Only use white text for truly dark inputs */
+  .bg-gray-800 input, .bg-zinc-900 input,
+  .dark-input {
+    color: #ffffff !important;
   }
 }
