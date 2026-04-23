@@ -4,7 +4,7 @@ import { AdminSidebar } from "@/components/admin/sidebar";
 import { AdminTopbar } from "@/components/admin/topbar";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { AuthProvider, useAuth } from "@/components/providers/auth-provider";
 
@@ -16,6 +16,7 @@ function AdminLayoutContent({
   const pathname = usePathname();
   const router = useRouter();
   const { profile, loading } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (!loading) {
@@ -24,6 +25,11 @@ function AdminLayoutContent({
       }
     }
   }, [profile, loading, router]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   if (loading || !profile || profile.role !== 'admin') {
     return (
@@ -36,14 +42,21 @@ function AdminLayoutContent({
   return (
     <div className="flex min-h-screen bg-zinc-50 font-sans text-gray-900 selection:bg-brand-red selection:text-white">
 
-      {/* Sidebar - Fixed */}
+      {/* Desktop Sidebar - Fixed */}
       <AdminSidebar />
+
+      {/* Mobile Sidebar - Drawer */}
+      <AdminSidebar 
+        isMobile 
+        isOpen={isMobileMenuOpen} 
+        onClose={() => setIsMobileMenuOpen(false)} 
+      />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        <AdminTopbar />
+        <AdminTopbar onMenuClick={() => setIsMobileMenuOpen(true)} />
         
-        <main className="flex-1 p-6 md:p-8 lg:p-10">
+        <main className="flex-1 p-4 md:p-6 lg:p-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={pathname}
@@ -59,7 +72,7 @@ function AdminLayoutContent({
         </main>
 
         {/* System Footer */}
-        <footer className="px-10 py-6 border-t border-gray-100 flex justify-between items-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+        <footer className="px-6 md:px-10 py-6 border-t border-gray-100 flex flex-col md:flex-row gap-4 justify-between items-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
           <span>&copy; {new Date().getFullYear()} Cherith GeoSystems Dashboard</span>
           <div className="flex gap-6">
             <span className="flex items-center gap-2">
@@ -85,4 +98,3 @@ export default function AdminLayout({
     </AuthProvider>
   );
 }
-

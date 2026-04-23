@@ -18,7 +18,7 @@ export function AdminBadge({ children, variant = "gray", className = "" }: Badge
   };
 
   return (
-    <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${styles[variant]} ${className}`}>
+    <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${styles[variant]} ${className}`}>
       {children}
     </span>
   );
@@ -28,9 +28,10 @@ export function AdminSectionHeader({ title, description, actions }: { title: str
   return (
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
       <div>
-        <h2 className="text-3xl md:text-4xl font-extrabold font-cherith text-brand-blue mb-2 uppercase tracking-tighter">{title}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold font-cherith text-brand-blue mb-2 uppercase tracking-tighter">{title}</h2>
         {description && <p className="text-gray-500 font-medium text-sm">{description}</p>}
       </div>
+
       {actions && <div className="flex items-center gap-3">{actions}</div>}
     </div>
   );

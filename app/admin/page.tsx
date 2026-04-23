@@ -21,7 +21,7 @@ export default function AdminDashboard() {
       {/* Welcome Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-extrabold font-cherith text-brand-blue mb-2 uppercase tracking-tighter">
+          <h1 className="text-3xl md:text-4xl font-bold font-cherith text-brand-blue mb-2 uppercase tracking-tighter">
             Welcome, <span className="text-brand-red">{profile?.full_name?.split(' ')[0] || "Administrator"}</span>
           </h1>
           <p className="text-gray-500 font-medium text-sm">
@@ -61,9 +61,9 @@ export default function AdminDashboard() {
             <div className="p-8 border-b border-gray-50 flex items-center justify-between">
               <div>
                 <h3 className="text-2xl font-bold font-cherith text-brand-blue">Recent Leads</h3>
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-1">Latest inbound inquiries</p>
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-1">Latest inbound inquiries</p>
               </div>
-              <Link href="/admin/messages/contacts" className="text-xs font-bold text-brand-red hover:underline flex items-center gap-2 group">
+              <Link href="/admin/messages/contacts" className="text-xs font-semibold text-brand-red hover:underline flex items-center gap-2 group">
                 View All <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -87,13 +87,13 @@ export default function AdminDashboard() {
                       {lead.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-brand-blue">{lead.name}</h4>
-                      <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">{lead.type}</p>
+                      <h4 className="text-base font-semibold text-brand-blue">{lead.name}</h4>
+                      <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest">{lead.type}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-8">
                     <div className="hidden sm:flex flex-col items-end">
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                      <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
                         <Calendar className="w-3 h-3" />
                         {lead.time}
                       </span>
@@ -110,7 +110,7 @@ export default function AdminDashboard() {
               ))}
             </div>
             
-            <div className="p-6 bg-gray-50/50 mt-auto border-t border-gray-50 text-center text-gray-400 text-[10px] font-bold uppercase tracking-widest">
+            <div className="p-6 bg-gray-50/50 mt-auto border-t border-gray-50 text-center text-gray-400 text-[10px] font-semibold uppercase tracking-widest">
                End of recent activity
             </div>
           </div>
@@ -125,13 +125,13 @@ export default function AdminDashboard() {
                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-brand-blue group-hover:bg-white/10 group-hover:text-white transition-all">
                     <FileText className="w-5 h-5" />
                  </div>
-                 <span className="text-[12px] font-bold uppercase tracking-widest">New Blog Post</span>
+                 <span className="text-[12px] font-semibold uppercase tracking-widest">New Blog Post</span>
                </Link>
                <Link href="/admin/messages/contacts" className="p-5 bg-zinc-50 hover:bg-brand-red hover:text-white rounded-2xl border border-gray-100 transition-all flex items-center gap-4 group">
                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-brand-red group-hover:bg-white/10 group-hover:text-white transition-all">
                     <MessageSquare className="w-5 h-5" />
                  </div>
-                 <span className="text-[12px] font-bold uppercase tracking-widest">Manage Leads</span>
+                 <span className="text-[12px] font-semibold uppercase tracking-widest">Manage Leads</span>
                </Link>
              </div>
           </div>
