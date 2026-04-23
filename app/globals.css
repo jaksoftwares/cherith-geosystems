@@ -19,10 +19,11 @@
   --color-brand-red: var(--cherith-red);
   --color-brand-grey: var(--cherith-grey);
 
-  /* Fonts via Montserrat Google imports */
+  /* Fonts via Montserrat/Outfit Google imports */
   --font-sans: var(--font-montserrat), "Century Gothic", Arial, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-cherith: var(--font-montserrat);
+  --font-cherith: var(--font-outfit);
+  --font-outfit: var(--font-outfit);
 }
 
 @media (prefers-color-scheme: dark) {

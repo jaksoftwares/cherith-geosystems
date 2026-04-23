@@ -1,0 +1,61 @@
+"use server";
+
+import { createClient } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+export async function login(formData: FormData) {
+  const supabase = await createClient();
+
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    if (error.message.toLowerCase().includes("email not confirmed")) {
+      return { error: "verification_required" };
+    }
+    return { error: error.message };
+  }
+
+  revalidatePath("/", "layout");
+  redirect("/admin");
+}
+
+export async function signup(formData: FormData) {
+  const supabase = await createClient();
+
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const full_name = formData.get("full_name") as string;
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        full_name,
+      },
+    },
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  // If signup is successful, the trigger in SQL will create the profile.
+  // But we want to ensure the profile is marked as admin if it's the first one,
+  // or we can manually manage admin status in the DB.
+  
+  return { success: true };
+}
+
+export async function signOut() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/login");
+}
