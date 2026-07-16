@@ -162,6 +162,6 @@ INSERT INTO site_settings (key, value) VALUES
 ('projects_completed', '400'),
 ('countries_reached', '8'),
 ('office_address', '"Olympic House, 1st Floor, Room 104, Nairobi, Kenya"'),
-('office_phone', '"0722 300 565 / 0721 448 913"'),
+('office_phone', '"0790034580"'),
 ('office_email', '"info@cherith.co.ke"'),
-('contact_emails', '["amoshibutse@gmail.com", "gokusimba@gmail.com"]');
+('contact_emails', '["amoshibutse@gmail.com", "info@cherith.co.ke"]');

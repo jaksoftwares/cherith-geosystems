@@ -73,7 +73,7 @@ export default function SettingsPage() {
                   <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Primary Phone</label>
                   <div className="relative">
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input type="text" defaultValue="0722 300 565" className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all" />
+                    <input type="text" defaultValue="0790034580" className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all" />
                   </div>
                 </div>
                 <div className="space-y-2">

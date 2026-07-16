@@ -267,7 +267,7 @@ create table site_settings (
 
 -- Seed basic settings
 insert into site_settings (key, value, description) values
-('contact_info', '{"phone": "0722 300 565", "email": "info@cherith.co.ke", "address": "Olympic House, Nairobi"}', 'General company contact details'),
+('contact_info', '{"phone": "0790034580", "email": "info@cherith.co.ke", "address": "Olympic House, Nairobi"}', 'General company contact details'),
 ('social_links', '{"linkedin": "#", "twitter": "#", "facebook": "#"}', 'Social media profile links'),
 ('seo_metadata', '{"title": "Cherith GeoSystems", "description": "Professional Geospatial Solutions"}', 'Default site-wide SEO values');
 

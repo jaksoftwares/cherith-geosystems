@@ -213,13 +213,12 @@ CONTACT PAGE
 Get in Touch
 
 Phone:
-0722 300 565
-0721 448 913
+0790034580
 
 Email:
 amoshibutse@gmail.com
 
-gokusimba@gmail.com
+info@cherith.co.ke
 
 Office Address:
 Olympic House, 1st Floor, Room 104

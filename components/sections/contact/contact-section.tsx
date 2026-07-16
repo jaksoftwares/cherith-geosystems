@@ -42,14 +42,14 @@ export function ContactSection() {
     {
       icon: Phone,
       label: "Direct Line",
-      value: "0722 300 565 / 0721 448 913",
+      value: "0790034580",
       desc: "Mon-Sat from 8am to 5pm EAT",
     },
     {
       icon: Mail,
       label: "Email Support",
       value: "info@cherith.co.ke",
-      desc: "Backup: gokusimba@gmail.com",
+      desc: "Contact us anytime",
     },
     {
       icon: Globe2,

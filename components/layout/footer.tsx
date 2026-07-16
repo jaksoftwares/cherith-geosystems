@@ -99,7 +99,7 @@ export function Footer() {
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white">Phone</h4>
-                  <p className="text-gray-300 text-xs mt-0.5">0722 300 565 / 0721 448 913</p>
+                  <p className="text-gray-300 text-xs mt-0.5">0790034580</p>
                 </div>
               </li>
               <li className="flex items-center gap-3.5">
@@ -108,7 +108,7 @@ export function Footer() {
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white">Email</h4>
-                  <p className="text-gray-300 text-xs mt-0.5 break-all">info@cherith.co.ke<br/>gokusimba@gmail.com</p>
+                  <p className="text-gray-300 text-xs mt-0.5 break-all">info@cherith.co.ke</p>
                 </div>
               </li>
             </ul>
