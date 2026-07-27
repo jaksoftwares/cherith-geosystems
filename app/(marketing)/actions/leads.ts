@@ -2,6 +2,10 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "info@cherith.co.ke";
 
 export async function submitLead(type: "inquiry" | "survey" | "quote" | "consultation", formData: FormData) {
   const supabase = await createClient();
@@ -53,6 +57,34 @@ export async function submitLead(type: "inquiry" | "survey" | "quote" | "consult
     if (error) {
       console.error(`Error submitting ${type}:`, error);
       return { error: "Failed to submit request. Please try again later." };
+    }
+
+    // Attempt to send email notification
+    try {
+      await resend.emails.send({
+        from: "Cherith Website <onboarding@resend.dev>", // Replace with a verified domain later
+        to: CONTACT_EMAIL,
+        subject: `New Website Lead: ${type.toUpperCase()}`,
+        html: `
+          <h2>New Website Inquiry Received</h2>
+          <p><strong>Type:</strong> ${type}</p>
+          <p><strong>Name:</strong> ${formData.get("name")}</p>
+          <p><strong>Email:</strong> ${formData.get("email")}</p>
+          <p><strong>Phone:</strong> ${formData.get("phone")}</p>
+          ${formData.get("location") ? `<p><strong>Location:</strong> ${formData.get("location")}</p>` : ""}
+          ${formData.get("survey_type") ? `<p><strong>Survey Type:</strong> ${formData.get("survey_type")}</p>` : ""}
+          ${formData.get("service") ? `<p><strong>Service:</strong> ${formData.get("service")}</p>` : ""}
+          ${formData.get("budget") ? `<p><strong>Budget:</strong> ${formData.get("budget")}</p>` : ""}
+          ${formData.get("date") ? `<p><strong>Preferred Date:</strong> ${formData.get("date")}</p>` : ""}
+          <p><strong>Message / Details:</strong></p>
+          <blockquote style="background: #f9fafb; padding: 15px; border-left: 4px solid #ef4444; margin-top: 10px;">
+            ${(formData.get("message") as string)?.replace(/\n/g, '<br />')}
+          </blockquote>
+        `,
+      });
+    } catch (emailError) {
+      console.error("Failed to send email notification (but lead was saved):", emailError);
+      // We do not fail the request if the email fails, as the lead is already in the database
     }
 
     revalidatePath("/admin/messages");

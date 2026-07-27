@@ -59,11 +59,11 @@ export function ContactSection() {
     },
   ];
 
-  const tabs = [
-    { id: "inquiry", label: "General Inquiry", icon: MessageSquareIcon },
-    { id: "survey", label: "Survey Request", icon: FileText },
-    { id: "quote", label: "Get a Quote", icon: Calculator },
-    { id: "consultation", label: "Expert Consultation", icon: Users },
+  const inquiryOptions = [
+    { value: "inquiry", label: "General Inquiry" },
+    { value: "survey", label: "Survey Request" },
+    { value: "quote", label: "Get a Quote" },
+    { value: "consultation", label: "Expert Consultation" },
   ];
 
   return (
@@ -81,15 +81,11 @@ export function ContactSection() {
               transition={{ duration: 0.6 }}
               className="text-center lg:text-left mb-10"
             >
-              <div className="inline-flex items-center gap-2 text-brand-red font-bold uppercase tracking-[0.2em] text-[10px] mb-4">
-                <span className="w-8 h-[1px] bg-brand-red"></span>
-                Connect With Us
-              </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-cherith text-brand-blue leading-tight tracking-tight mb-6">
-                Get in <span className="text-brand-red">Touch</span> with Us.
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-cherith text-brand-blue leading-tight mb-4">
+                Get in <span className="text-brand-red">Touch</span>
               </h2>
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md mx-auto lg:mx-0 font-medium">
-                We are here to help. Send us a message and we'll get back to you as soon as possible.
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
+                How can we help you today? Send us a message and our team will get back to you shortly.
               </p>
             </motion.div>
 
@@ -128,29 +124,24 @@ export function ContactSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-7 bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-12 shadow-2xl shadow-brand-blue/5 border border-gray-100 relative overflow-hidden flex flex-col"
           >
-            {/* Form Type Tabs */}
-            <div className="flex flex-wrap gap-2 mb-10 p-1.5 bg-gray-50 rounded-2xl border border-gray-100 self-start">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                const isActive = formType === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => {
-                      setFormType(tab.id as FormType);
-                      setFormStatus("idle");
-                    }}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all ${
-                      isActive 
-                        ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/20" 
-                        : "text-gray-400 hover:text-brand-blue hover:bg-white"
-                    }`}
-                  >
-                    <Icon className={`w-3.5 h-3.5 ${isActive ? "text-brand-red" : ""}`} />
-                    {tab.label}
-                  </button>
-                );
-              })}
+            <div className="mb-6 flex flex-col gap-2">
+              <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">
+                How can we help you?
+              </label>
+              <select
+                value={formType}
+                onChange={(e) => {
+                  setFormType(e.target.value as FormType);
+                  setFormStatus("idle");
+                }}
+                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-sm font-medium text-brand-blue appearance-none cursor-pointer"
+              >
+                {inquiryOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <AnimatePresence mode="wait">
@@ -165,15 +156,15 @@ export function ContactSection() {
                   <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6">
                     <CheckCircle2 className="w-10 h-10 text-green-500" />
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-brand-blue font-cherith mb-3">Request Received</h3>
-                  <p className="text-sm md:text-base text-gray-500 mb-8 max-w-xs mx-auto leading-relaxed">
-                    Thank you for reaching out. We have received your message and will get back to you shortly.
+                  <h3 className="text-2xl font-bold text-brand-blue font-cherith mb-2">Message Sent</h3>
+                  <p className="text-gray-500 mb-6 max-w-sm mx-auto leading-relaxed">
+                    Thanks for reaching out! We've received your request and will contact you soon.
                   </p>
                   <button 
                     onClick={() => setFormStatus("idle")}
-                    className="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-brand-red transition-all text-xs uppercase tracking-[0.2em] shadow-xl shadow-brand-blue/20"
+                    className="px-6 py-2.5 bg-gray-100 text-brand-blue rounded-xl font-bold hover:bg-gray-200 transition-all text-sm"
                   >
-                    New Request
+                    Send another message
                   </button>
                 </motion.div>
               ) : (
@@ -218,8 +209,8 @@ export function ContactSection() {
                   {/* Specialized Dropdowns */}
                   {formType === "survey" && (
                     <div className="flex flex-col gap-2">
-                      <label className="text-[10px] font-bold text-brand-blue uppercase tracking-widest">Survey Type</label>
-                      <select name="survey_type" required className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium text-brand-blue appearance-none">
+                      <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Survey Type</label>
+                      <select name="survey_type" required className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-sm font-medium text-brand-blue appearance-none">
                         <option value="cadastral">Cadastral / Boundary</option>
                         <option value="topo">Topographical Mapping</option>
                         <option value="engineering">Engineering / Construction</option>
@@ -230,8 +221,8 @@ export function ContactSection() {
 
                   {formType === "quote" && (
                     <div className="flex flex-col gap-2">
-                      <label className="text-[10px] font-bold text-brand-blue uppercase tracking-widest">Select Service</label>
-                      <select name="service" required className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium text-brand-blue appearance-none">
+                      <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Select Service</label>
+                      <select name="service" required className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-sm font-medium text-brand-blue appearance-none">
                         <option value="gis">GIS Database</option>
                         <option value="remote-sensing">Remote Sensing</option>
                         <option value="drone">Drone Mapping</option>
@@ -241,31 +232,31 @@ export function ContactSection() {
                   )}
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-bold text-brand-blue uppercase tracking-widest">
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">
                       {formType === "inquiry" ? "Your Message" : formType === "survey" ? "Survey Requirements" : formType === "quote" ? "Project Details" : "Consultation Topic"}
                     </label>
                     <textarea 
                       name="message"
                       required 
                       rows={4}
-                      className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium text-brand-blue resize-none"
-                      placeholder="Share high-level details with our engineers..."
+                      className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-sm font-medium text-brand-blue resize-none"
+                      placeholder="Tell us more about what you need..."
                     ></textarea>
                   </div>
 
                   <button 
                     type="submit"
                     disabled={formStatus === "submitting"}
-                    className="mt-4 w-full bg-brand-blue hover:bg-brand-red text-white py-4 md:py-5 rounded-2xl font-bold text-[11px] uppercase tracking-[0.25em] flex items-center justify-center gap-3 transition-all shadow-xl shadow-brand-blue/10 active:scale-95 disabled:opacity-70 group"
+                    className="mt-4 w-full bg-brand-blue hover:bg-brand-red text-white py-3.5 md:py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-brand-blue/10 active:scale-95 disabled:opacity-70 group"
                   >
                     {formStatus === "submitting" ? (
-                      <span className="flex items-center gap-3">
+                      <span className="flex items-center gap-2">
                         <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Processing Request...
+                        Sending...
                       </span>
                     ) : (
                       <>
-                        Submit {formType} Request <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        Send Message <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </>
                     )}
                   </button>
@@ -283,14 +274,14 @@ export function ContactSection() {
 function FormGroup({ label, id, name, type = "text", placeholder, required = false }: any) {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-[10px] font-bold text-brand-blue uppercase tracking-widest">{label}</label>
+      <label htmlFor={id} className="text-xs font-bold text-gray-500 uppercase tracking-wide">{label}</label>
       <input 
         type={type} 
         id={id} 
         name={name}
         required={required}
         placeholder={placeholder}
-        className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-xs font-medium text-brand-blue transition-all placeholder:text-gray-300"
+        className="w-full px-5 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-brand-red/20 outline-none text-sm font-medium text-brand-blue transition-all placeholder:text-gray-400"
       />
     </div>
   );

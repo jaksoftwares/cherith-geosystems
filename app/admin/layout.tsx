@@ -18,20 +18,12 @@ function AdminLayoutContent({
   const { profile, loading } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    if (!loading) {
-      if (!profile || profile.role !== 'admin') {
-        router.push("/login");
-      }
-    }
-  }, [profile, loading, router]);
-
   // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  if (loading || !profile || profile.role !== 'admin') {
+  if (loading) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>

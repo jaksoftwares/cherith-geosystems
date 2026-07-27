@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, User, LogOut, LayoutDashboard, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { createClient } from "@/lib/supabase/client";
+import { signOut } from "@/app/auth/actions";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -20,7 +22,10 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const pathname = usePathname();
+  const supabase = createClient();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +34,34 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function initializeProfile() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user && mounted) {
+        const { data } = await supabase.from("profiles").select("*").eq("id", user.id).single();
+        if (mounted) setProfile(data);
+      }
+    }
+
+    initializeProfile();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user && mounted) {
+        const { data } = await supabase.from("profiles").select("*").eq("id", session.user.id).single();
+        if (mounted) setProfile(data);
+      } else if (mounted) {
+        setProfile(null);
+      }
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   // Use the master logo when not dark, monochrome white when dark background is needed.
   // For now, depending on the scroll, we might toggle between logo variations if desired.
@@ -80,16 +113,96 @@ export function Navbar() {
             })}
           </ul>
           
-          <Link
-            href="/contact"
-            className={`px-5 py-2 rounded-lg hover:opacity-90 font-bold transition-all shadow-lg active:scale-95 text-xs lg:text-sm ${
-              isScrolled 
-                ? "bg-brand-red text-white hover:shadow-brand-red/20 outline outline-transparent" 
-                : "bg-white text-brand-blue hover:shadow-white/20 outline outline-white/10"
-            }`}
-          >
-            Request a Survey
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/contact"
+              className={`px-5 py-2 rounded-lg hover:opacity-90 font-bold transition-all shadow-lg active:scale-95 text-xs lg:text-sm hidden lg:block ${
+                isScrolled 
+                  ? "bg-brand-red text-white hover:shadow-brand-red/20 outline outline-transparent" 
+                  : "bg-white text-brand-blue hover:shadow-white/20 outline outline-white/10"
+              }`}
+            >
+              Request a Survey
+            </Link>
+
+            {profile ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all border ${
+                    isScrolled
+                      ? "border-gray-200 bg-gray-50 hover:bg-gray-100 text-brand-blue"
+                      : "border-white/20 bg-white/10 hover:bg-white/20 text-white"
+                  }`}
+                >
+                  <div className="w-7 h-7 rounded-full bg-brand-blue/10 flex items-center justify-center overflow-hidden">
+                    {profile.avatar_url ? (
+                      <Image src={profile.avatar_url} alt="Avatar" width={28} height={28} className="object-cover" />
+                    ) : (
+                      <User className={`w-4 h-4 ${isScrolled ? "text-brand-blue" : "text-white"}`} />
+                    )}
+                  </div>
+                  <span className="font-bold text-sm hidden xl:block max-w-[100px] truncate">
+                    {profile.full_name || "User"}
+                  </span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
+                </button>
+
+                <AnimatePresence>
+                  {isDropdownOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setIsDropdownOpen(false)} />
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50 py-2"
+                      >
+                        <div className="px-4 py-3 border-b border-gray-50">
+                          <p className="text-sm font-bold text-gray-900 truncate">{profile.full_name}</p>
+                          <p className="text-xs text-gray-500 truncate">{profile.email}</p>
+                        </div>
+                        
+                        <div className="py-2">
+                          {profile.role === "admin" && (
+                            <Link href="/admin" onClick={() => setIsDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-gray-600 hover:text-brand-blue hover:bg-brand-blue/5 transition-colors">
+                              <LayoutDashboard className="w-4 h-4" />
+                              Admin Panel
+                            </Link>
+                          )}
+                          <Link href="#" onClick={() => setIsDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-gray-600 hover:text-brand-blue hover:bg-brand-blue/5 transition-colors">
+                            <Settings className="w-4 h-4" />
+                            My Workspaces
+                          </Link>
+                        </div>
+
+                        <div className="border-t border-gray-50 pt-2">
+                          <form action={signOut}>
+                            <button type="submit" className="flex w-full items-center gap-3 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors">
+                              <LogOut className="w-4 h-4" />
+                              Sign Out
+                            </button>
+                          </form>
+                        </div>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link
+                href="/auth/login"
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-sm transition-all border ${
+                  isScrolled
+                    ? "border-brand-blue text-brand-blue hover:bg-brand-blue/5"
+                    : "border-white text-white hover:bg-white/10"
+                }`}
+              >
+                <User className="w-4 h-4" />
+                Sign In
+              </Link>
+            )}
+          </div>
         </nav>
 
         {/* Mobile Menu Toggle */}

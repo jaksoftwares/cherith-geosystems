@@ -17,6 +17,8 @@ import {
 import { AdminBadge } from "@/components/admin/ui";
 import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTransition } from "react";
+import { deleteLead, updateLeadStatus, replyToLead } from "@/app/admin/messages/actions";
 
 interface Lead {
   id: string;
@@ -40,28 +42,51 @@ export function LeadsTable({ leads: initialLeads }: { leads: Lead[] }) {
   const [leads, setLeads] = useState(initialLeads);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [replyText, setReplyText] = useState("");
+  const [isPending, startTransition] = useTransition();
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: string, type: string) => {
     if (confirm("Are you sure you want to delete this lead?")) {
-      setLeads(leads.filter(l => l.id !== id));
-      // In a real app, call a server action here
+      startTransition(async () => {
+        const result = await deleteLead(id, type);
+        if (result?.success) {
+          setLeads(leads.filter(l => l.id !== id));
+        } else {
+          alert(result?.error || "Failed to delete lead");
+        }
+      });
     }
   };
 
-  const handleStatusUpdate = (id: string, newStatus: string) => {
-    setLeads(leads.map(l => l.id === id ? { ...l, status: newStatus } : l));
-    if (selectedLead?.id === id) {
-      setSelectedLead({ ...selectedLead, status: newStatus });
-    }
+  const handleStatusUpdate = (id: string, type: string, newStatus: string) => {
+    startTransition(async () => {
+      const result = await updateLeadStatus(id, type, newStatus);
+      if (result?.success) {
+        setLeads(leads.map(l => l.id === id ? { ...l, status: newStatus } : l));
+        if (selectedLead?.id === id) {
+          setSelectedLead({ ...selectedLead, status: newStatus });
+        }
+      } else {
+        alert(result?.error || "Failed to update status");
+      }
+    });
   };
 
   const handleReply = () => {
-    if (!replyText.trim()) return;
+    if (!replyText.trim() || !selectedLead) return;
     
-    // Simulate sending email
-    alert(`Reply sent to ${selectedLead?.email}:\n\n${replyText}`);
-    setReplyText("");
-    handleStatusUpdate(selectedLead!.id, "Completed");
+    startTransition(async () => {
+      const result = await replyToLead(selectedLead.id, selectedLead.email, replyText, selectedLead.type);
+      if (result?.success) {
+        alert(`Reply successfully sent to ${selectedLead.email}`);
+        setReplyText("");
+        
+        // Update local state to reflect the new 'Resolved' status
+        setLeads(leads.map(l => l.id === selectedLead.id ? { ...l, status: "Resolved" } : l));
+        setSelectedLead({ ...selectedLead, status: "Resolved" });
+      } else {
+        alert(result?.error || "Failed to send reply");
+      }
+    });
   };
 
   return (
@@ -120,14 +145,16 @@ export function LeadsTable({ leads: initialLeads }: { leads: Lead[] }) {
                     <Eye className="w-5 h-5" />
                   </button>
                   <button 
-                    onClick={() => handleStatusUpdate(lead.id, "Completed")}
-                    className="p-3 hover:bg-white rounded-xl transition-all border border-transparent hover:border-gray-100 text-gray-400 hover:text-emerald-600"
+                    onClick={() => handleStatusUpdate(lead.id, lead.type, "Completed")}
+                    disabled={isPending}
+                    className="p-3 hover:bg-white rounded-xl transition-all border border-transparent hover:border-gray-100 text-gray-400 hover:text-emerald-600 disabled:opacity-50"
                   >
                     <CheckCircle2 className="w-5 h-5" />
                   </button>
                   <button 
-                    onClick={() => handleDelete(lead.id)}
-                    className="p-3 hover:bg-white rounded-xl transition-all border border-transparent hover:border-gray-100 text-gray-400 hover:text-red-600"
+                    onClick={() => handleDelete(lead.id, lead.type)}
+                    disabled={isPending}
+                    className="p-3 hover:bg-white rounded-xl transition-all border border-transparent hover:border-gray-100 text-gray-400 hover:text-red-600 disabled:opacity-50"
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
@@ -212,17 +239,19 @@ export function LeadsTable({ leads: initialLeads }: { leads: Lead[] }) {
                     <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">Management</h3>
                     <div className="flex items-center gap-3">
                       <button 
-                        onClick={() => handleStatusUpdate(selectedLead.id, "Processing")}
-                        className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${
+                        onClick={() => handleStatusUpdate(selectedLead.id, selectedLead.type, "Processing")}
+                        disabled={isPending}
+                        className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all disabled:opacity-50 ${
                           selectedLead.status === 'Processing' ? 'bg-brand-blue text-white shadow-lg shadow-brand-blue/20' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
                         }`}
                       >
                         In Progress
                       </button>
                       <button 
-                        onClick={() => handleStatusUpdate(selectedLead.id, "Completed")}
-                        className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${
-                          selectedLead.status === 'Completed' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
+                        onClick={() => handleStatusUpdate(selectedLead.id, selectedLead.type, "Resolved")}
+                        disabled={isPending}
+                        className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all disabled:opacity-50 ${
+                          selectedLead.status === 'Resolved' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
                         }`}
                       >
                         Resolved
@@ -241,11 +270,20 @@ export function LeadsTable({ leads: initialLeads }: { leads: Lead[] }) {
                   />
                   <button 
                     onClick={handleReply}
-                    disabled={!replyText.trim()}
+                    disabled={!replyText.trim() || isPending}
                     className="w-full py-4 bg-brand-blue hover:bg-brand-red text-white rounded-2xl font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-brand-blue/10"
                   >
-                    <Send className="w-4 h-4" />
-                    Send Response
+                    {isPending ? (
+                      <span className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        Sending...
+                      </span>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        Send Response
+                      </>
+                    )}
                   </button>
                   <p className="mt-4 text-[9px] text-gray-400 text-center font-medium">
                     Replying will automatically mark this lead as "Resolved"

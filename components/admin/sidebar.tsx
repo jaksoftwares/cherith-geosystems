@@ -20,7 +20,7 @@ import {
   X
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { signOut } from "@/app/(auth)/login/actions";
+import { signOut } from "@/app/auth/actions";
 
 const navigation = [
   { 

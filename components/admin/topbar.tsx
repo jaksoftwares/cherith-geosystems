@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/providers/auth-provider";
-import { signOut } from "@/app/(auth)/login/actions";
+import { signOut } from "@/app/auth/actions";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {

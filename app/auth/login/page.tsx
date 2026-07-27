@@ -3,9 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { login } from "./actions";
+import { login } from "../actions";
 import { VerificationModal } from "@/components/admin/verification-modal";
-import { ShieldCheck, Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
+import { ShieldCheck, Mail, Lock, ArrowRight, Loader2, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function LoginPage() {
@@ -13,6 +13,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [pendingEmail, setPendingEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     const email = formData.get("email") as string;
@@ -59,11 +60,7 @@ export default function LoginPage() {
                 className="object-contain"
               />
             </Link>
-            <div className="inline-flex items-center gap-2 text-brand-red font-bold uppercase tracking-[0.2em] text-[10px] mb-2">
-              <ShieldCheck className="w-4 h-4" />
-              Secure Administration
-            </div>
-            <h1 className="text-2xl font-extrabold font-cherith text-brand-blue">Welcome Back</h1>
+            <h1 className="text-2xl font-extrabold font-cherith text-brand-blue">Sign In</h1>
             <p className="text-gray-400 text-sm mt-1">Please enter your credentials to continue</p>
           </div>
 
@@ -86,17 +83,24 @@ export default function LoginPage() {
             <div className="space-y-2">
               <div className="flex justify-between items-center px-1">
                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Password</label>
-                <Link href="#" className="text-[10px] font-bold text-brand-blue hover:text-brand-red transition-colors uppercase tracking-widest">Forgot?</Link>
+                <Link href="/auth/forgot-password" className="text-[10px] font-bold text-brand-blue hover:text-brand-red transition-colors uppercase tracking-widest">Forgot?</Link>
               </div>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-brand-red transition-colors" />
                 <input 
                   name="password"
-                  type="password" 
+                  type={showPassword ? "text" : "password"} 
                   required
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
+                  className="w-full pl-12 pr-12 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-blue transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
@@ -119,7 +123,7 @@ export default function LoginPage() {
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  Sign In to Dashboard
+                  Sign In
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </>
               )}
@@ -129,8 +133,7 @@ export default function LoginPage() {
           {/* Footer */}
           <div className="mt-8 text-center pt-8 border-t border-gray-50">
             <p className="text-gray-400 text-xs">
-              Authorized personnel only. <br className="md:hidden" />
-              Contact the system administrator for access.
+              Don't have an account? <Link href="/auth/register" className="text-brand-blue font-bold hover:text-brand-red ml-1">Create Account</Link>
             </p>
           </div>
         </div>

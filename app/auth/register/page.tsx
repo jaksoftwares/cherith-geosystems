@@ -3,19 +3,36 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { signup } from "../login/actions";
+import { signup } from "../actions";
 import { VerificationModal } from "@/components/admin/verification-modal";
-import { UserPlus, Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
+import { UserPlus, Mail, Lock, User, ArrowRight, Loader2, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function SignupPage() {
+export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [pendingEmail, setPendingEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirm_password") as string;
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters");
+      setLoading(false);
+      return;
+    }
+
     setPendingEmail(email);
     setLoading(true);
     setError(null);
@@ -53,11 +70,8 @@ export default function SignupPage() {
                 className="object-contain"
               />
             </Link>
-            <div className="inline-flex items-center gap-2 text-brand-blue font-bold uppercase tracking-[0.2em] text-[10px] mb-2">
-              <UserPlus className="w-4 h-4 text-brand-red" />
-              New Admin Onboarding
-            </div>
             <h1 className="text-2xl font-extrabold font-cherith text-brand-blue">Create Account</h1>
+            <p className="text-gray-400 text-sm mt-1">Please register to request access</p>
           </div>
 
           <form action={handleSubmit} className="space-y-5">
@@ -69,7 +83,7 @@ export default function SignupPage() {
                   name="full_name"
                   type="text" 
                   required
-                  placeholder="George Omusotsi"
+                  placeholder="John Doe"
                   className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
                 />
               </div>
@@ -83,7 +97,7 @@ export default function SignupPage() {
                   name="email"
                   type="email" 
                   required
-                  placeholder="admin@cherith.co.ke"
+                  placeholder="name@company.com"
                   className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
                 />
               </div>
@@ -95,11 +109,39 @@ export default function SignupPage() {
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-brand-red transition-colors" />
                 <input 
                   name="password"
-                  type="password" 
+                  type={showPassword ? "text" : "password"} 
                   required
                   placeholder="Minimum 8 characters"
-                  className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
+                  className="w-full pl-12 pr-12 py-3 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-blue transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Confirm Password</label>
+              <div className="relative group">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-brand-red transition-colors" />
+                <input 
+                  name="confirm_password"
+                  type={showConfirmPassword ? "text" : "password"} 
+                  required
+                  placeholder="Repeat secure password"
+                  className="w-full pl-12 pr-12 py-3 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-blue transition-colors"
+                >
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
@@ -117,7 +159,7 @@ export default function SignupPage() {
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  Initialize Account
+                  Create Account
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </>
               )}
@@ -127,7 +169,7 @@ export default function SignupPage() {
           <div className="mt-8 text-center pt-8 border-t border-gray-50">
             <p className="text-gray-400 text-xs">
               Already have an account? 
-              <Link href="/login" className="text-brand-blue font-bold hover:text-brand-red ml-1">Log In</Link>
+              <Link href="/auth/login" className="text-brand-blue font-bold hover:text-brand-red ml-1">Log In</Link>
             </p>
           </div>
         </div>
