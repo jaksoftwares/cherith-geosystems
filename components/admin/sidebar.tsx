@@ -40,10 +40,7 @@ const navigation = [
   { 
     title: "CRM / Leads", 
     items: [
-      { name: "General Inquiries", href: "/admin/messages/contacts", icon: Mail },
-      { name: "Survey Requests", href: "/admin/messages/contacts?type=survey", icon: Zap },
-      { name: "Quote Requests", href: "/admin/messages/contacts?type=quote", icon: TrendingUp },
-      { name: "Consultations", href: "/admin/messages/contacts?type=consultation", icon: Users },
+      { name: "Inbox", href: "/admin/messages/contacts", icon: Mail },
     ] 
   },
   { 
