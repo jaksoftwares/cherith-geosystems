@@ -17,6 +17,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/providers/auth-provider";
 import { signOut } from "@/app/auth/actions";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
   const pathname = usePathname();
@@ -34,7 +35,11 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
   };
 
   const segments = pathname.split("/").filter(Boolean);
-  const breadcrumb = segments.map((s) => s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, " "));
+  const breadcrumbs = segments.map((segment, index) => {
+    const href = `/${segments.slice(0, index + 1).join('/')}`;
+    const label = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
+    return { href, label };
+  });
 
   const notifications = [
     { id: 1, title: "New Survey Request", time: "2m ago", icon: Clock, color: "text-brand-red bg-brand-red/10" },
@@ -55,16 +60,25 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
         </button>
 
         <div className="hidden md:flex items-center gap-2 text-sm">
-          {breadcrumb.map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2">
-              <span className={`font-semibold ${idx === breadcrumb.length - 1 ? "text-brand-blue" : "text-gray-500"}`}>
-                {item}
-              </span>
-              {idx < breadcrumb.length - 1 && (
-                <span className="text-gray-300">/</span>
-              )}
-            </div>
-          ))}
+          {breadcrumbs.map((item, idx) => {
+            const isLast = idx === breadcrumbs.length - 1;
+            return (
+              <div key={idx} className="flex items-center gap-2">
+                {isLast ? (
+                  <span className="font-semibold text-brand-blue">
+                    {item.label}
+                  </span>
+                ) : (
+                  <Link href={item.href} className="font-semibold text-gray-500 hover:text-brand-red transition-colors">
+                    {item.label}
+                  </Link>
+                )}
+                {!isLast && (
+                  <span className="text-gray-300">/</span>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <div className="relative group max-w-xs hidden lg:block">

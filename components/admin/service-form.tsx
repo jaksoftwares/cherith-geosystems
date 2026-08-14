@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveService } from "@/app/admin/services/actions";
 import { Service, ServiceCategory, SubService } from "@/lib/api/services";
 import { 
-  Save, X, Image as ImageIcon, Map, Loader2, 
-  ChevronLeft, Plus, Trash2 
+  Save, X, Image as ImageIcon, Loader2, Plus 
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -145,7 +144,7 @@ export function ServiceForm({ service, categories }: ServiceFormProps) {
         router.push("/admin/services");
         router.refresh();
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
       setError("Failed to save the service. Check image uploads.");
       setLoading(false);
@@ -154,34 +153,8 @@ export function ServiceForm({ service, categories }: ServiceFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-6xl mx-auto pb-20">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <Link href="/admin/services" className="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-400 hover:text-brand-blue transition-all">
-            <ChevronLeft className="w-5 h-5" />
-          </Link>
-          <div>
-            <h1 className="text-2xl font-bold text-brand-blue font-cherith">
-              {service ? "Edit Service" : "Create Service"}
-            </h1>
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <Link href="/admin/services" className="px-6 py-3 rounded-xl font-bold text-sm text-gray-500 hover:bg-white hover:text-brand-blue transition-all">
-            Cancel
-          </Link>
-          <button 
-            type="submit" 
-            disabled={loading}
-            className="flex items-center gap-2 px-6 py-3 bg-brand-blue text-white rounded-xl font-bold text-sm shadow-lg shadow-brand-blue/20 hover:bg-brand-red hover:shadow-brand-red/20 transition-all disabled:opacity-70"
-          >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-            {loading ? "Saving..." : "Save Service"}
-          </button>
-        </div>
-      </div>
-
       {error && (
-        <div className="mb-8 p-4 bg-red-50 text-red-600 rounded-2xl text-sm font-medium border border-red-100">
+        <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl text-sm font-bold border border-red-100">
           {error}
         </div>
       )}
@@ -331,6 +304,23 @@ export function ServiceForm({ service, categories }: ServiceFormProps) {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="sticky bottom-8 flex justify-end gap-4 z-40 mt-8">
+        <Link 
+          href="/admin/services"
+          className="flex items-center gap-2 px-6 py-4 bg-white text-gray-600 border border-gray-200 rounded-2xl font-bold hover:bg-gray-50 transition-all shadow-sm active:scale-95 hover:-translate-y-1"
+        >
+          Cancel
+        </Link>
+        <button 
+          type="submit" 
+          disabled={loading}
+          className="flex items-center gap-2 px-8 py-4 bg-brand-blue text-white rounded-2xl font-bold shadow-xl shadow-brand-blue/30 hover:bg-brand-red hover:shadow-brand-red/30 transition-all disabled:opacity-70 hover:-translate-y-1"
+        >
+          {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
+          {loading ? "Saving Service..." : "Save Service"}
+        </button>
       </div>
     </form>
   );

@@ -2,8 +2,9 @@
 
 import { useState, useTransition } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import { ImagePlus, Loader2, Save, X, Plus, GripVertical, ImageIcon } from "lucide-react";
+import { ImagePlus, Loader2, Save, X, Plus, GripVertical, ImageIcon, XCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { saveProject } from "@/app/admin/projects/actions";
 import { Project } from "@/lib/api/projects";
 import { optimizeImage } from "@/lib/utils";
@@ -360,7 +361,14 @@ export function ProjectForm({ project }: ProjectFormProps) {
       </div>
 
       {/* Submit */}
-      <div className="sticky bottom-8 flex justify-end z-40">
+      <div className="sticky bottom-8 flex justify-end gap-4 z-40">
+        <Link 
+          href="/admin/projects"
+          className="flex items-center gap-2 px-6 py-4 bg-white text-gray-600 border border-gray-200 rounded-2xl font-bold hover:bg-gray-50 transition-all shadow-sm active:scale-95 hover:-translate-y-1"
+        >
+          <XCircle className="w-5 h-5" />
+          Cancel
+        </Link>
         <button 
           type="submit" 
           disabled={isPending}

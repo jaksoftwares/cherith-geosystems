@@ -1,5 +1,6 @@
 import { getCategories, getServiceBySlug } from "@/lib/api/services";
 import { ServiceForm } from "@/components/admin/service-form";
+import { AdminSectionHeader, AdminBackButton } from "@/components/admin/ui";
 import { notFound } from "next/navigation";
 
 export const metadata = {
@@ -19,6 +20,11 @@ export default async function EditServicePage({ params }: { params: Promise<{ sl
 
   return (
     <div className="space-y-8">
+      <AdminSectionHeader 
+        title="Edit Service" 
+        description={`Editing details for ${service.title}`}
+        actions={<AdminBackButton href="/admin/services" label="Back to Services" />}
+      />
       <ServiceForm service={service} categories={categories} />
     </div>
   );

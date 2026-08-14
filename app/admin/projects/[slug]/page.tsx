@@ -1,5 +1,6 @@
 import { getProjectBySlug } from "@/lib/api/projects";
 import { ProjectForm } from "@/components/admin/project-form";
+import { AdminSectionHeader, AdminBackButton } from "@/components/admin/ui";
 import { notFound } from "next/navigation";
 
 export const metadata = {
@@ -16,6 +17,11 @@ export default async function EditProjectPage({ params }: { params: Promise<{ sl
 
   return (
     <div className="space-y-8">
+      <AdminSectionHeader 
+        title="Edit Project" 
+        description={`Editing details for ${project.title}`}
+        actions={<AdminBackButton href="/admin/projects" label="Back to Projects" />}
+      />
       <ProjectForm project={project} />
     </div>
   );

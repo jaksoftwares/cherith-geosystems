@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 interface BadgeProps {
   children: React.ReactNode;
@@ -35,5 +37,17 @@ export function AdminSectionHeader({ title, description, actions }: { title: str
 
       {actions && <div className="flex items-center gap-3">{actions}</div>}
     </div>
+  );
+}
+
+export function AdminBackButton({ href, label = "Go Back" }: { href: string, label?: string }) {
+  return (
+    <Link 
+      href={href} 
+      className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 hover:text-brand-blue transition-all active:scale-95 shadow-sm"
+    >
+      <ArrowLeft className="w-4 h-4" />
+      {label}
+    </Link>
   );
 }

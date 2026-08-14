@@ -101,7 +101,7 @@ export function AdminSidebar({ isOpen, onClose, isMobile }: AdminSidebarProps) {
             </h3>
             <div className="space-y-1">
               {group.items.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive = item.href === '/admin' ? pathname === '/admin' : pathname.startsWith(item.href);
                 return (
                   <Link
                     key={item.name}
