@@ -82,6 +82,7 @@ export function Navbar() {
                src={isScrolled || isMobileMenuOpen ? "/logos/cherith1.png" : "/logos/white monochrome.png"} 
                alt="Cherith GeoSystems Master Logo" 
                fill
+               sizes="(max-width: 768px) 150px, 200px"
                className="object-contain object-left"
                priority
              />
