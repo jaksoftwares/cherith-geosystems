@@ -3,7 +3,7 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Linkedin, Bookmark } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Linkedin, Link as LinkIcon } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
 import rehypeSanitize from 'rehype-sanitize';
 import { CldImage } from 'next-cloudinary';
@@ -25,6 +25,35 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
     damping: 30,
     restDelta: 0.001
   });
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: blog.title,
+          text: `Read this article from Cherith GeoSystems: ${blog.title}`,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.log("Share cancelled or failed");
+      }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert("Article link copied to clipboard!");
+    }
+  };
+
+  const shareTwitter = () => {
+    window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(blog.title)}`, '_blank');
+  };
+
+  const shareFacebook = () => {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+  };
+
+  const shareLinkedIn = () => {
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+  };
 
   return (
     <>
@@ -59,7 +88,7 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
               className="object-cover object-center opacity-40 blur-[2px] transition-all duration-700 group-hover:blur-none group-hover:opacity-50"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-gray-900/60 to-brand-blue/90 transition-colors duration-700"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-brand-blue/80 transition-colors duration-700"></div>
         </motion.div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-4xl pt-10">
@@ -91,12 +120,7 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
             {blog.title}
           </motion.h1>
 
-          <motion.div 
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             transition={{ duration: 0.6, delay: 0.3 }}
-             className="flex flex-wrap items-center gap-6 text-sm font-medium text-gray-300 uppercase tracking-wider border-t border-gray-100/20 pt-6"
-          >
+          <div className="flex flex-wrap items-center gap-6 text-sm font-medium text-gray-300 uppercase tracking-wider border-t border-gray-100/20 pt-6">
             <span className="flex items-center gap-2 border-r border-gray-600 pr-6">
               By {blog.author}
             </span>
@@ -106,7 +130,7 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
             <span className="flex items-center gap-1.5">
               <Clock className="w-4 h-4 text-brand-red" /> {blog.readingTime}
             </span>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -117,16 +141,16 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
           {/* Left Sticky Sidebar (Desktop) */}
           <div className="hidden lg:block w-16 flex-shrink-0 relative">
             <div className="sticky top-40 flex flex-col gap-4 text-gray-400">
-               <button className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all group relative">
-                 <Bookmark className="w-5 h-5 group-hover:scale-110 transition-transform" />
+               <button onClick={() => { navigator.clipboard.writeText(window.location.href); alert("Link copied!"); }} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all group relative" title="Copy Link">
+                 <LinkIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
                </button>
-               <button className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all group">
+               <button onClick={shareTwitter} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all group" title="Share on X">
                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                </button>
-               <button className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all group">
+               <button onClick={shareFacebook} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all group" title="Share on Facebook">
                  <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
                </button>
-               <button className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-blue-700 hover:text-white hover:border-blue-700 transition-all group">
+               <button onClick={shareLinkedIn} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-blue-700 hover:text-white hover:border-blue-700 transition-all group" title="Share on LinkedIn">
                  <Linkedin className="w-5 h-5 group-hover:scale-110 transition-transform" />
                </button>
             </div>
@@ -163,7 +187,7 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
                     <p className="text-gray-500 text-sm">Mapping Specialist & Lead Consultant</p>
                  </div>
               </div>
-              <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-gray-300 shadow-sm text-gray-700 hover:text-white hover:bg-brand-blue hover:border-brand-blue transition-all font-medium text-sm w-full sm:w-auto justify-center group">
+              <button onClick={handleShare} className="flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-gray-300 shadow-sm text-gray-700 hover:text-white hover:bg-brand-blue hover:border-brand-blue transition-all font-medium text-sm w-full sm:w-auto justify-center group">
                 <Share2 className="w-4 h-4 group-hover:rotate-12 transition-transform" /> Share Article
               </button>
             </motion.div>

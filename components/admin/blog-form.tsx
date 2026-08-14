@@ -36,6 +36,7 @@ export function BlogForm({ post }: { post?: any }) {
   const [status, setStatus] = useState(post?.published ? "published" : (post?.scheduled_for ? "scheduled" : "draft"));
   const [inlineUploading, setInlineUploading] = useState(false);
   
+  const formRef = useRef<HTMLFormElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const inlineInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,16 +57,22 @@ export function BlogForm({ post }: { post?: any }) {
       formData.set("cover_image_file", coverFile);
     }
     
-    const result = await saveBlogPost(formData, post?.id);
+    try {
+      const result = await saveBlogPost(formData, post?.id);
 
-    if (result.error) {
-      setError(result.error);
+      if (result.error) {
+        setError(result.error);
+        setLoading(false);
+      } else {
+        setSuccess(true);
+        setTimeout(() => {
+          router.push("/admin/blog");
+        }, 1500);
+      }
+    } catch (e: any) {
+      console.error(e);
+      setError("Failed to save the article. The image file may be too large, or there is a network error.");
       setLoading(false);
-    } else {
-      setSuccess(true);
-      setTimeout(() => {
-        router.push("/admin/blog");
-      }, 1500);
     }
   }
 
@@ -91,7 +98,17 @@ export function BlogForm({ post }: { post?: any }) {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      {error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3 text-red-700">
+          <X className="w-5 h-5 flex-shrink-0 mt-0.5" />
+          <div>
+            <h3 className="font-bold text-sm">Save Failed</h3>
+            <p className="text-sm font-medium opacity-90 mt-1">{error}</p>
+          </div>
+        </div>
+      )}
+
+      <form ref={formRef} onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
         {/* Main Content (3/4) */}
         <div className="lg:col-span-3 space-y-6">
           <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm space-y-6">
@@ -152,7 +169,7 @@ export function BlogForm({ post }: { post?: any }) {
               >
                 {coverImage ? (
                   <>
-                    <Image src={coverImage} alt="Cover" fill className="object-cover opacity-60 group-hover:opacity-40 transition-opacity" />
+                    <img src={coverImage} alt="Cover" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity" />
                     <span className="relative z-10 bg-white text-brand-blue font-bold text-xs px-4 py-2 rounded-full shadow-lg">Change Cover Image</span>
                   </>
                 ) : (
@@ -272,22 +289,36 @@ export function BlogForm({ post }: { post?: any }) {
         </div>
 
         {/* Sidebar Settings (1/4) */}
-        <div className="space-y-6">
+        <div className="space-y-6 sticky top-6">
           <div className="bg-white rounded-[2rem] p-6 border border-gray-100 shadow-sm space-y-6">
             <h3 className="text-sm font-bold text-brand-blue uppercase tracking-widest border-b border-gray-50 pb-4">Publishing</h3>
             
-            <div className="space-y-4">
-               <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Status</label>
-               <select 
-                  name="status" 
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-xs font-bold text-brand-blue focus:outline-none appearance-none"
-                >
-                  <option value="draft">Draft</option>
-                  <option value="published">Published Live</option>
-                  <option value="scheduled">Scheduled</option>
-                </select>
+            <div className="space-y-3">
+               <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Publishing Actions</label>
+               <div className="grid grid-cols-2 gap-2">
+                 <button 
+                   type="button" 
+                   onClick={() => { setStatus("published"); setTimeout(() => formRef.current?.requestSubmit(), 0); }}
+                   className="py-3 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all bg-emerald-50 text-emerald-700 border-2 border-emerald-500 hover:bg-emerald-600 hover:text-white"
+                 >
+                   Publish Live
+                 </button>
+                 <button 
+                   type="button" 
+                   onClick={() => { setStatus("draft"); setTimeout(() => formRef.current?.requestSubmit(), 0); }}
+                   className="py-3 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all bg-gray-800 text-white border-2 border-gray-800 shadow-md hover:bg-black"
+                 >
+                   Save Draft
+                 </button>
+                 <button 
+                   type="button" 
+                   onClick={() => setStatus("scheduled")}
+                   className={`col-span-2 py-3 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all ${status === "scheduled" ? "bg-purple-50 text-purple-700 border-2 border-purple-500" : "bg-gray-50 text-gray-400 border-2 border-transparent hover:bg-gray-200"}`}
+                 >
+                   Schedule for Later
+                 </button>
+               </div>
+               <input type="hidden" name="status" value={status} />
             </div>
 
             {status === "scheduled" && (
@@ -348,10 +379,18 @@ export function BlogForm({ post }: { post?: any }) {
             <button 
               type="submit"
               disabled={loading || success}
-              className="w-full py-5 bg-brand-blue text-white rounded-2xl font-bold text-xs uppercase tracking-[0.2em] shadow-xl shadow-brand-blue/20 hover:bg-brand-red hover:shadow-brand-red/20 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-70"
+              className={`w-full py-5 text-white rounded-2xl font-bold text-xs uppercase tracking-[0.2em] shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-70 ${
+                status === "published" ? "bg-emerald-600 shadow-emerald-600/20 hover:bg-emerald-700" : 
+                status === "draft" ? "bg-gray-900 shadow-gray-900/20 hover:bg-black" : 
+                "bg-purple-600 shadow-purple-600/20 hover:bg-purple-700"
+              }`}
             >
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : success ? <CheckCircle2 className="w-5 h-5" /> : <Save className="w-5 h-5" />}
-              {loading ? "Saving..." : success ? "Saved!" : "Save Article"}
+              {loading ? "Saving..." : success ? "Saved!" : (
+                status === "published" ? "Publish Article Now" : 
+                status === "scheduled" ? "Schedule Article" : 
+                "Save as Draft"
+              )}
             </button>
             <Link href="/admin/blog" className="w-full py-4 bg-gray-50 text-gray-400 hover:text-brand-blue rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
               <X className="w-4 h-4" /> Cancel

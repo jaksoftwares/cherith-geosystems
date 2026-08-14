@@ -69,3 +69,29 @@ input, select, textarea {
     color: #ffffff !important;
   }
 }
+
+/* ==========================================================
+   MARKDOWN EDITOR UI FIXES
+   Prevents Tailwind Preflight from stripping toolbar buttons
+   ========================================================== */
+.w-md-editor-toolbar li > button {
+  padding: 4px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #475569 !important;
+}
+.w-md-editor-toolbar li > button svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+.w-md-editor-toolbar li > button:hover {
+  background-color: #f1f5f9 !important;
+  color: #0ea5e9 !important;
+}
+.w-md-editor-toolbar-divider {
+  height: 16px !important;
+  margin: 0 8px !important;
+}

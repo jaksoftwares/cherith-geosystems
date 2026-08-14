@@ -110,11 +110,10 @@ export default async function BlogAdminPage({ searchParams }: { searchParams: { 
                     <div className="flex items-center gap-4">
                       {post.cover_image_url && (
                         <div className="relative w-16 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
-                          <Image 
+                          <img 
                             src={post.cover_image_url} 
                             alt={post.title} 
-                            fill 
-                            className="object-cover"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                       )}
