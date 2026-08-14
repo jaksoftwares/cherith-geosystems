@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CTA } from "@/components/sections/cta";
 import { BlogReadingUI } from "@/components/sections/blogs/blog-reading-ui";
 import { getBlogBySlug } from "@/lib/api/blogs";
+import { optimizeImage } from "@/lib/utils";
 import { JsonLd } from "@/components/json-ld";
 import type { Article, WithContext } from "schema-dts";
 
@@ -22,14 +23,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 process.env.NEXT_PUBLIC_APP_URL ||
                 "https://cherith.co.ke";
 
+  const ogImageUrl = blog.image.startsWith('http') ? optimizeImage(blog.image, 1200) : `${baseUrl}${blog.image}`;
+
   return {
     title: `${blog.title} | Cherith GeoSystems`,
     description: blog.excerpt || blog.title,
     openGraph: {
       title: blog.title,
       description: blog.excerpt,
-      images: [{ url: blog.image.startsWith('http') ? blog.image : `${baseUrl}${blog.image}` }],
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: blog.title }],
       type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: blog.excerpt,
+      images: [ogImageUrl],
     },
     alternates: {
       canonical: `/blogs/${blog.slug}`,
