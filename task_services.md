@@ -1,0 +1,18 @@
+- [x] **Database API Layer**
+  - [x] Create `lib/api/services.ts`
+  - [x] Implement `getCategories()`, `getServices()`, `getServiceById()`, `getServiceBySlug()`
+- [x] **Server Actions**
+  - [x] Create `app/admin/services/actions.ts`
+  - [x] Implement `saveService()` and `deleteService()`
+- [x] **Admin Dashboard Overview**
+  - [x] Modify `app/admin/services/page.tsx` to fetch live data
+  - [x] Wire up delete functionality
+- [x] **Admin Form Component**
+  - [x] Create `components/admin/service-form.tsx`
+  - [x] Implement Cloudinary upload for main image
+  - [x] Implement dynamic Sub-Services builder with image uploads
+  - [x] Create `app/admin/services/new/page.tsx`
+  - [x] Create `app/admin/services/[id]/page.tsx`
+- [x] **Storefront Integration**
+  - [x] Refactor `components/sections/services/services-list.tsx` to use live DB data
+  - [x] Refactor `app/(marketing)/services/[id]/page.tsx` to fetch dynamic service data

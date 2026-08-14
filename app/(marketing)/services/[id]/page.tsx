@@ -4,159 +4,51 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { CTA } from "@/components/sections/cta";
+import { getServiceBySlug, getServices } from "@/lib/api/services";
+import { optimizeImage } from "@/lib/utils";
 
-// Data store containing the exact data logic from previous components but adding specific images for the sub-categories.
-const servicesData = [
-  {
-    id: "land-cadastral-surveys",
-    title: "Land (Cadastral) Surveys",
-    desc: "Legally compliant boundary resolutions and land administrations.",
-    heroImage: "/images/services/land-cadastral/land-demarcation2.png",
-    slug: "land-cadastral-surveys",
-    subServices: [
-      { name: "Subdivision & Amalgamation", image: "/images/services/land-cadastral/subdivision&amalgamation.png" },
-      { name: "Boundary Verification", image: "/images/services/land-cadastral/boundary-verification.png" },
-      { name: "Land Demarcation", image: "/images/services/land-cadastral/land-demarcation1.png" },
-      { name: "Forensic & Dispute Surveys", image: "/images/services/land-cadastral/forensics&dispute.png" },
-    ],
-  },
-  {
-    id: "engineering-topographical-surveys",
-    title: "Engineering & Topographical Surveys",
-    desc: "Terrain mapping and alignments for infrastructure projects.",
-    heroImage: "/images/services/engineering%26topographical/engineering%26topographicalsurvey.png",
-    slug: "engineering-topographical-surveys",
-    subServices: [
-      { name: "Topographical Mapping", image: "/images/services/engineering%26topographical/topographicalmapping1.png" },
-      { name: "Setting-Out Services", image: "/images/services/engineering%26topographical/settingoutservices.png" },
-      { name: "Control Surveys", image: "/images/services/engineering%26topographical/controlsurveys.png" },
-      { name: "Leveling & Verticality", image: "/images/services/engineering%26topographical/leveling%26verticality.png" },
-    ],
-  },
-  {
-    id: "gis-data-integration",
-    title: "GIS Data & Spatial Analysis",
-    desc: "Transforming raw geospatial data into powerful, interactive insights designed to fuel confident regional planning.",
-    heroImage: "/images/services/gis%26spatial-analysis/gid-hero.png",
-    slug: "gis-data-integration",
-    subServices: [
-      { name: "GIS Database Development", image: "/images/services/gis%26spatial-analysis/gis-database-development1.png" },
-      { name: "Spatial Modeling", image: "/images/services/gis%26spatial-analysis/spatial-modelling.png" },
-      { name: "Decision-Support Systems", image: "/images/services/gis%26spatial-analysis/decision-support1.png" },
-      { name: "Interactive Dashboards", image: "/images/services/gis%26spatial-analysis/interactive-gis-dashboard.png" },
-    ],
-  },
-  {
-    id: "remote-sensing",
-    title: "Remote Sensing & Environment",
-    desc: "Advanced satellite and drone analytics enabling vast-scale environmental surveillance and conservation efforts.",
-    heroImage: "/images/services/remote-sensing%26enviroment/remote-sensing-enviroment-hero.png",
-    slug: "remote-sensing",
-    subServices: [
-      { name: "Environmental Monitoring", image: "/images/services/remote-sensing%26enviroment/enviromental-monitoring1.png" },
-      { name: "Conservation Planning", image: "/images/services/remote-sensing%26enviroment/conservation-planning2.png" },
-      { name: "Large-Scale Mapping", image: "/images/services/remote-sensing%26enviroment/large-scale-mapping.png" },
-      { name: "Land & Climate Analysis", image: "/images/services/remote-sensing%26enviroment/land%26climate.png" },
-      { name: "Multi-terrain Modeling", image: "/images/services/remote-sensing%26enviroment/multiterrain.png" },
-    ],
-  },
-  {
-    id: "underground-utility-mapping",
-    title: "Underground Utility Mapping (GPR)",
-    desc: "Detect, map, and secure critical hidden infrastructures using high-tech Ground Penetrating Radar technology.",
-    heroImage: "/images/services/underground-utility-gpr/undeground-detection-hero.png",
-    slug: "underground-utility-mapping",
-    subServices: [
-      { name: "Pipeline Detection", image: "/images/services/underground-utility-gpr/pipeline-detection%201.png" },
-      { name: "Underground Cables", image: "/images/services/underground-utility-gpr/underground-cables.png" },
-      { name: "Hidden Infrastructure", image: "/images/services/underground-utility-gpr/hidden-infrastructure.png" },
-      { name: "Pre-construction Safety", image: "/images/services/underground-utility-gpr/preconstruction-safety.png" },
-      { name: "Data Interpretation", image: "/images/services/underground-utility-gpr/data-interpretation.png" },
-    ],
-  },
-  {
-    id: "geoportal-development",
-    title: "Geoportal & Web GIS Development",
-    desc: "Enterprise interactive mapping platforms and dynamic GIS dashboards designed for real-time spatial data access and visualization.",
-    heroImage: "/images/services/geo-portal%26gis/geoportal-main.png",
-    slug: "geoportal-development",
-    subServices: [
-      { name: "Interactive Mapping Platforms", image: "/images/services/geo-portal%26gis/interactive-mapping1.png" },
-      { name: "Dynamic GIS Dashboards", image: "/images/services/geo-portal%26gis/gis-dashboard1.png" },
-      { name: "Custom Geoportals", image: "/images/services/geo-portal%26gis/custom-geoportal.png" },
-      { name: "Enterprise Mapping Solutions", image: "/images/services/geo-portal%26gis/enterprise-mapping.png" },
-      { name: "Real-time Monitoring", image: "/images/services/geo-portal%26gis/real-time-mapping.png" },
-    ],
-  },
-  {
-    id: "project-planning",
-    title: "Planning & Technical Reporting",
-    desc: "Comprehensive survey data structuring and highly detailed engineering reporting tailored for stakeholders.",
-    heroImage: "/images/services/planning%26technicalreporting/planning%26reporting-hero.png",
-    slug: "project-planning",
-    subServices: [
-      { name: "Survey Planning", image: "/images/services/planning%26technicalreporting/survey-planning.png" },
-      { name: "Data Processing", image: "/images/services/planning%26technicalreporting/data-processing.png" },
-      { name: "Technical Reporting", image: "/images/services/planning%26technicalreporting/technical-reporting.png" },
-      { name: "Documentation Review", image: "/images/services/planning%26technicalreporting/documentation-review.png" },
-      { name: "End-to-End Workflow", image: "/images/services/planning%26technicalreporting/end-to-end-workflow.png" },
-    ],
-  },
-];
+import { createClient } from "@supabase/supabase-js";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
+// Generate static params for ISR and SEO without invoking Next.js cookies()
+export async function generateStaticParams() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  
+  const { data } = await supabase.from("services").select("slug");
+  
+  return (data || []).map((service) => ({
+    id: service.slug,
+  }));
+}
+
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  const service = servicesData.find((s) => s.id === resolvedParams.id);
+  const service = await getServiceBySlug(resolvedParams.id);
   
   if (!service) return { title: "Service Not Found" };
 
-  let metaTitle = `${service.title} | Cherith GeoSystems`;
-  let metaDescription = service.desc;
-
-  switch (service.id) {
-    case "land-cadastral-surveys":
-      metaTitle = "Land Surveying & Cadastral Surveys in Kenya | Cherith GeoSystems";
-      metaDescription = "Professional land surveying, cadastral surveys, boundary verification and subdivision services across Nairobi and Kenya.";
-      break;
-    case "engineering-topographical-surveys":
-      metaTitle = "Topographical & Engineering Surveys in Kenya | Cherith GeoSystems";
-      metaDescription = "Topographical mapping, setting out, and engineering survey services for infrastructure projects in Kenya.";
-      break;
-    case "gis-data-integration":
-      metaTitle = "GIS & Spatial Analysis Services in Kenya | Cherith GeoSystems";
-      metaDescription = "GIS database development, spatial analysis, and enterprise GIS services in Kenya.";
-      break;
-    case "remote-sensing":
-      metaTitle = "Drone Mapping & Aerial Surveys in Kenya | Cherith GeoSystems";
-      metaDescription = "Professional drone mapping, remote sensing, and aerial surveying services across Kenya.";
-      break;
-    case "underground-utility-mapping":
-      metaTitle = "GPR & Underground Utility Mapping in Kenya | Cherith GeoSystems";
-      metaDescription = "Ground Penetrating Radar (GPR) and underground utility mapping services in Nairobi and Kenya.";
-      break;
-    case "geoportal-development":
-      metaTitle = "Web GIS & Geoportal Development in Kenya | Cherith GeoSystems";
-      metaDescription = "Custom Web GIS development, geoportals, and interactive mapping platforms in Kenya.";
-      break;
-    case "project-planning":
-      metaTitle = "Survey Planning & Technical Reporting in Kenya | Cherith GeoSystems";
-      metaDescription = "Comprehensive survey data structuring and highly detailed engineering reporting tailored for stakeholders in Kenya.";
-      break;
-  }
-
+  // Advanced automated metadata 
   return {
-    title: metaTitle,
-    description: metaDescription,
+    title: `${service.title} in Kenya | Cherith GeoSystems`,
+    description: service.short_description,
+    openGraph: {
+      title: `${service.title} | Cherith GeoSystems`,
+      description: service.short_description,
+      images: [service.image_url],
+    }
   };
 }
 
 export default async function ServiceDetailsPage({ params }: Props) {
   const resolvedParams = await params;
-  const service = servicesData.find((s) => s.id === resolvedParams.id);
+  const service = await getServiceBySlug(resolvedParams.id);
 
   if (!service) {
     notFound();
@@ -168,7 +60,7 @@ export default async function ServiceDetailsPage({ params }: Props) {
       <section className="relative min-h-[45vh] flex items-center justify-center pt-24 pb-12 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src={service.heroImage}
+            src={service.image_url.startsWith('http') ? optimizeImage(service.image_url, 1920) : service.image_url}
             alt={service.title}
             fill
             priority
@@ -191,7 +83,7 @@ export default async function ServiceDetailsPage({ params }: Props) {
             {service.title}
           </h1>
           <p className="text-lg md:text-xl text-gray-200 max-w-2xl font-light">
-            {service.desc}
+            {service.short_description}
           </p>
         </div>
       </section>
@@ -207,14 +99,14 @@ export default async function ServiceDetailsPage({ params }: Props) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-            {service.subServices.map((sub, idx) => (
+            {service.sub_services?.map((sub, idx) => (
               <div 
                 key={idx} 
                 className="group relative h-[300px] md:h-[350px] rounded-2xl overflow-hidden shadow-lg border border-gray-200"
               >
                 <div className="absolute inset-0 z-0">
                   <Image
-                    src={sub.image}
+                    src={sub.image.startsWith('http') ? optimizeImage(sub.image, 600) : sub.image}
                     alt={sub.name}
                     fill
                     className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700 ease-in-out"
