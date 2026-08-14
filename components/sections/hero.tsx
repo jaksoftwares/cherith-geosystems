@@ -9,23 +9,23 @@ import { useState, useEffect } from "react";
 const heroImages = [
   {
     src: "/images/panoramic-landmapping.png",
-    alt: "Aerial view mapping",
+    alt: "Panoramic land mapping and cadastral surveys in Kenya",
   },
   {
     src: "/images/drone-mapping.jpg",
-    alt: "Advanced drone surveys",
+    alt: "Advanced drone mapping and aerial surveying over Kenyan landscape",
   },
   {
     src: "/images/infrastructureproject.png",
-    alt: "Infrastructure development",
+    alt: "Large scale infrastructure development and GIS spatial analysis",
   },
   {
     src: "/images/urban-engineering-survey.jpg",
-    alt: "Urban engineering precision",
+    alt: "Urban engineering precision and topographical surveys in Nairobi",
   },
   {
     src: "/images/roadconstructionsurveys.jpg",
-    alt: "Road construction surveying",
+    alt: "Road construction engineering surveys and site setting out",
   }
 ];
 
@@ -92,9 +92,18 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-cherith text-white leading-[1.2] md:leading-[1.15]"
           >
-            Mapping <span className="text-brand-red">Possibilities.</span><br />
-            Defining <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">Precision.</span>
+            Professional Land Surveying & <br className="hidden lg:block" />
+            <span className="text-brand-red">Geospatial Services in Kenya</span>
           </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="text-xl md:text-2xl font-bold text-white mt-2 tracking-wide font-cherith"
+          >
+            Mapping Possibilities. Defining <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">Precision.</span>
+          </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}

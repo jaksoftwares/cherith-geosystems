@@ -6,22 +6,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
 
-import { blogsData, BlogPost } from "@/lib/data/blogs";
+import { BlogPost } from "@/lib/api/blogs";
 
-export function BlogsGrid() {
+export function BlogsGrid({ blogs }: { blogs: BlogPost[] }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = ["All", ...Array.from(new Set(blogsData.map((b) => b.category)))];
+  const categories = ["All", ...Array.from(new Set(blogs.map((b) => b.category)))];
 
-  const filteredBlogs = blogsData.filter((blog) => {
+  const filteredBlogs = blogs.filter((blog) => {
     const matchCategory = activeCategory === "All" || blog.category === activeCategory;
     const matchSearch = blog.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                         blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchCategory && matchSearch;
   });
 
-  const featuredPost = blogsData.find(b => b.featured) || blogsData[0];
+  const featuredPost = blogs.find(b => b.featured) || blogs[0];
 
   return (
     <section className="py-12 md:py-16 bg-zinc-50 min-h-[50vh]">

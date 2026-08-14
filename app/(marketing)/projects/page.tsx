@@ -5,7 +5,7 @@ import { ProjectsExperience } from "@/components/sections/projects/projects-expe
 import { CTA } from "@/components/sections/cta";
 
 export const metadata: Metadata = {
-  title: "Featured Projects | Cherith GeoSystems",
+  title: "Surveying & Geospatial Projects in Kenya | Cherith GeoSystems",
   description: "Explore our portfolio of comprehensive mapping, GIS integration, and infrastructure surveying projects engineered across Kenya and East Africa.",
 };
 

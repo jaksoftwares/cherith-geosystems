@@ -114,9 +114,43 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   if (!service) return { title: "Service Not Found" };
 
+  let metaTitle = `${service.title} | Cherith GeoSystems`;
+  let metaDescription = service.desc;
+
+  switch (service.id) {
+    case "land-cadastral-surveys":
+      metaTitle = "Land Surveying & Cadastral Surveys in Kenya | Cherith GeoSystems";
+      metaDescription = "Professional land surveying, cadastral surveys, boundary verification and subdivision services across Nairobi and Kenya.";
+      break;
+    case "engineering-topographical-surveys":
+      metaTitle = "Topographical & Engineering Surveys in Kenya | Cherith GeoSystems";
+      metaDescription = "Topographical mapping, setting out, and engineering survey services for infrastructure projects in Kenya.";
+      break;
+    case "gis-data-integration":
+      metaTitle = "GIS & Spatial Analysis Services in Kenya | Cherith GeoSystems";
+      metaDescription = "GIS database development, spatial analysis, and enterprise GIS services in Kenya.";
+      break;
+    case "remote-sensing":
+      metaTitle = "Drone Mapping & Aerial Surveys in Kenya | Cherith GeoSystems";
+      metaDescription = "Professional drone mapping, remote sensing, and aerial surveying services across Kenya.";
+      break;
+    case "underground-utility-mapping":
+      metaTitle = "GPR & Underground Utility Mapping in Kenya | Cherith GeoSystems";
+      metaDescription = "Ground Penetrating Radar (GPR) and underground utility mapping services in Nairobi and Kenya.";
+      break;
+    case "geoportal-development":
+      metaTitle = "Web GIS & Geoportal Development in Kenya | Cherith GeoSystems";
+      metaDescription = "Custom Web GIS development, geoportals, and interactive mapping platforms in Kenya.";
+      break;
+    case "project-planning":
+      metaTitle = "Survey Planning & Technical Reporting in Kenya | Cherith GeoSystems";
+      metaDescription = "Comprehensive survey data structuring and highly detailed engineering reporting tailored for stakeholders in Kenya.";
+      break;
+  }
+
   return {
-    title: `${service.title} | Cherith GeoSystems`,
-    description: service.desc,
+    title: metaTitle,
+    description: metaDescription,
   };
 }
 

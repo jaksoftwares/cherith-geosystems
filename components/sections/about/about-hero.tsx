@@ -34,10 +34,20 @@ export function AboutHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-cherith text-white leading-tight mb-5"
+          className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-cherith text-white leading-tight mb-2"
+        >
+          19+ Years of Land Surveying & <br className="hidden md:block" />
+          <span className="text-brand-red">Geospatial Expertise in Kenya</span>
+        </motion.h1>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="text-xl md:text-2xl font-bold font-cherith text-white mb-5 opacity-90"
         >
           Precision in Every <span className="text-brand-red">Detail</span>
-        </motion.h1>
+        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}

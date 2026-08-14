@@ -7,8 +7,8 @@ import { AboutLeadership } from "@/components/sections/about/about-leadership";
 import { CTA } from "@/components/sections/cta";
 
 export const metadata: Metadata = {
-  title: "About Us | Cherith GeoSystems",
-  description: "Learn about Cherith GeoSystems, a premier geospatial and surveying firm committed to delivering precision, reliability, and innovation.",
+  title: "About Our Land Surveyors & Geospatial Engineers | Cherith GeoSystems Kenya",
+  description: "With 19+ years of experience and 400+ projects across 47 counties, learn why Cherith GeoSystems is Kenya's trusted surveying firm.",
 };
 
 export default function AboutPage() {
