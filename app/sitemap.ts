@@ -3,6 +3,7 @@ import { getBlogs } from '@/lib/api/blogs';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                process.env.NEXT_PUBLIC_APP_URL ||
                 (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://cherith.co.ke");
 
   const staticRoutes = [
