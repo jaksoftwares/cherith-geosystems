@@ -17,6 +17,7 @@ const MDEditor = dynamic(
   { ssr: false, loading: () => <div className="h-[500px] bg-gray-50 flex items-center justify-center text-gray-400">Loading Editor...</div> }
 );
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export function BlogForm({ post }: { post?: any }) {
   const router = useRouter();
@@ -218,33 +219,10 @@ export function BlogForm({ post }: { post?: any }) {
               </div>
 
               <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
-                <style dangerouslySetInnerHTML={{__html: `
-                  .w-md-editor-toolbar li > button {
-                    padding: 4px !important;
-                    min-width: 28px !important;
-                    min-height: 28px !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    color: #475569 !important;
-                  }
-                  .w-md-editor-toolbar li > button svg {
-                    width: 14px !important;
-                    height: 14px !important;
-                  }
-                  .w-md-editor-toolbar li > button:hover {
-                    background-color: #f1f5f9 !important;
-                    color: #0ea5e9 !important;
-                  }
-                  .w-md-editor-toolbar-divider {
-                    height: 16px !important;
-                    margin: 0 8px !important;
-                  }
-                `}} />
                 <MDEditor
                   value={content}
                   onChange={(val) => setContent(val || "")}
-                  height={600}
+                  height={500}
                   className="w-full"
                   preview="live"
                   textareaProps={{
