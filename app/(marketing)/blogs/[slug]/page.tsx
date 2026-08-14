@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 process.env.NEXT_PUBLIC_APP_URL ||
                 "https://cherith.co.ke";
 
-  const ogImageUrl = blog.image.startsWith('http') ? optimizeImage(blog.image, 1200) : `${baseUrl}${blog.image}`;
+  const ogImageUrl = `${baseUrl}/api/og-image?slug=${blog.slug}`;
 
   return {
     title: `${blog.title} | Cherith GeoSystems`,
@@ -63,7 +63,7 @@ export default async function BlogPostPage({ params }: Props) {
     "@type": "Article",
     headline: blog.title,
     description: blog.excerpt,
-    image: blog.image.startsWith('http') ? blog.image : `${baseUrl}${blog.image}`,
+    image: `${baseUrl}/api/og-image?slug=${blog.slug}`,
     author: {
       "@type": "Person",
       name: blog.author,
