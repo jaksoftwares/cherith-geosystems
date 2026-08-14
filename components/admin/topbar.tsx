@@ -153,9 +153,13 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
                       })
                     )}
                   </div>
-                  <button className="w-full py-4 text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-zinc-50 hover:bg-gray-100 transition-colors">
-                    View All Notifications
-                  </button>
+                  <Link 
+                    href="/admin/inbox"
+                    onClick={() => setShowNotifications(false)}
+                    className="block w-full py-4 text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-zinc-50 hover:bg-gray-100 transition-colors text-center"
+                  >
+                    View All Inquiries →
+                  </Link>
                 </motion.div>
               </>
             )}
