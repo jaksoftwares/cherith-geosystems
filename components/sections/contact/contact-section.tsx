@@ -42,7 +42,7 @@ export function ContactSection() {
     {
       icon: Phone,
       label: "Direct Line",
-      value: "0790034580",
+      value: "+254 790 034 580",
       desc: "Mon-Sat from 8am to 5pm EAT",
     },
     {

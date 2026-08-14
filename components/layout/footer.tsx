@@ -99,7 +99,7 @@ export function Footer() {
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white">Phone</h4>
-                  <p className="text-gray-300 text-xs mt-0.5">0790034580</p>
+                  <p className="text-gray-300 text-xs mt-0.5">+254 790 034 580</p>
                 </div>
               </li>
               <li className="flex items-center gap-3.5">
@@ -119,7 +119,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-[10px] md:text-xs">
-            &copy; {currentYear} Cherith Informatics &amp; Mapping Ltd. All rights reserved.
+            &copy; {currentYear} Cherith GeoSystems (Trading as Cherith Informatics &amp; Mapping Ltd). All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-[10px] md:text-xs text-gray-400">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
