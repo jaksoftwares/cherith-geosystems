@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://cherith.co.ke");
+                process.env.NEXT_PUBLIC_APP_URL ||
+                "https://cherith.co.ke";
 
   return {
     title: `${blog.title} | Cherith GeoSystems`,
@@ -45,7 +46,8 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://cherith.co.ke");
+                process.env.NEXT_PUBLIC_APP_URL ||
+                "https://cherith.co.ke";
 
   const articleSchema: WithContext<Article> = {
     "@context": "https://schema.org",
