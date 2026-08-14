@@ -17,7 +17,8 @@ import {
   Mail,
   Zap,
   Quote,
-  X
+  X,
+  MessageSquare
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { signOut } from "@/app/auth/actions";
@@ -40,7 +41,7 @@ const navigation = [
   { 
     title: "CRM / Leads", 
     items: [
-      { name: "Inbox", href: "/admin/messages/contacts", icon: Mail },
+      { name: "Inbox", href: "/admin/inbox", icon: Mail },
     ] 
   },
   { 

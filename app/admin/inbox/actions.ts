@@ -5,18 +5,20 @@ import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const fromEmail = process.env.NEXT_PUBLIC_SITE_EMAIL || "info@cherith.co.ke"; // Standardizing to an env variable or fallback
 
-function getTableName(type: string): string {
+export type MessageType = "General Inquiry" | "Survey Request" | "Quote Request" | "Consultation";
+
+function getTableName(type: MessageType): string {
   switch (type) {
     case "General Inquiry": return "contacts";
     case "Survey Request": return "survey_requests";
     case "Quote Request": return "quote_requests";
     case "Consultation": return "consultations";
-    default: return "contacts";
   }
 }
 
-export async function deleteLead(id: string, type: string) {
+export async function deleteLead(id: string, type: MessageType) {
   const supabase = await createClient();
   const table = getTableName(type);
 
@@ -26,11 +28,11 @@ export async function deleteLead(id: string, type: string) {
     return { error: error.message };
   }
 
-  revalidatePath("/admin/messages/contacts");
+  revalidatePath("/admin/inbox");
   return { success: true };
 }
 
-export async function updateLeadStatus(id: string, type: string, newStatus: string) {
+export async function updateLeadStatus(id: string, type: MessageType, newStatus: string) {
   const supabase = await createClient();
   const table = getTableName(type);
 
@@ -40,15 +42,15 @@ export async function updateLeadStatus(id: string, type: string, newStatus: stri
     return { error: error.message };
   }
 
-  revalidatePath("/admin/messages/contacts");
+  revalidatePath("/admin/inbox");
   return { success: true };
 }
 
-export async function replyToLead(id: string, email: string, message: string, type: string) {
+export async function replyToLead(id: string, email: string, message: string, type: MessageType) {
   try {
-    // 1. Send the email via Resend
+    // Note: To successfully send via Resend, the domain in `from` must be verified in your Resend account.
     await resend.emails.send({
-      from: "Cherith GeoSystems <onboarding@resend.dev>", // Replace with verified domain
+      from: `Cherith GeoSystems <${fromEmail}>`,
       to: email,
       subject: `Response to your Cherith GeoSystems ${type}`,
       html: `
@@ -58,13 +60,13 @@ export async function replyToLead(id: string, email: string, message: string, ty
           <p style="font-size: 12px; color: #999;">
             <strong>Cherith GeoSystems</strong><br/>
             Olympic House, Nairobi, Kenya<br/>
-            info@cherith.co.ke
+            ${fromEmail}
           </p>
         </div>
       `,
     });
 
-    // 2. Automatically mark the lead as 'Resolved'
+    // Automatically mark the lead as 'Resolved'
     return await updateLeadStatus(id, type, "Resolved");
   } catch (error) {
     console.error("Failed to send reply email:", error);

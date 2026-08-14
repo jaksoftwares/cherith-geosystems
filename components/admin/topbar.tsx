@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getUnreadNotifications, Notification } from "@/lib/api/notifications";
+import { formatDistanceToNow } from "date-fns";
 import { 
   Bell, 
   Search, 
@@ -24,6 +26,11 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
   const { profile } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+
+  useEffect(() => {
+    getUnreadNotifications().then(setNotifications).catch(console.error);
+  }, [pathname]); // Refresh notifications when route changes
   
   const getInitials = (name: string) => {
     return name
@@ -41,12 +48,16 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
     return { href, label };
   });
 
-  const notifications = [
-    { id: 1, title: "New Survey Request", time: "2m ago", icon: Clock, color: "text-brand-red bg-brand-red/10" },
-    { id: 2, title: "Lead marked as resolved", time: "1h ago", icon: CheckCircle2, color: "text-emerald-500 bg-emerald-50" },
-    { id: 3, title: "Database backup successful", time: "5h ago", icon: CheckCircle2, color: "text-brand-blue bg-brand-blue/10" },
-    { id: 4, title: "New general inquiry", time: "1d ago", icon: Mail, color: "text-brand-red bg-brand-red/10" },
-  ];
+  // Dynamic styling based on notification type
+  const getNotificationIcon = (type: string) => {
+    switch (type) {
+      case "General Inquiry": return { icon: Mail, color: "text-brand-red bg-brand-red/10" };
+      case "Survey Request": return { icon: Search, color: "text-brand-blue bg-brand-blue/10" };
+      case "Quote Request": return { icon: Clock, color: "text-emerald-500 bg-emerald-50" };
+      case "Consultation": return { icon: User, color: "text-purple-500 bg-purple-50" };
+      default: return { icon: Bell, color: "text-gray-500 bg-gray-100" };
+    }
+  };
 
   return (
     <header className="h-24 bg-white border-b border-gray-100 flex items-center justify-between px-4 md:px-8 sticky top-0 z-40">
@@ -102,7 +113,7 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
             }`}
           >
             <Bell className="w-5 h-5" />
-            {!showNotifications && <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-brand-red rounded-full border-2 border-white"></span>}
+            {notifications.length > 0 && <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-brand-red rounded-full border-2 border-white"></span>}
           </button>
 
           <AnimatePresence>
@@ -117,20 +128,30 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
                 >
                   <div className="p-6 border-b border-gray-50 flex items-center justify-between">
                     <h3 className="font-bold font-cherith text-brand-blue">Notifications</h3>
-                    <span className="text-[10px] font-bold text-brand-red uppercase tracking-widest">4 New</span>
+                    {notifications.length > 0 && (
+                      <span className="text-[10px] font-bold text-brand-red uppercase tracking-widest">{notifications.length} New</span>
+                    )}
                   </div>
                   <div className="divide-y divide-gray-50 max-h-[350px] overflow-y-auto">
-                    {notifications.map((notif) => (
-                      <div key={notif.id} className="p-4 hover:bg-zinc-50 transition-colors flex items-start gap-4 cursor-pointer">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${notif.color}`}>
-                          <notif.icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-semibold text-brand-blue">{notif.title}</p>
-                          <p className="text-[10px] font-medium text-gray-400 mt-0.5">{notif.time}</p>
-                        </div>
-                      </div>
-                    ))}
+                    {notifications.length === 0 ? (
+                       <div className="p-8 text-center text-xs font-bold text-gray-400">You're all caught up!</div>
+                    ) : (
+                      notifications.map((notif) => {
+                        const style = getNotificationIcon(notif.type);
+                        const Icon = style.icon;
+                        return (
+                          <Link href="/admin/inbox" key={notif.id} onClick={() => setShowNotifications(false)} className="p-4 hover:bg-zinc-50 transition-colors flex items-start gap-4 cursor-pointer">
+                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${style.color}`}>
+                              <Icon className="w-4 h-4" />
+                            </div>
+                            <div>
+                              <p className="text-xs font-semibold text-brand-blue">{notif.title}</p>
+                              <p className="text-[10px] text-gray-400 font-medium mt-1">{formatDistanceToNow(new Date(notif.created_at), { addSuffix: true })}</p>
+                            </div>
+                          </Link>
+                        );
+                      })
+                    )}
                   </div>
                   <button className="w-full py-4 text-[10px] font-bold text-brand-blue uppercase tracking-widest bg-zinc-50 hover:bg-gray-100 transition-colors">
                     View All Notifications
