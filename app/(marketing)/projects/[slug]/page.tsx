@@ -1,9 +1,11 @@
-"use client";
 
-import { projectsData } from "@/lib/data/projects";
-import { notFound, useParams } from "next/navigation";
+import { getProjectBySlug } from "@/lib/api/projects";
+import { optimizeImage } from "@/lib/utils";
+import { createClient } from "@supabase/supabase-js";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 import { 
   ArrowLeft, 
   MapPin, 
@@ -16,14 +18,46 @@ import {
   Activity,
   Maximize
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { CTA } from "@/components/sections/cta";
 
-export default function ProjectDetailPage() {
-  const params = useParams();
-  const slug = params?.slug as string;
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+// Generate static params for ISR and SEO without invoking Next.js cookies()
+export async function generateStaticParams() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
   
-  const project = projectsData.find((p) => p.slug === slug);
+  const { data } = await supabase.from("projects").select("slug");
+  
+  return (data || []).map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const project = await getProjectBySlug(resolvedParams.slug);
+  
+  if (!project) return { title: "Project Not Found" };
+
+  return {
+    title: `${project.title} | Cherith GeoSystems`,
+    description: project.description,
+    openGraph: {
+      title: `${project.title} | Cherith GeoSystems`,
+      description: project.description,
+      images: [project.image_url],
+    }
+  };
+}
+
+export default async function ProjectDetailPage({ params }: Props) {
+  const resolvedParams = await params;
+  const project = await getProjectBySlug(resolvedParams.slug);
 
   if (!project) {
     notFound();
@@ -37,7 +71,7 @@ export default function ProjectDetailPage() {
       {/* Dynamic Project Hero */}
       <section className="relative h-[60vh] md:h-[75vh] min-h-[500px] w-full overflow-hidden">
         <Image 
-          src={project.image} 
+          src={project.image_url.startsWith('http') ? optimizeImage(project.image_url, 1920) : project.image_url} 
           alt={project.title} 
           fill 
           priority
@@ -95,7 +129,7 @@ export default function ProjectDetailPage() {
                     {project.description}
                   </p>
                   <div className="space-y-6">
-                    {project.fullDescription.split('\n\n').map((paragraph, i) => (
+                    {project.full_description?.split('\n\n').map((paragraph, i) => (
                       <p key={i}>{paragraph}</p>
                     ))}
                   </div>
@@ -109,7 +143,7 @@ export default function ProjectDetailPage() {
                   Technical Specifications
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {project.technicalSpecs?.map((spec, idx) => {
+                  {project.technical_specs?.map((spec, idx) => {
                     const Icon = specIcons[idx % specIcons.length];
                     return (
                       <div key={idx} className="bg-zinc-50 border border-gray-100 p-8 rounded-3xl group hover:bg-brand-blue transition-all duration-500">
@@ -127,6 +161,33 @@ export default function ProjectDetailPage() {
                   })}
                 </div>
               </div>
+              
+              {/* Project Gallery */}
+              {project.gallery && project.gallery.length > 0 && (
+                <div className="mt-20 pt-10 border-t border-gray-100">
+                  <h3 className="text-2xl font-bold font-cherith text-brand-blue mb-10 flex items-center gap-3">
+                    <Maximize className="w-6 h-6 text-brand-red" />
+                    Project Gallery
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {project.gallery.map((img, idx) => (
+                      <div key={idx} className="relative aspect-[4/3] rounded-3xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-500">
+                        <Image
+                          src={img.url.startsWith('http') ? optimizeImage(img.url, 800) : img.url}
+                          alt={`${project.title} - Gallery Image ${idx + 1}`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                          <p className="text-white font-bold text-sm tracking-widest uppercase">View Image</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
             </div>
           </div>
         </div>

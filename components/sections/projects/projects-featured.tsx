@@ -5,15 +5,20 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Filter, Search, MapPin } from "lucide-react";
-import { projectsData, Project } from "@/lib/data/projects";
+import type { Project } from "@/lib/api/projects";
+import { optimizeImage } from "@/lib/utils";
 
-export function ProjectsFeatured() {
+interface ProjectsFeaturedProps {
+  initialProjects: Project[];
+}
+
+export function ProjectsFeatured({ initialProjects }: ProjectsFeaturedProps) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = ["All", ...Array.from(new Set(projectsData.map((p) => p.category)))];
+  const categories = ["All", ...Array.from(new Set(initialProjects.map((p) => p.category)))];
 
-  const filteredProjects = projectsData.filter((project) => {
+  const filteredProjects = initialProjects.filter((project) => {
     const matchCategory = activeCategory === "All" || project.category === activeCategory;
     const matchSearch = 
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -87,7 +92,7 @@ export function ProjectsFeatured() {
                 
                 <div className="relative h-48 md:h-56 overflow-hidden">
                   <Image
-                    src={project.image}
+                    src={project.image_url.startsWith('http') ? optimizeImage(project.image_url, 600) : project.image_url}
                     alt={project.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"

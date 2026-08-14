@@ -10,7 +10,7 @@ import { optimizeImage } from "@/lib/utils";
 import { createClient } from "@supabase/supabase-js";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 };
 
 // Generate static params for ISR and SEO without invoking Next.js cookies()
@@ -23,14 +23,14 @@ export async function generateStaticParams() {
   const { data } = await supabase.from("services").select("slug");
   
   return (data || []).map((service) => ({
-    id: service.slug,
+    slug: service.slug,
   }));
 }
 
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  const service = await getServiceBySlug(resolvedParams.id);
+  const service = await getServiceBySlug(resolvedParams.slug);
   
   if (!service) return { title: "Service Not Found" };
 
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ServiceDetailsPage({ params }: Props) {
   const resolvedParams = await params;
-  const service = await getServiceBySlug(resolvedParams.id);
+  const service = await getServiceBySlug(resolvedParams.slug);
 
   if (!service) {
     notFound();

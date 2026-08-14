@@ -4,16 +4,20 @@ import { ProjectsFeatured } from "@/components/sections/projects/projects-featur
 import { ProjectsExperience } from "@/components/sections/projects/projects-experience";
 import { CTA } from "@/components/sections/cta";
 
+import { getProjects } from "@/lib/api/projects";
+
 export const metadata: Metadata = {
   title: "Surveying & Geospatial Projects in Kenya | Cherith GeoSystems",
   description: "Explore our portfolio of comprehensive mapping, GIS integration, and infrastructure surveying projects engineered across Kenya and East Africa.",
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
   return (
     <main className="flex flex-col min-h-screen">
       <ProjectsHero />
-      <ProjectsFeatured />
+      <ProjectsFeatured initialProjects={projects} />
       <ProjectsExperience />
       <CTA />
     </main>
