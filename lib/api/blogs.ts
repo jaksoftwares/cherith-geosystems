@@ -7,14 +7,20 @@ export interface SupabaseBlogPost {
   excerpt: string;
   content: string;
   category: string;
-  image: string;
+  cover_image_url: string;
   author: string;
   reading_time: string;
   featured: boolean;
+  published: boolean;
   published_at: string;
+  seo_title?: string;
+  meta_description?: string;
+  tags?: string[];
+  scheduled_for?: string;
 }
 
 export type BlogPost = {
+  id: string;
   slug: string;
   title: string;
   excerpt: string;
@@ -25,12 +31,16 @@ export type BlogPost = {
   readingTime: string;
   featured: boolean;
   content: string;
+  seo_title?: string;
+  meta_description?: string;
+  tags?: string[];
 };
 
 export async function getBlogs(): Promise<BlogPost[]> {
   const { data, error } = await supabase
-    .from("blogs")
+    .from("blog_posts")
     .select("*")
+    .eq("published", true)
     .lte("published_at", new Date().toISOString())
     .order("published_at", { ascending: false });
 
@@ -40,13 +50,14 @@ export async function getBlogs(): Promise<BlogPost[]> {
   }
 
   return (data as SupabaseBlogPost[]).map((blog) => ({
+    id: blog.id,
     slug: blog.slug,
     title: blog.title,
     excerpt: blog.excerpt,
     category: blog.category || "General",
-    image: blog.image || "/images/placeholder.jpg",
+    image: blog.cover_image_url || "/images/placeholder.jpg",
     author: blog.author || "Cherith Team",
-    date: new Date(blog.published_at).toLocaleDateString("en-US", {
+    date: new Date(blog.published_at || new Date()).toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
       year: "numeric",
@@ -54,14 +65,18 @@ export async function getBlogs(): Promise<BlogPost[]> {
     readingTime: blog.reading_time || "5 min read",
     featured: blog.featured || false,
     content: blog.content || "",
+    seo_title: blog.seo_title,
+    meta_description: blog.meta_description,
+    tags: blog.tags,
   }));
 }
 
 export async function getBlogBySlug(slug: string): Promise<BlogPost | null> {
   const { data, error } = await supabase
-    .from("blogs")
+    .from("blog_posts")
     .select("*")
     .eq("slug", slug)
+    .eq("published", true)
     .lte("published_at", new Date().toISOString())
     .single();
 
@@ -72,13 +87,14 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | null> {
   const blog = data as SupabaseBlogPost;
 
   return {
+    id: blog.id,
     slug: blog.slug,
     title: blog.title,
     excerpt: blog.excerpt,
     category: blog.category || "General",
-    image: blog.image || "/images/placeholder.jpg",
+    image: blog.cover_image_url || "/images/placeholder.jpg",
     author: blog.author || "Cherith Team",
-    date: new Date(blog.published_at).toLocaleDateString("en-US", {
+    date: new Date(blog.published_at || new Date()).toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
       year: "numeric",
@@ -86,5 +102,8 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | null> {
     readingTime: blog.reading_time || "5 min read",
     featured: blog.featured || false,
     content: blog.content || "",
+    seo_title: blog.seo_title,
+    meta_description: blog.meta_description,
+    tags: blog.tags,
   };
 }

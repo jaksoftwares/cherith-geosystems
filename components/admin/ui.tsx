@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: "blue" | "red" | "green" | "gray" | "orange";
+  variant?: "blue" | "red" | "green" | "gray" | "orange" | "purple";
   className?: string;
 }
 
@@ -15,6 +15,7 @@ export function AdminBadge({ children, variant = "gray", className = "" }: Badge
     green: "bg-emerald-50 text-emerald-600 border-emerald-200",
     gray: "bg-gray-100 text-gray-600 border-gray-200",
     orange: "bg-amber-50 text-amber-600 border-amber-200",
+    purple: "bg-purple-50 text-purple-600 border-purple-200",
   };
 
   return (

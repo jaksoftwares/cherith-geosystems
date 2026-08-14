@@ -2,9 +2,9 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
+import { CldImage } from 'next-cloudinary';
 
 import { BlogPost } from "@/lib/api/blogs";
 
@@ -65,12 +65,20 @@ export function BlogsGrid({ blogs }: { blogs: BlogPost[] }) {
           >
             <div className="group relative bg-white rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-xl border border-gray-100 flex flex-col lg:flex-row min-h-[400px] md:min-h-[450px]">
               <div className="lg:w-3/5 relative h-56 md:h-72 lg:h-auto overflow-hidden">
-                <Image
-                  src={featuredPost.image}
-                  alt={featuredPost.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-1000"
-                />
+                {featuredPost.image.includes("res.cloudinary.com") ? (
+                  <CldImage
+                    src={featuredPost.image}
+                    alt={featuredPost.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                  />
+                ) : (
+                  <img
+                    src={featuredPost.image}
+                    alt={featuredPost.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent"></div>
                 <div className="absolute top-6 left-6">
                   <span className="bg-brand-red text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-xl">
@@ -151,12 +159,20 @@ export function BlogsGrid({ blogs }: { blogs: BlogPost[] }) {
                 className="group flex flex-col bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 h-full"
               >
                 <div className="relative h-48 md:h-56 overflow-hidden">
-                  <Image
-                    src={blog.image}
-                    alt={blog.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
+                  {blog.image.includes("res.cloudinary.com") ? (
+                    <CldImage
+                      src={blog.image}
+                      alt={blog.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  ) : (
+                    <img
+                      src={blog.image}
+                      alt={blog.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  )}
                   <div className="absolute top-4 left-4">
                     <span className="bg-brand-red/90 text-white text-[9px] font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded shadow-lg backdrop-blur">
                       {blog.category}

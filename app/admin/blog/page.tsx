@@ -16,13 +16,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
 
-export default async function BlogAdminPage() {
+export default async function BlogAdminPage({ searchParams }: { searchParams: { status?: string } }) {
   const supabase = await createClient();
+  const filterStatus = searchParams.status;
   
-  const { data: posts, error } = await supabase
-    .from("blog_posts")
-    .select("*")
-    .order("created_at", { ascending: false });
+  let query = supabase.from("blog_posts").select("*").order("created_at", { ascending: false });
+  
+  if (filterStatus === "published") query = query.eq("published", true);
+  if (filterStatus === "draft") query = query.eq("published", false).is("scheduled_for", null);
+  if (filterStatus === "scheduled") query = query.not("scheduled_for", "is", null);
+
+  const { data: posts, error } = await query;
 
   if (error) {
     console.error("Error fetching blogs:", error);
@@ -65,7 +69,7 @@ export default async function BlogAdminPage() {
 
       {/* Blog List Table */}
       <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden">
-        <div className="p-8 border-b border-gray-50 flex items-center justify-between">
+        <div className="p-8 border-b border-gray-50 flex flex-col md:flex-row gap-4 items-center justify-between">
            <div className="relative group max-w-sm w-full">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-brand-red transition-colors" />
             <input 
@@ -73,6 +77,12 @@ export default async function BlogAdminPage() {
               placeholder="Search posts..." 
               className="w-full pl-12 pr-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl text-xs font-medium text-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-red/10 focus:border-brand-red transition-all"
             />
+          </div>
+          <div className="flex items-center gap-2 bg-gray-50 p-1 rounded-xl">
+             <Link href="/admin/blog" className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${!filterStatus ? "bg-white shadow-sm text-brand-blue" : "text-gray-500 hover:text-brand-blue"}`}>All</Link>
+             <Link href="/admin/blog?status=published" className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${filterStatus === "published" ? "bg-white shadow-sm text-green-600" : "text-gray-500 hover:text-green-600"}`}>Published</Link>
+             <Link href="/admin/blog?status=draft" className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${filterStatus === "draft" ? "bg-white shadow-sm text-gray-800" : "text-gray-500 hover:text-gray-800"}`}>Drafts</Link>
+             <Link href="/admin/blog?status=scheduled" className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${filterStatus === "scheduled" ? "bg-white shadow-sm text-purple-600" : "text-gray-500 hover:text-purple-600"}`}>Scheduled</Link>
           </div>
         </div>
 
@@ -136,8 +146,8 @@ export default async function BlogAdminPage() {
                   </td>
                   <td className="px-8 py-6">
                     <div className="flex flex-col gap-2">
-                      <AdminBadge variant={post.published ? "green" : "red"}>
-                        {post.published ? "Published" : "Draft"}
+                      <AdminBadge variant={post.published ? "green" : (post.scheduled_for ? "purple" : "red")}>
+                        {post.published ? "Published" : (post.scheduled_for ? "Scheduled" : "Draft")}
                       </AdminBadge>
                       {post.featured && (
                         <span className="text-[8px] font-black uppercase text-brand-red tracking-widest flex items-center gap-1">

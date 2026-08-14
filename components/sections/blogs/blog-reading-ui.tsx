@@ -4,6 +4,9 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Linkedin, Bookmark } from "lucide-react";
+import ReactMarkdown from 'react-markdown';
+import rehypeSanitize from 'rehype-sanitize';
+import { CldImage } from 'next-cloudinary';
 
 type BlogItem = {
   title: string;
@@ -23,8 +26,6 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
     restDelta: 0.001
   });
 
-  const paragraphs = blog.content.split("\n\n");
-
   return (
     <>
       {/* Top Scroll Progress Bar */}
@@ -41,13 +42,23 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
           transition={{ duration: 1.5, ease: "easeOut" }}
           className="absolute inset-0 z-0"
         >
-          <Image
-            src={blog.image}
-            alt={blog.title}
-            fill
-            priority
-            className="object-cover object-center opacity-40 blur-[2px] transition-all duration-700 group-hover:blur-none group-hover:opacity-50"
-          />
+          {blog.image.includes("res.cloudinary.com") ? (
+            <CldImage
+              src={blog.image}
+              alt={blog.title}
+              fill
+              priority
+              className="object-cover object-center opacity-40 blur-[2px] transition-all duration-700 group-hover:blur-none group-hover:opacity-50"
+            />
+          ) : (
+            <Image
+              src={blog.image}
+              alt={blog.title}
+              fill
+              priority
+              className="object-cover object-center opacity-40 blur-[2px] transition-all duration-700 group-hover:blur-none group-hover:opacity-50"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-white via-gray-900/60 to-brand-blue/90 transition-colors duration-700"></div>
         </motion.div>
 
@@ -123,38 +134,17 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
 
           {/* Main Article Content */}
           <div className="max-w-3xl flex-grow">
-            <div className="prose prose-lg md:prose-xl prose-blue max-w-none">
-              {paragraphs.map((paragraph, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <p className="text-gray-700 leading-relaxed font-light mb-8 font-sans">
-                    {paragraph}
-                  </p>
-                  
-                  {/* Inline visual break to satisfy the request for interactive/image-heavy layout */}
-                  {idx === 0 && paragraphs.length > 2 && (
-                    <div className="relative w-full h-[400px] md:h-[500px] mb-8 rounded-2xl overflow-hidden shadow-2xl group cursor-pointer border border-gray-100">
-                       <Image 
-                         src={blog.image + "&fit=crop&blur=1"} 
-                         alt="Mid-article interactive visual" 
-                         fill 
-                         className="object-cover group-hover:scale-105 transition-transform duration-1000"
-                       />
-                       <div className="absolute inset-0 bg-brand-blue/10 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                          <span className="bg-white text-brand-blue font-bold px-6 py-3 rounded-full shadow-2xl flex items-center gap-2">
-                             View details <ArrowLeft className="w-4 h-4 rotate-180" />
-                          </span>
-                       </div>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+              className="prose prose-lg md:prose-xl prose-blue max-w-none prose-headings:font-cherith prose-headings:text-brand-blue prose-a:text-brand-red prose-img:rounded-2xl prose-img:shadow-xl"
+            >
+              <ReactMarkdown rehypePlugins={[rehypeSanitize]}>
+                {blog.content}
+              </ReactMarkdown>
+            </motion.div>
 
             {/* Author Block */}
             <motion.div 
