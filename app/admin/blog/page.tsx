@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
+import { optimizeImage } from "@/lib/utils";
 
 export default async function BlogAdminPage({ searchParams }: { searchParams: { status?: string } }) {
   const supabase = await createClient();
@@ -111,7 +112,7 @@ export default async function BlogAdminPage({ searchParams }: { searchParams: { 
                       {post.cover_image_url && (
                         <div className="relative w-16 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
                           <img 
-                            src={post.cover_image_url} 
+                            src={optimizeImage(post.cover_image_url, 100)} 
                             alt={post.title} 
                             className="w-full h-full object-cover"
                           />

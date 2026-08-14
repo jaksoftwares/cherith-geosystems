@@ -18,6 +18,7 @@ const MDEditor = dynamic(
 );
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { optimizeImage } from "@/lib/utils";
 
 export function BlogForm({ post }: { post?: any }) {
   const router = useRouter();
@@ -169,7 +170,7 @@ export function BlogForm({ post }: { post?: any }) {
               >
                 {coverImage ? (
                   <>
-                    <img src={coverImage} alt="Cover" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity" />
+                    <img src={optimizeImage(coverImage, 600)} alt="Cover" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity" />
                     <span className="relative z-10 bg-white text-brand-blue font-bold text-xs px-4 py-2 rounded-full shadow-lg">Change Cover Image</span>
                   </>
                 ) : (

@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
+import { useState } from "react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Linkedin, Link as LinkIcon } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Linkedin, Link as LinkIcon, Check } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
 import rehypeSanitize from 'rehype-sanitize';
-import { CldImage } from 'next-cloudinary';
+import { optimizeImage } from "@/lib/utils";
 
 type BlogItem = {
   title: string;
@@ -26,6 +27,14 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
     restDelta: 0.001
   });
 
+  const [showToast, setShowToast] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -38,8 +47,7 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
         console.log("Share cancelled or failed");
       }
     } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert("Article link copied to clipboard!");
+      handleCopy();
     }
   };
 
@@ -71,23 +79,11 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
           transition={{ duration: 1.5, ease: "easeOut" }}
           className="absolute inset-0 z-0"
         >
-          {blog.image.includes("res.cloudinary.com") ? (
-            <CldImage
-              src={blog.image}
-              alt={blog.title}
-              fill
-              priority
-              className="object-cover object-center opacity-40 blur-[2px] transition-all duration-700 group-hover:blur-none group-hover:opacity-50"
-            />
-          ) : (
-            <Image
-              src={blog.image}
-              alt={blog.title}
-              fill
-              priority
-              className="object-cover object-center opacity-40 blur-[2px] transition-all duration-700 group-hover:blur-none group-hover:opacity-50"
-            />
-          )}
+          <img
+            src={optimizeImage(blog.image, 1920)}
+            alt={blog.title}
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-40 blur-[2px] transition-all duration-700 group-hover:blur-none group-hover:opacity-50"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-brand-blue/80 transition-colors duration-700"></div>
         </motion.div>
 
@@ -141,7 +137,7 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
           {/* Left Sticky Sidebar (Desktop) */}
           <div className="hidden lg:block w-16 flex-shrink-0 relative">
             <div className="sticky top-40 flex flex-col gap-4 text-gray-400">
-               <button onClick={() => { navigator.clipboard.writeText(window.location.href); alert("Link copied!"); }} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all group relative" title="Copy Link">
+               <button onClick={handleCopy} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all group relative" title="Copy Link">
                  <LinkIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
                </button>
                <button onClick={shareTwitter} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all group" title="Share on X">
@@ -195,6 +191,22 @@ export function BlogReadingUI({ blog }: { blog: BlogItem }) {
           
         </div>
       </section>
+      {/* Custom Toast Notification */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 border border-gray-700/50"
+          >
+            <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <Check className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-sm font-bold tracking-wide">Link copied to clipboard!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
