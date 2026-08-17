@@ -35,5 +35,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...blogRoutes];
+  const { getServices } = await import('@/lib/api/services');
+  const services = await getServices();
+  const serviceRoutes = services.map((service) => ({
+    url: `${baseUrl}/services/${service.slug}`,
+    lastModified: new Date(service.created_at || new Date()).toISOString(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  const { getProjects } = await import('@/lib/api/projects');
+  const projects = await getProjects();
+  const projectRoutes = projects.map((project) => ({
+    url: `${baseUrl}/projects/${project.slug}`,
+    lastModified: new Date(project.updated_at || project.created_at || new Date()).toISOString(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...blogRoutes, ...serviceRoutes, ...projectRoutes];
 }

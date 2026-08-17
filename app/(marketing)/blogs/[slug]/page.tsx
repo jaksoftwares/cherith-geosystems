@@ -26,18 +26,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ogImageUrl = `${baseUrl}/api/og-image?slug=${blog.slug}`;
 
   return {
-    title: `${blog.title} | Cherith GeoSystems`,
-    description: blog.excerpt || blog.title,
+    title: blog.seo_title || `${blog.title} | Cherith GeoSystems`,
+    description: blog.meta_description || blog.excerpt || blog.title,
     openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
+      title: blog.seo_title || blog.title,
+      description: blog.meta_description || blog.excerpt,
       images: [{ url: ogImageUrl, width: 1200, height: 630, alt: blog.title }],
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title: blog.title,
-      description: blog.excerpt,
+      title: blog.seo_title || blog.title,
+      description: blog.meta_description || blog.excerpt,
       images: [ogImageUrl],
     },
     alternates: {
